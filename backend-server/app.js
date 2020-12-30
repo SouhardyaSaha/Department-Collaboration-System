@@ -7,12 +7,19 @@ const morgan = require('morgan');
 const router = require('./routes');
 const errorHandler = require('./middlewares/errorHandler');
 const cookieParser = require('cookie-parser');
+const cors = require('cors')
 // const expressMongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean');
 const compression = require('compression');
 
 // Creating the express app
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+
+}))
 
 // Security Middleware
 app.use(helmet());
