@@ -20,3 +20,8 @@
     transform: translateX(-50%);
     /* vendor prefixes omitted due to brevity */
 }
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
