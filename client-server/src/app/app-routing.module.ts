@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { RoutineGeneratorComponent } from './routine-generator/routine-generator.component';
+import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 const routes: Routes = [
   // {
   //   path: '',
@@ -19,6 +20,9 @@ const routes: Routes = [
     path: 'student',
     loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
   },
+  {path:'routine',component:RoutineGeneratorComponent,children:[
+    {path:'list',component:RoutineListComponent}
+  ]}
 ];
 
 @NgModule({
