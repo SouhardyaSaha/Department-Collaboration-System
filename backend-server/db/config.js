@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('dept_collab_system', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql'
-});
+const sequelize = new Sequelize('node_complete','root','go007275',{
+    dialect:'mysql',
+    host:'localhost'
+  });
 
 (async () => {
     try {
