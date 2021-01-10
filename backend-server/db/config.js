@@ -2,7 +2,8 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize('dept_collab_system', 'root', '', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
 });
 
 (async () => {
@@ -15,6 +16,5 @@ const sequelize = new Sequelize('dept_collab_system', 'root', '', {
         console.error('Unable to connect to the database:', error);
     }
 })()
-
 
 module.exports = sequelize

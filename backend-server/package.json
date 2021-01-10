@@ -8,12 +8,13 @@
   },
   "keywords": [
     "node",
-    "express"
+    "express",
+    "sequelize"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -26,6 +27,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0",
     "validator": "^13.5.2",
     "xss-clean": "^0.1.1"
   },

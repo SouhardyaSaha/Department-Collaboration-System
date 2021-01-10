@@ -31,9 +31,6 @@ app.use(compression());
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 
-// Sanitizing user data
-// app.use(expressMongoSanitize());
-
 // Prevent XSS attacks
 app.use(xssClean());
 
