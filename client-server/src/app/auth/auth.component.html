@@ -1,12 +1,10 @@
-<div class="valign">
+<div class="container-fluid" style="position: fixed;">
   <div class="row">
-    <div class="col-6">
-      <div class="row">
-        <img src="assets/img/auth-bg.jpg" class="img-fluid mx-auto" alt="" srcset="">
-      </div>
+    <div class="col-lg-6 col-md-6 d-md-block d-lg-block d-sm-none">
+      <img src="assets/img/bg-01.png" class="half-image img-fluid h-100" alt="" srcset="">
     </div>
-    <div class="col-6">
-      <div class="row valign">
+    <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+      <div class="row mt-5">
         <mat-card class="example-card mx-auto px-5 py-4">
           <div *ngIf="isLoading;else form">
             <mat-spinner class="mx-auto"></mat-spinner>

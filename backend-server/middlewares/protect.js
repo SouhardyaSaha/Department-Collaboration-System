@@ -21,9 +21,8 @@ const protect = catchAsync(async (req, res, next) => {
 
   // Verify the token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  // console.log(decoded);
+
   // Check if the user available
-  // const user = await UserModel.findById(decoded.id);
   const user = await User.findByPk(decoded.id)
   if (!user) {
     return next(
@@ -42,14 +41,14 @@ const protect = catchAsync(async (req, res, next) => {
 });
 
 // Restrict perticuler routes
-const restrictTo = (...roles) => {
+const restrictTo = (roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(new AppError('No permission', 403));
     }
+    next();
   };
 
-  next();
 };
 
 module.exports = { protect, restrictTo };

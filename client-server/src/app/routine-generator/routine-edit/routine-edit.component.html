@@ -1,18 +1,19 @@
 <div class="form-container">
-  <form [formGroup]="routineForm" (submit) = "submit()" #formDirective="ngForm">
+  <form [formGroup]="routineForm" (submit)="submit()" #formDirective="ngForm">
     <mat-form-field class="form-field" appearance="outline">
       <mat-label> Course Title
       </mat-label>
       <input matInput formControlName="courseTitle" required>
-      <mat-error >
+      <mat-error>
         <span *ngIf="routineForm.controls.courseTitle.errors?.required">This field is mandatory.</span>
       </mat-error>
     </mat-form-field>
     <mat-label> Select Days
     </mat-label>
 
-    <ul >
-      <mat-checkbox  *ngFor="let day of days; let i=index" [checked]="day.completed" (change)="onCheckChange(days,i,$event)" style = "margin-right: 10px;" >
+    <ul>
+      <mat-checkbox *ngFor="let day of days; let i=index" [checked]="day.completed"
+        (change)="onCheckChange(days,i,$event)" style="margin-right: 10px;">
         {{day.name}}
       </mat-checkbox>
     </ul>
@@ -23,9 +24,9 @@
 
     <mat-form-field class="form-field" appearance="outline">
       <mat-label> Starts At </mat-label>
-      <input matInput [ngxTimepicker]="startPicker" formControlName="startTime" [value]="'12:00 pm'" required >
-      <ngx-material-timepicker #startPicker (timeSet)="onChangeStart($event)" ></ngx-material-timepicker>
-       <!-- <mat-error >
+      <input matInput [ngxTimepicker]="startPicker" formControlName="startTime" [value]="'12:00 pm'" required>
+      <ngx-material-timepicker #startPicker (timeSet)="onChangeStart($event)"></ngx-material-timepicker>
+      <!-- <mat-error >
         <span *ngIf="routineForm.controls.courseTitle.errors?.required">This field is mandatory.</span>
       </mat-error> -->
     </mat-form-field>
@@ -33,10 +34,10 @@
     <mat-form-field class="form-field" appearance="outline">
       <mat-label> Ends At </mat-label>
       <input matInput [ngxTimepicker]="endPicker" formControlName="endTime" [value]="'12:00 pm'" required>
-      <ngx-material-timepicker #endPicker (timeSet)="onChangeEnd($event)" ></ngx-material-timepicker>
-        <mat-error *ngIf="routineForm.controls.endTime.errors?.timeState">
-          <span >Please select a valid time.</span>
-        </mat-error>
+      <ngx-material-timepicker #endPicker (timeSet)="onChangeEnd($event)"></ngx-material-timepicker>
+      <mat-error *ngIf="routineForm.controls.endTime.errors?.timeState">
+        <span>Please select a valid time.</span>
+      </mat-error>
     </mat-form-field>
 
 
@@ -63,9 +64,9 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" mat-dialog-close  [disabled] = "routineForm.invalid">Update</button>
-    <button mat-raised-button color="warn" (click)="clearForm()" >RESET</button>
-    <button mat-raised-button mat-dialog-close style="float: right;" >Close</button>
+    <button mat-raised-button color="primary" type="submit" mat-dialog-close
+      [disabled]="routineForm.invalid">Update</button>
+    <button mat-raised-button color="warn" (click)="clearForm()">RESET</button>
+    <button mat-raised-button mat-dialog-close style="float: right;">Close</button>
   </form>
 </div>
-

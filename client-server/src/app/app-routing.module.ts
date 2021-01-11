@@ -4,31 +4,38 @@ import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.co
 import { RoutineGeneratorComponent } from './routine-generator/routine-generator.component';
 import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   redirectTo: '/auth',
-  // },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/auth',
+  },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
   },
   {
     path: 'student',
-    loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
+    loadChildren: () =>
+      import('./student/student.module').then(m => m.StudentModule),
   },
-  {path:'routine',component:RoutineGeneratorComponent,children:[
-    {path:'list',component:RoutineListComponent}
-  ]},
-  {path:'attendance',component:AttendanceTakerComponent,}
+  {
+    path: 'teacher',
+    loadChildren: () =>
+      import('./teacher/teacher.module').then(m => m.TeacherModule),
+  },
+  // {
+  //   path: 'routine',
+  //   component: RoutineGeneratorComponent,
+  //   children: [{ path: 'list', component: RoutineListComponent }],
+  // },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

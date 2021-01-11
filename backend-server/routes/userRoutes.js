@@ -2,9 +2,9 @@
 
 // Importing functions from the controller
 const {
-  getUser,
+  getUsers,
   signUp,
-  getSingleUser,
+  getUserProfile,
   login,
   logout,
 } = require('../controllers/userController');
@@ -15,13 +15,16 @@ const userRouter = require('express').Router();
 
 // Setting up the routes
 userRouter.route('/')
-  .get(protect, getUser)
+  .get(protect, getUsers)
   .post(signUp);
 
-userRouter.route('/login').post(login);
+userRouter.route('/login')
+  .post(login);
 
-userRouter.route('/logout').post(logout);
+userRouter.route('/logout')
+  .post(logout);
 
-userRouter.route('/:id').get(getSingleUser);
+userRouter.route('/me')
+  .get(protect, getUserProfile);
 
 module.exports = userRouter;
