@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptorService } from './auth/auth-intercerptor.service';
 import { ErrorInterceptor } from './error.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ErrorInterceptor } from './error.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
