@@ -17,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 import { ExportAsModule } from 'ngx-export-as';
 import { RoutineEditComponent } from './routine-generator/routine-edit/routine-edit.component';
+import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
+import { AttendanceFormComponent } from './attendance-taker/attendance-form/attendance-form.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { RoutineEditComponent } from './routine-generator/routine-edit/routine-e
     RoutineGeneratorComponent,
     RoutineListComponent,
     RoutineEditComponent,
+    AttendanceTakerComponent,
+    AttendanceFormComponent,
   ],
   imports: [
     BrowserModule,

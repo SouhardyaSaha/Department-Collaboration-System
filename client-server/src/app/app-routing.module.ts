@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
 import { RoutineGeneratorComponent } from './routine-generator/routine-generator.component';
 import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   },
   {path:'routine',component:RoutineGeneratorComponent,children:[
     {path:'list',component:RoutineListComponent}
-  ]}
+  ]},
+  {path:'attendance',component:AttendanceTakerComponent,}
 ];
 
 @NgModule({
