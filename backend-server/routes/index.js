@@ -8,6 +8,7 @@ const userRouter = require('./userRoutes');
 const classroomRouter = require('./classroomRoutes');
 // const teacherRouter = require('./teacherRoutes');
 // const testRouter = require('./testRoutes');
+const routineROuter = require('./routine');
 
 // Importing express router
 const router = require('express').Router();
@@ -19,6 +20,7 @@ router.use('/classrooms', classroomRouter)
 // router.use('/classrooms', classr);
 // router.use('/test', testRouter);
 
+router.use('/routine',routineROuter);
 // The 404 route
 router.all('*', (req, res, next) => next(new AppError('Not found', 404)));
 

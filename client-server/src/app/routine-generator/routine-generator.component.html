@@ -1,0 +1,130 @@
+<!-- <router-outlet></router-outlet> -->
+<div class="container">
+  <div class="container" class="tab">
+    <button  button mat-raised-button color="primary" class="tablinks" (click)="onTabClick(0)" ><mat-icon>add</mat-icon><span></span>Add Item</button>
+    <!-- <button  button mat-raised-button color="primary" class="tablinks" (click)="onTabClick(1)"><mat-icon>edit</mat-icon><span></span>Edit Item</button> -->
+    <button  button mat-raised-button color="primary" class="tablinks" (click)="onTabClick(1)"><mat-icon>edit</mat-icon><span></span>Edit Item</button>
+
+    <!-- <button  button mat-raised-button color="primary" (click) = "onDownloadItem()">Download Png</button> -->
+
+    <button mat-button mat-raised-button color="primary"  [matMenuTriggerFor]="belowMenu"><mat-icon>save</mat-icon><span></span>Save</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below" >
+      <button mat-menu-item  (click) = "onDownloadItem(1)"><mat-icon>insert_photo</mat-icon><span></span>Download As Png</button>
+      <button mat-menu-item  (click) = "onDownloadItem(2)"><mat-icon>picture_as_pdf</mat-icon><span></span>Download As Pdf</button>
+    </mat-menu>
+
+    <button mat-button mat-raised-button color="warn"  (click) = "onSweetAlert()"><mat-icon>delete</mat-icon><span></span>Delete</button>
+
+
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <div class="exaple-container" *ngIf="tabIndex === 0">
+    <div class="form-container">
+      <form [formGroup]="routineForm" (submit) = "submit()" #formDirective="ngForm">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Course Title
+          </mat-label>
+          <input matInput formControlName="courseTitle" required>
+          <mat-error >
+            <span *ngIf="routineForm.controls.courseTitle.errors?.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-label> Select Days
+        </mat-label>
+
+        <ul >
+          <mat-checkbox  *ngFor="let day of days; let i=index" [checked]="day.completed" (change)="onCheckChange(days,i,$event)" style = "margin-right: 10px;" >
+            {{day.name}}
+          </mat-checkbox>
+        </ul>
+
+
+
+
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Starts At </mat-label>
+          <input matInput [ngxTimepicker]="startPicker" formControlName="startTime" [value]="'12:00 pm'" required >
+          <ngx-material-timepicker #startPicker (timeSet)="onChangeStart($event)" ></ngx-material-timepicker>
+           <!-- <mat-error >
+            <span *ngIf="routineForm.controls.courseTitle.errors?.required">This field is mandatory.</span>
+          </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Ends At </mat-label>
+          <input matInput [ngxTimepicker]="endPicker" formControlName="endTime" [value]="'1:00 pm'" required [class.is-invalid] = "routineForm.errors?.match" >
+          <ngx-material-timepicker #endPicker (timeSet)="onChangeEnd($event)" ></ngx-material-timepicker>
+          <!-- <mat-error >
+              <span *ngIf = "routineForm.controls.errors?.match">Please select a valid time.</span>
+          </mat-error> -->
+          <span class="text-danger" *ngIf = "routineForm.errors?.match">*Please select a valid time.</span>
+
+
+
+
+        </mat-form-field>
+
+
+        <!-- <input [ngxTimepicker]="startPicker"  [value]="'12:00 pm'" >
+        <ngx-material-timepicker #startPicker (timeSet)="onChangeStart($event)" ></ngx-material-timepicker>
+        <input [ngxTimepicker]="endPicker"  [value]="'12:00 pm'" >
+        <ngx-material-timepicker #endPicker (timeSet)="onChangeEnd($event)" ></ngx-material-timepicker> -->
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Instructor Name
+          </mat-label>
+          <input matInput formControlName="instructorName" required>
+          <mat-error>
+            <span *ngIf="routineForm.controls.instructorName.errors?.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Room Number
+          </mat-label>
+          <input matInput formControlName="roomNum" required>
+          <mat-error>
+            <span *ngIf="routineForm.controls.roomNum.errors?.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled] = "routineForm.invalid">Add Course</button>
+        <button mat-raised-button color="warn" (click)="clearForm()" >RESET</button>
+      </form>
+    </div>
+      </div>
+
+
+
+    </div>
+    <!-- Show Routine List -->
+    <div class="col-xs-12 col-md-10 col-md-offset-2">
+        <app-routine-list *ngIf="tabIndex === 1"></app-routine-list>
+
+    </div>
+  </div>
+
+
+
+
+
+  <br>
+  <div class="mat-elevation-z8" >
+    <mat-grid-list cols="10" rowHeight="75px" id = "hello">
+      <mat-grid-tile
+          *ngFor="let tile of tiles"
+          [colspan]="tile.cols"
+          [rowspan]="tile.rows"
+          [style.background]="tile.color"
+          style = "white-space: pre-line;text-align: center;">
+        {{tile.text}}
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <br><br>
+
+
+</div>
