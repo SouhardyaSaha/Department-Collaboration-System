@@ -3,9 +3,9 @@
 }
 table {
   width: 150%;
-  text-align:center;
+  text-align: center;
 }
-button{
+button {
   margin-right: 5px;
 }
 /* td,.mat-header-row{
@@ -15,36 +15,35 @@ button{
   overflow: auto;
   /* max-height: 500px; */
 }
-.mat-column-name{
+.mat-column-name {
   border-left: 1px solid grey;
   min-height: 48px;
-
 }
-.mat-column-weight{
+.mat-column-weight {
   border-left: 1px solid grey;
 
-   min-height: 48px;
+  min-height: 48px;
 }
-.mat-column-symbol{
- border-left: 1px solid grey;
-   min-height: 48px;
+.mat-column-symbol {
+  border-left: 1px solid grey;
+  min-height: 48px;
 }
-.mat-header-cell{
-  text-align:center;
-}
-
-.example-container{
-  text-align: center
+.mat-header-cell {
+  text-align: center;
 }
 
-.form-container{
+.example-container {
+  text-align: center;
+}
+
+.form-container {
   width: 400 px;
   margin: 0 px auto;
-  margin-top: 200 px
+  margin-top: 200 px;
 }
 
-.form-field{
-  display: block
+.form-field {
+  display: block;
 }
 
 .example-check_box-margin {
