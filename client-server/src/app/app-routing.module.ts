@@ -26,11 +26,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./teacher/teacher.module').then(m => m.TeacherModule),
   },
-  {
-    path: 'routine',
-    component: RoutineGeneratorComponent,
-    children: [{ path: 'list', component: RoutineListComponent }],
-  },
+  // {
+  //   path: 'routine',
+  //   component: RoutineGeneratorComponent,
+  //   children: [{ path: 'list', component: RoutineListComponent }],
+  // },
 ];
 
 @NgModule({
