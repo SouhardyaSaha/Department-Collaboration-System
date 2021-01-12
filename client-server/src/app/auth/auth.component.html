@@ -1,11 +1,11 @@
-<div class="container-fluid" style="position: fixed;">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6 col-md-6 d-md-block d-lg-block d-sm-none">
-      <img src="assets/img/bg-01.png" class="half-image img-fluid h-100" alt="" srcset="">
+    <div class="col-lg-6 col-md-6 d-md-block d-none p-0">
+      <div class="left-image vh-100"></div>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
-      <div class="row mt-5">
-        <mat-card class="example-card mx-auto px-5 py-4">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 align-self-center">
+      <div class="row">
+        <mat-card class="login-card mx-auto p-4">
           <div *ngIf="isLoading;else form">
             <mat-spinner class="mx-auto"></mat-spinner>
           </div>

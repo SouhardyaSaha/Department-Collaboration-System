@@ -1,7 +1,13 @@
-.example-card {
+.login-card {
     max-width: 400px;
+    max-height: 400px;
 }
 
-.half-image {
-  transform: scale(1.2);
+.left-image {
+  background-image: url("../../assets/img/bg-01.png"); /* The image used */
+  background-color: #9e9d9d; /* Used if the image is unavailable */
+  /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
