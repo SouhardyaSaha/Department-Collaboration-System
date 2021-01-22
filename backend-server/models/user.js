@@ -13,6 +13,9 @@ const User = sequelize.define('user', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     email: {
         type: DataTypes.STRING,
@@ -28,6 +31,9 @@ const User = sequelize.define('user', {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     password_changed_at: {
         type: DataTypes.DATE,

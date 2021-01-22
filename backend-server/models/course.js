@@ -10,19 +10,29 @@ const Course = sequelize.define('course', {
     },
     title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     credit: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     is_optional: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        defaultValue: false,
+        allowNull: false,
     },
     semester: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 });
 
