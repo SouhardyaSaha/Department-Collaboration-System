@@ -18,6 +18,18 @@ const server = app.listen(PORT, HOST, () => {
   console.log(`Server started on ${HOST}:${PORT}`);
 });
 
+// Socket Configuration
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST"]
+  }
+});
+io.on('connection', socket => {
+  console.log('A user connected!');
+
+})
+
 // Handle Unhandled Rejections
 process.on('unhandledRejection', (err) => {
   console.log('Unhandled Rejection! Shutting down the server...');
