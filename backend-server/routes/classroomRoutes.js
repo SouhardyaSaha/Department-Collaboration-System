@@ -2,7 +2,8 @@
 
 // Importing functions from the controller
 const {
-    getClassrooms,
+    addStudentsToClassroom,
+    removeStudentsFromClassroom,
     createClassroom,
     getClassroomById,
     updateClassroom
@@ -15,11 +16,16 @@ const classroomRouter = require('express').Router();
 
 // Setting up the routes
 classroomRouter.route('/')
-    .get(protect, getClassrooms)
     .post(protect, restrictTo([roles.Teacher]), createClassroom)
 
 classroomRouter.route('/:id')
-    .get(protect, getClassroomById)
+    .get(protect, restrictTo([roles.Teacher]), getClassroomById)
     .patch(protect, restrictTo([roles.Teacher]), updateClassroom)
+
+classroomRouter.route('/:id/addStudents')
+    .patch(protect, restrictTo([roles.Teacher]), addStudentsToClassroom)
+
+classroomRouter.route('/:id/removeStudents')
+    .patch(protect, restrictTo([roles.Teacher]), removeStudentsFromClassroom)
 
 module.exports = classroomRouter
