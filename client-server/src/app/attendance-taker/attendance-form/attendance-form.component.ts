@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material/table';
-import {AttendanceData} from '../attendance.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
+import { AttendanceData } from '../attendance.model';
 
 export interface PeriodicElement {
   name: string;
@@ -11,14 +11,14 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
   // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
@@ -26,15 +26,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-attendance-form',
   templateUrl: './attendance-form.component.html',
-  styleUrls: ['./attendance-form.component.css']
+  styleUrls: ['./attendance-form.component.css'],
 })
 export class AttendanceFormComponent implements OnInit {
+  attendanceData: AttendanceData;
+  constructor() {}
 
-  attendanceData:AttendanceData;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   displayedColumns: string[] = ['select', 'position', 'name'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
@@ -48,9 +46,9 @@ export class AttendanceFormComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
@@ -58,26 +56,23 @@ export class AttendanceFormComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.position + 1
+    }`;
   }
-  takeAttendance(){
+  takeAttendance() {
     console.log('Submit is Clicked!');
     const numSelected = this.selection.selected.length;
-    if(numSelected > 0)
-    {
-      for(let i = 0;i<numSelected;i++)
-      {
+    if (numSelected > 0) {
+      for (let i = 0; i < numSelected; i++) {
         console.log(this.selection.selected[i].position);
       }
-    }
-    else
-    {
-      console.log('None is selected.')
+    } else {
+      console.log('None is selected.');
     }
     this.clearAttendance();
   }
-  clearAttendance(){
+  clearAttendance() {
     this.selection.clear();
   }
-
 }
