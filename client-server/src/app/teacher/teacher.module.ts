@@ -20,6 +20,11 @@ import { ClassroomShowComponent } from './classroom-show/classroom-show.componen
     ClassroomTileComponent,
     ClassroomShowComponent,
   ],
-  imports: [CommonModule, TeacherRoutingModule, MaterialModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    TeacherRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule,
+  ],
 })
 export class TeacherModule {}
