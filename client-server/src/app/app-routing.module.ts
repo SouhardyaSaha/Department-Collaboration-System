@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RoutineGeneratorComponent } from './routine-generator/routine-generator.component';
-import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
+import { ChatComponent } from './chat/chat.component';
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +24,10 @@ const routes: Routes = [
     path: 'teacher',
     loadChildren: () =>
       import('./teacher/teacher.module').then(m => m.TeacherModule),
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
   },
   // {
   //   path: 'routine',

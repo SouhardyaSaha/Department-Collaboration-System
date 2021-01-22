@@ -17,6 +17,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 import { ExportAsModule } from 'ngx-export-as';
 import { RoutineEditComponent } from './routine-generator/routine-edit/routine-edit.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { RoutineEditComponent } from './routine-generator/routine-edit/routine-e
     RoutineGeneratorComponent,
     RoutineListComponent,
     RoutineEditComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
