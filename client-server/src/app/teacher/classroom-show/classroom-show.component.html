@@ -1,1 +1,61 @@
-<p>classroom-show works!</p>
+<div class="container">
+
+    <div class="row justify-content-center mt-2">
+        <div class="col-12">
+            <mat-card class="p-0">
+                <div class="classroom-image  p-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="text-center mt-5 font-weight-bold">Introduction To Software Engineering (SWE-332)
+                            </h1>
+                            <h3 class="text-center font-weight-bold">By</h3>
+                            <h2 class="text-center font-weight-bold">Asif Samir</h2>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <mat-card style="min-height: 120px;" class=" mt-3">
+                <p>Total Classes: <span class="float-right font-weight-bold">4</span></p>
+                <p>Assignments: <span class="float-right font-weight-bold">6</span></p>
+                <p>Tests Taken: <span class="float-right font-weight-bold">1</span></p>
+            </mat-card>
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <mat-card class="mt-3" style="min-height: 120px;">
+                <mat-form-field class="w-100">
+                    <mat-label>Post Here...</mat-label>
+                    <textarea matInput placeholder="Write Something" rows="3" (click)="onAddPost()"></textarea>
+                </mat-form-field>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-12">
+            <ng-container *ngIf="(asyncTabs | async) === null">
+                <div class="row">
+                    <mat-spinner class="mx-auto"></mat-spinner>
+                </div>
+            </ng-container>
+            <mat-tab-group mat-align-tabs="center" backgroundColor="" #tabGroup>
+                <mat-tab>
+                    <ng-template mat-tab-label>General</ng-template>
+                    <!-- <mat-card> -->
+                    Content1
+                    <!-- </mat-card> -->
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>Class</ng-template>
+                    Content2
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

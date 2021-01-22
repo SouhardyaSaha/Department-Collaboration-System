@@ -15,3 +15,7 @@ h2 span {
   background-image: url('https://ui-avatars.com/api/?name=Asif+Samir;rounded=true');
   background-size: cover;
 }
+
+mat-card-header {
+  min-height: 7.5rem;
+}
