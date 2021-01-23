@@ -10,6 +10,7 @@ import { ClassroomEditComponent } from './classroom/classroom-edit/classroom-edi
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClassroomTileComponent } from './classroom/classroom-tile/classroom-tile.component';
 import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
+import { ClassroomStudentsComponent } from './classroom-show/classroom-students/classroom-students.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ClassroomShowComponent } from './classroom-show/classroom-show.componen
     ClassroomEditComponent,
     ClassroomTileComponent,
     ClassroomShowComponent,
+    ClassroomStudentsComponent,
   ],
   imports: [
     CommonModule,
