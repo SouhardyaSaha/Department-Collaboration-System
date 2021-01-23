@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row justify-content-center mt-2">
         <div class="col-12">
-            <mat-card class="p-0">
+            <mat-card class="p-0 mat-elevation-z8">
                 <div class="classroom-image  p-0">
                     <div class="row">
                         <div class="col-12">
@@ -26,24 +26,7 @@
             <mat-tab-group mat-align-tabs="center" backgroundColor="" #tabGroup>
                 <mat-tab>
                     <ng-template mat-tab-label>General</ng-template>
-                    <div class="row mb-1 ml-0 mr-0">
-                        <div class="col-md-4 col-sm-12">
-                            <mat-card class="mt-3" style="min-height: 120px;">
-                                <p>Total Classes: <span class="float-right font-weight-bold">4</span></p>
-                                <p>Assignments: <span class="float-right font-weight-bold">6</span></p>
-                                <p>Tests Taken: <span class="float-right font-weight-bold">1</span></p>
-                            </mat-card>
-                        </div>
-                        <div class="col-md-8 col-sm-12">
-                            <mat-card class="mt-3" style="min-height: 120px;">
-                                <mat-form-field class="w-100">
-                                    <mat-label>Post Here...</mat-label>
-                                    <textarea matInput placeholder="Write Something" rows="3"
-                                        (click)="onAddPost()"></textarea>
-                                </mat-form-field>
-                            </mat-card>
-                        </div>
-                    </div>
+                    <app-classroom-general></app-classroom-general>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>Class</ng-template>

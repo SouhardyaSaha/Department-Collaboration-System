@@ -28,8 +28,4 @@ export class ClassroomShowComponent implements OnInit {
       }, 0);
     });
   }
-
-  onAddPost() {
-    console.log(this.tabGroup.selectedIndex);
-  }
 }

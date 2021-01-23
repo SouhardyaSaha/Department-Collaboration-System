@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClassroomTileComponent } from './classroom/classroom-tile/classroom-tile.component';
 import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
 import { ClassroomStudentsComponent } from './classroom-show/classroom-students/classroom-students.component';
+import { ClassroomGeneralComponent } from './classroom-show/classroom-general/classroom-general.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ClassroomStudentsComponent } from './classroom-show/classroom-students/
     ClassroomTileComponent,
     ClassroomShowComponent,
     ClassroomStudentsComponent,
+    ClassroomGeneralComponent,
   ],
   imports: [
     CommonModule,
