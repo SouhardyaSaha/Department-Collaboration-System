@@ -11,6 +11,9 @@ const ClassContent = sequelize.define('classContent', {
     content: {
         type: DataTypes.TEXT,
         allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 });
 

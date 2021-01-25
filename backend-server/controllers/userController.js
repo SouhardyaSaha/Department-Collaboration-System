@@ -7,11 +7,10 @@ const { roles } = require('../utils/roles');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const Session = require('../models/session');
-const Student = require('../models/student');
+const sequelize = require('../db/config');
 
 // Function to get all users
-const getUsers = catchAsync(async (req, res, next) => {
+const getUsers = catchAsync(async (req, res) => {
   const users = await User.findAll();
   res.status(200).json({
     status: 'success',
@@ -20,29 +19,33 @@ const getUsers = catchAsync(async (req, res, next) => {
 });
 
 // Function to sign up a user
-const signUp = catchAsync(async (req, res, next) => {
+const signUp = catchAsync(async (req, res) => {
   const { role, profile } = req.body
-  await validateRoleData(role, profile, next)
-  const user = await User.create(req.body);
-  // console.log(user);
-  // Creating role profile
-  switch (user.role) {
-    case roles.Admin:
-      await user.createAdmin(profile)
-      break;
-    case roles.Student:
-      await user.createStudent(profile)
-      break;
-    case roles.Teacher:
-      await user.createTeacher(profile)
-      break;
 
-    default:
-      break;
-  }
+  const createdUser = await sequelize.transaction(async (t) => {
+    const user = await User.create(req.body, { transaction: t });
+    // Creating role profile
+    switch (role) {
+      case roles.Admin:
+        await user.createAdmin(profile, { transaction: t })
+        break;
+      case roles.Student:
+        await user.createStudent(profile, { transaction: t })
+        break;
+      case roles.Teacher:
+        await user.createTeacher(profile, { transaction: t })
+        break;
 
-  const role_data = await getRoleProfile(user)
-  sendToken({ user, role_data }, 201, res);
+      default:
+        break;
+    }
+
+    return user
+  })
+  // console.log(createdUser);
+
+  // const role_data = await getRoleProfile(user)
+  sendToken({ user: createdUser }, 201, res);
 });
 
 // Function to login a user
@@ -53,30 +56,35 @@ const login = catchAsync(async (req, res, next) => {
     return next(new AppError('Provide valid email and password!', 400));
   }
 
-  const user = await await User.findOne({ email });
+  const user = await User.findOne({ where: { email } });
   if (!user) return next(new AppError('Invalid email or password', 401));
 
   const correct = await bcrypt.compare(password, user.password);
   if (!correct) return next(new AppError('Invalid email or password', 401));
 
-  const role_data = await getRoleProfile(user)
-  sendToken({ user, role_data }, 201, res);
+  sendToken({ user }, 201, res);
 });
 
-const logout = catchAsync(async (req, res, next) => {
+const logout = catchAsync(async (req, res) => {
   res.cookie('jwt', '', { expiresIn: 1000 });
   res.status(200).json({ status: 'success' });
 });
 
-// Function to get user by id
-const getUserProfile = catchAsync(async (req, res, next) => {
-  const user = await User.findByPk(req.user.id);
-  const role_data = await getRoleProfile(user)
-  if (!user) return next(new AppError('Not found!', 404));
+// Function to get user Profile
+const getUserProfile = catchAsync(async (req, res) => {
+  const userProfile = await req.user.getTeacher(
+    {
+      include:
+      {
+        model: User,
+        attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+      },
+    }
+  )
 
   res.status(200).json({
     status: 'success',
-    data: { user, role_data },
+    data: { userProfile },
   });
 });
 
@@ -89,7 +97,7 @@ const signToken = id => {
 
 // Send token to client
 const sendToken = (data, statusCode, res) => {
-  const {user} = data
+  const { user } = data
   const token = signToken(user.id);
 
   const cookieOptions = {
@@ -106,36 +114,30 @@ const sendToken = (data, statusCode, res) => {
   res.status(statusCode).json({
     status: 'success',
     token,
-    data,
+    data
   });
 };
 
 // Get User Profile by Role
-const getRoleProfile = async (user) => {
-  const role = user.role
-  if (role === roles.Admin) {
-    return await user.getAdmin()
-  }
-  else if (role === roles.Student) {
-    return await user.getStudent({ include: Session })
-  }
-  else if (role === roles.Teacher) {
-    return await user.getTeacher()
-  }
+// const getRoleProfile = async (user) => {
+//   const options = {
+//     include:
+//     {
+//       model: User,
+//       attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+//     },
+//   }
+//   const role = user.role
+//   if (role === roles.Admin) {
+//     return await user.getAdmin(options)
+//   }
+//   else if (role === roles.Student) {
+//     return await user.getStudent(options, { include: Session })
+//   }
+//   else if (role === roles.Teacher) {
+//     return await user.getTeacher(options)
+//   }
 
-}
-
-const validateRoleData = async (role, profile, next) => {
-  switch (role) {
-    case roles.Student:
-      const { registration, sessionId } = profile
-      if (!await Session.findByPk(sessionId) || !registration) return next(new AppError('Invalid Session Id or Registration', 400))
-      if (await Student.findOne({ where: { registration } })) return next(new AppError('Registration Must be unique', 400))
-      break;
-
-    default:
-      break;
-  }
-}
+// }
 
 module.exports = { signUp, getUsers, getUserProfile, login, logout };

@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { validate } = require('../db/config');
 
 const sequelize = require('../db/config')
 
@@ -11,7 +12,10 @@ const Teacher = sequelize.define('teacher', {
     },
     designation: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 }, {
     timestamps: false

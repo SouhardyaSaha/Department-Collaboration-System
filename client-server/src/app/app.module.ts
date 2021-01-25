@@ -10,16 +10,16 @@ import { AuthInterceptorService } from './auth/auth-intercerptor.service';
 import { ErrorInterceptor } from './error.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material.module';
 import { RoutineGeneratorComponent } from './routine-generator/routine-generator.component';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 import { ExportAsModule } from 'ngx-export-as';
 import { RoutineEditComponent } from './routine-generator/routine-edit/routine-edit.component';
+import { ChatComponent } from './chat/chat.component';
 import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
 import { AttendanceFormComponent } from './attendance-taker/attendance-form/attendance-form.component';
-
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { AttendanceFormComponent } from './attendance-taker/attendance-form/atte
     RoutineGeneratorComponent,
     RoutineListComponent,
     RoutineEditComponent,
+    ChatComponent,
     AttendanceTakerComponent,
     AttendanceFormComponent,
   ],
@@ -40,21 +41,21 @@ import { AttendanceFormComponent } from './attendance-taker/attendance-form/atte
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ExportAsModule
+    ExportAsModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
-      multi: true
+      multi: true,
     },
   ],
-  entryComponents:[RoutineEditComponent],
-  bootstrap: [AppComponent]
+  entryComponents: [RoutineEditComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

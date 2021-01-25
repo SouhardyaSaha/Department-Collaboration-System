@@ -29,19 +29,19 @@ export class AttendanceService{
     const class_id = attendanceData.class_id;
     const date = attendanceData.date;
     // console.log("view "+postRoutine.courseTitle);
-    for(let student_id of attendanceData.student_id)
-    {
-      this.http.post<{message:string,id:number}>('http://localhost:3000/attendance',{student_id,class_id,date})
-      .subscribe((responseData)=>{
-        console.log(responseData.message,responseData.id);
-        postAttendance.id = responseData.id;
-        this.allAttendanceData.push(postAttendance);
-        // console.log("Add Post: ",this.routineData);
-        this.updateAttendance.next([...this.allAttendanceData]);
-      });
+    for (let student_id of attendanceData.student_id) {
+      this.http
+        .post<{ message: string; id: number }>(
+          'http://localhost:3000/attendance',
+          { student_id, class_id, date },
+        )
+        .subscribe(responseData => {
+          console.log(responseData.message, responseData.id);
+          postAttendance.id = responseData.id;
+          this.allAttendanceData.push(postAttendance);
+          // console.log("Add Post: ",this.routineData);
+          this.updateAttendance.next([...this.allAttendanceData]);
+        });
     }
-
-
   }
-
 }
