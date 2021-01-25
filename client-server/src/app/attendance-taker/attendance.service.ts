@@ -4,9 +4,12 @@ import {Subject} from 'rxjs';
 import  {HttpClient} from '@angular/common/http';
 @Injectable({providedIn:'root'})
 export class AttendanceService{
+
   private allAttendanceData:AttendanceData[] = [];
   private updateAttendance  = new Subject<AttendanceData[]>();
+
   constructor(private http:HttpClient){}
+
   getAttendanceData(){
     this.http.get<{msg:string,attendance}>('http://localhost:3000/attendance')
     .subscribe((data)=>{
@@ -16,11 +19,12 @@ export class AttendanceService{
       // this.updateAttendance.next([...this.allAttendanceData]);
     });
   }
+
   getAttendanceUpdate(){
     return this.updateAttendance.asObservable();
   }
 
-  addRoutineData(attendanceData:AttendanceData){
+  addAttendanceData(attendanceData:AttendanceData){
     const postAttendance:AttendanceData = attendanceData;
     const class_id = attendanceData.class_id;
     const date = attendanceData.date;

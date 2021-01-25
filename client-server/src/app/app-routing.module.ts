@@ -27,6 +27,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./teacher/teacher.module').then(m => m.TeacherModule),
   },
+  { path: 'attendance', component: AttendanceTakerComponent },
   // {
   //   path: 'routine',
   //   component: RoutineGeneratorComponent,

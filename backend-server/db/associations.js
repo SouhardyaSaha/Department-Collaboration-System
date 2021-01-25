@@ -6,6 +6,7 @@ const Session = require("../models/session")
 const Student = require("../models/student")
 const User = require("../models/user")
 const Teacher = require("../models/teacher")
+const Attendance = require("../models/attendance")
 
 // User Relations
 User.hasOne(Teacher, { foreignKey: { allowNull: false } })
@@ -36,3 +37,11 @@ Student.belongsTo(Session, { foreignKey: { allowNull: false } })
 // Relation between Classroom and Class
 Classroom.hasMany(Class, { foreignKey: { allowNull: false } })
 Class.belongsTo(Classroom, { foreignKey: { allowNull: false } })
+
+// Relation between Attendance & Student
+Attendance.hasMany(Student, { foreignKey: { allowNull: false } })
+Student.belongsTo(Attendance,{foreignKey: { allowNull: false } })
+
+// Relation between Attendance & Class
+Attendance.hasMany(Class, { foreignKey: { allowNull: false } })
+Class.belongsTo(Attendance,{foreignKey: { allowNull: false } })
