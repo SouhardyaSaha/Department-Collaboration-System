@@ -12,6 +12,9 @@ import { ClassroomTileComponent } from './classroom/classroom-tile/classroom-til
 import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
 import { ClassroomStudentsComponent } from './classroom-show/classroom-students/classroom-students.component';
 import { ClassroomGeneralComponent } from './classroom-show/classroom-general/classroom-general.component';
+import { ClassroomPostComponent } from './classroom-show/classroom-general/classroom-post/classroom-post.component';
+import { ClassroomPostEditComponent } from './classroom-show/classroom-general/classroom-post-edit/classroom-post-edit.component';
+import { ClassroomPostCommentComponent } from './classroom-show/classroom-general/classroom-post/classroom-post-comment/classroom-post-comment.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { ClassroomGeneralComponent } from './classroom-show/classroom-general/cl
     ClassroomShowComponent,
     ClassroomStudentsComponent,
     ClassroomGeneralComponent,
+    ClassroomPostComponent,
+    ClassroomPostEditComponent,
+    ClassroomPostCommentComponent,
   ],
   imports: [
     CommonModule,
