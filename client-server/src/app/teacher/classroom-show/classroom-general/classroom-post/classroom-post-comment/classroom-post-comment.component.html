@@ -1,0 +1,45 @@
+<mat-expansion-panel (opened)="commentPanelOpenState = true" (closed)="commentPanelOpenState = false"
+  style="box-shadow: none;" class="mt-3 w-100">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span class="text-info">Comments</span>
+    </mat-panel-title>
+    <mat-panel-description>
+      {{commentPanelOpenState ? 'Hide' : 'View'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <mat-card class="mt-n2" style="box-shadow: none;">
+    <mat-card-header>
+      <div mat-card-avatar class="comment-user-image"></div>
+      <mat-card-title style="font-size: medium;">Wolverine</mat-card-title>
+      <mat-card-subtitle style="font-size: small;" class="mt-n2">20/12/20</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="mt-n1">
+      <p class="text-justify">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis minus culpa
+        quibusdam
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mt-n2" style="box-shadow: none;">
+    <mat-card-header>
+      <div mat-card-avatar class="comment-user-image"></div>
+      <mat-card-title style="font-size: medium;">Wolverine</mat-card-title>
+      <mat-card-subtitle style="font-size: small;" class="mt-n2">20/12/20</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="mt-n1">
+      <p class="text-justify">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis minus culpa
+        quibusdam
+      </p>
+    </mat-card-content>
+  </mat-card>
+</mat-expansion-panel>
+
+
+<mat-divider></mat-divider>
+<mat-form-field appearance="fill" class="w-100 mt-4">
+  <mat-label>Write your comment here...</mat-label>
+  <input matInput placeholder="Write Something">
+</mat-form-field>
