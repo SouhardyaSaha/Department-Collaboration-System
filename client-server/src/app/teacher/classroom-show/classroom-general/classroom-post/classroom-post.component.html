@@ -1,11 +1,28 @@
 <div class="row mt-3">
   <div class="col-12">
     <mat-card>
+
       <mat-card-header>
+
         <div mat-card-avatar class="post-user-image"></div>
+
+        <div class="ml-auto">
+          <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item color="warn">
+              <mat-icon>delete</mat-icon>
+              <span class="text-danger">Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+
         <mat-card-title>Wolverine</mat-card-title>
         <mat-card-subtitle>10/12/2020</mat-card-subtitle>
+
       </mat-card-header>
+
       <mat-card-content>
         <p class="text-justify">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis minus culpa quibusdam
@@ -28,6 +45,5 @@
       <app-classroom-post-comment></app-classroom-post-comment>
 
     </mat-card>
-
   </div>
 </div>
