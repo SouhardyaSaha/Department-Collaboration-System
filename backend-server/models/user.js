@@ -43,6 +43,8 @@ const User = sequelize.define('user', {
         values: ['teacher', 'student', 'admin'],
         defaultValue: 'student'
     }
+}, {
+    underscored: true
 });
 
 User.prototype.toJSON = function () {
