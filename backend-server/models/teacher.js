@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const { validate } = require('../db/config');
 
 const sequelize = require('../db/config')
 
