@@ -13,10 +13,11 @@ export class ClassroomGeneralComponent implements OnInit {
   ngOnInit() {}
 
   openPostDialog() {
-    const dialogConfig = new MatDialogConfig();
+    const dialogConfig: MatDialogConfig = {
+      maxWidth: '90%',
+      width: '700px',
+    };
 
-    // dialogConfig.minHeight = 800
-    dialogConfig.minWidth = 350;
     const dialogRef = this.postCreateDialog.open(
       ClassroomPostEditComponent,
       dialogConfig,
