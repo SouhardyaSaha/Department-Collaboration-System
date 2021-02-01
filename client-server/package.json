@@ -27,6 +27,7 @@
     "jquery": "^3.5.1",
     "ng-pick-datetime": "^7.0.0",
     "ngx-export-as": "^1.5.0",
+    "ngx-file-drop": "^10.1.1",
     "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~6.6.0",
     "sequelize": "^6.3.5",

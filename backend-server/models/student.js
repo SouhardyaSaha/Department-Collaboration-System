@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const bcrypt = require('bcryptjs');
 
 const sequelize = require('../db/config')
 
@@ -13,8 +12,14 @@ const Student = sequelize.define('student', {
     registration: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            notEmpty: true,
+            isNumeric: true
+        }
     }
+}, {
+    underscored: true
 });
 
 module.exports = Student;

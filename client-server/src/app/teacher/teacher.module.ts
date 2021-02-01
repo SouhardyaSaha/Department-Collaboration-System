@@ -15,6 +15,7 @@ import { ClassroomGeneralComponent } from './classroom-show/classroom-general/cl
 import { ClassroomPostComponent } from './classroom-show/classroom-general/classroom-post/classroom-post.component';
 import { ClassroomPostEditComponent } from './classroom-show/classroom-general/classroom-post-edit/classroom-post-edit.component';
 import { ClassroomPostCommentComponent } from './classroom-show/classroom-general/classroom-post/classroom-post-comment/classroom-post-comment.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ClassroomPostCommentComponent } from './classroom-show/classroom-genera
     TeacherRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    NgxFileDropModule,
   ],
 })
 export class TeacherModule {}

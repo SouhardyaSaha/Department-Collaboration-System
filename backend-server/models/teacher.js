@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const { validate } = require('../db/config');
 
 const sequelize = require('../db/config')
 
@@ -18,7 +17,8 @@ const Teacher = sequelize.define('teacher', {
         }
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    underscored: true
 });
 
 module.exports = Teacher;
