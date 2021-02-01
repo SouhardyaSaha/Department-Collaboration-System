@@ -1,0 +1,51 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+th {
+  background-color: #f7fff7;
+}
+.mat-column-id {
+  /* border-left: 1px solid grey; */
+  align-self: stretch;
+  text-align: center;
+  width: 10%;
+  /* padding: 10px; */
+}
+.mat-column-name {
+  /* border-left: 1px solid grey; */
+  align-self: stretch;
+  text-align: center;
+  width: 30%;
+  /* padding: 10px; */
+}
+.mat-column-absence {
+  /* border-left: 1px solid grey; */
+  align-self: stretch;
+  text-align: center;
+  width: 20%;
+  /* padding: 10px; */
+}
+.mat-column-percentage {
+  /* border-left: 1px solid grey; */
+  align-self: stretch;
+  text-align: center;
+  width: 20%;
+  /* padding: 10px; */
+}
+.mat-column-isPresent {
+  border-left: 1px solid grey;
+  align-self: stretch;
+  text-align: center;
+  padding: 10px;
+  width: auto;
+}

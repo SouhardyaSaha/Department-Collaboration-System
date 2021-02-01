@@ -12,8 +12,16 @@ const Attendance = sequelize.define('attendance',{
   date:{
     type: Sequelize.DATE,
     allowNull:false
+  },
+  studentId:{
+    type: Sequelize.BIGINT,
+    allowNull:false
+  },
+  classId:{
+    type: Sequelize.BIGINT,
+    allowNull:false
   }
 });
-
+//StudentId & ClassId will be updated in future(Foreign Key)
 
 module.exports = Attendance;

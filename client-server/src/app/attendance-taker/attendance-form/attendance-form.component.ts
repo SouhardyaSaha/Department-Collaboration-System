@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { AttendanceData } from '../attendance.model';
+import { AttendanceService } from '../attendance.service';
 
 export interface PeriodicElement {
   name: string;
@@ -30,9 +31,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AttendanceFormComponent implements OnInit {
   attendanceData: AttendanceData;
-  constructor() {}
+  student_id_list: number[] = [];
+  constructor(private attendanceService: AttendanceService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.attendanceData = null;
+  }
+
   displayedColumns: string[] = ['select', 'position', 'name'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
@@ -61,15 +66,26 @@ export class AttendanceFormComponent implements OnInit {
     }`;
   }
   takeAttendance() {
-    console.log('Submit is Clicked!');
+    // console.log('Submit is Clicked!');
     const numSelected = this.selection.selected.length;
+
     if (numSelected > 0) {
       for (let i = 0; i < numSelected; i++) {
         console.log(this.selection.selected[i].position);
+        this.student_id_list.push(this.selection.selected[i].position);
       }
     } else {
       console.log('None is selected.');
     }
+    console.log(this.student_id_list);
+    this.attendanceData = {
+      id: 1,
+      class_id: 1,
+      date: new Date(),
+      student_id: this.student_id_list,
+    };
+    this.attendanceService.addAttendanceData(this.attendanceData);
+    console.log(this.attendanceData);
     this.clearAttendance();
   }
   clearAttendance() {

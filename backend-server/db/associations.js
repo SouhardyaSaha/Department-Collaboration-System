@@ -39,9 +39,9 @@ Classroom.hasMany(Class, { foreignKey: { allowNull: false } })
 Class.belongsTo(Classroom, { foreignKey: { allowNull: false } })
 
 // Relation between Attendance & Student
-Attendance.hasMany(Student, { foreignKey: { allowNull: false } })
-Student.belongsTo(Attendance,{foreignKey: { allowNull: false } })
+// Student.hasMany(Attendance, { foreignKey: { allowNull: false } })
+// Attendance.belongsTo(Student,{foreignKey: { allowNull: false } })
 
 // Relation between Attendance & Class
-Attendance.hasMany(Class, { foreignKey: { allowNull: false } })
-Class.belongsTo(Attendance,{foreignKey: { allowNull: false } })
+// Class.hasMany(Attendance, { foreignKey: { allowNull: false } })
+// Attendance.belongsTo(Class,{foreignKey: { allowNull: false } })

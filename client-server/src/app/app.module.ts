@@ -20,6 +20,7 @@ import { RoutineEditComponent } from './routine-generator/routine-edit/routine-e
 import { ChatComponent } from './chat/chat.component';
 import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
 import { AttendanceFormComponent } from './attendance-taker/attendance-form/attendance-form.component';
+import { AttendanceListComponent } from './attendance-taker/attendance-list/attendance-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AttendanceFormComponent } from './attendance-taker/attendance-form/atte
     ChatComponent,
     AttendanceTakerComponent,
     AttendanceFormComponent,
+    AttendanceListComponent,
   ],
   imports: [
     BrowserModule,

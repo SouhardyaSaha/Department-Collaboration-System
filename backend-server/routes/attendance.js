@@ -21,13 +21,11 @@ router.get('/',(req,res,next)=>{
 
 router.post('/',(req,res,next)=>{
     const attendanceData = req.body;
-    console.log(attendanceData);
+    console.log('Here in attendance route:',attendanceData);
     let {student_id,class_id,date} = attendanceData;
-    // console.log({user_id,courseTitle,instructorName,booldays,startTime,endTime,roomNum});
-    // console.log(routine);
     Attendance.create({
-      student_id,
-      class_id,
+      studentId : student_id,
+      classId : class_id,
       date
     }).then((response)=>{
       res.status(201).json({
