@@ -16,6 +16,7 @@ export class ClassroomGeneralComponent implements OnInit {
     const dialogConfig: MatDialogConfig = {
       maxWidth: '90%',
       width: '700px',
+      disableClose: true,
     };
 
     const dialogRef = this.postCreateDialog.open(
