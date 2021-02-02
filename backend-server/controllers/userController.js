@@ -8,10 +8,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const sequelize = require('../db/config');
+const Teacher = require('../models/teacher');
+const Student = require('../models/student');
 
 // Function to get all users
-const getUsers = catchAsync(async (req, res) => {
-  const users = await User.findAll();
+const getUsers = catchAsync(async (req, res, next) => {
+  const users = await User.findAll({ include: [Student, Teacher] });
   res.status(200).json({
     status: 'success',
     data: { users },
@@ -19,7 +21,7 @@ const getUsers = catchAsync(async (req, res) => {
 });
 
 // Function to sign up a user
-const signUp = catchAsync(async (req, res) => {
+const signUp = catchAsync(async (req, res, next) => {
   const { role, profile } = req.body
 
   const createdUser = await sequelize.transaction(async (t) => {
@@ -71,16 +73,31 @@ const logout = catchAsync(async (req, res) => {
 });
 
 // Function to get user Profile
-const getUserProfile = catchAsync(async (req, res) => {
-  const userProfile = await req.user.getTeacher(
-    {
-      include:
+const getUserProfile = catchAsync(async (req, res, next) => {
+
+  let userProfile
+
+  if (req.user.role === 'teacher') {
+    userProfile = await req.user.getTeacher(
       {
-        model: User,
-        attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
-      },
-    }
-  )
+        include:
+        {
+          model: User,
+          attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+        },
+      }
+    )
+  }
+  else if (req.user.role === 'student') {
+    userProfile = await req.user.getStudent(
+      {
+        include:
+        {
+          model: User,
+          attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+        },
+      })
+  }
 
   res.status(200).json({
     status: 'success',
