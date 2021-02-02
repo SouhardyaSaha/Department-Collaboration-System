@@ -1,11 +1,10 @@
-<p>classroom-tile works!</p>
-<mat-card>
-    <mat-card-header>
-        <div mat-card-avatar>
-            <img src="https://cdn.pixabay.com/photo/2017/02/15/20/58/ekg-2069872__340.png" alt="Heart"
-                class="img-fluid">
-        </div>
-        <mat-card-title>Heart Rate</mat-card-title>
-        <mat-card-subtitle style="color: green;">65bpm</mat-card-subtitle>
-    </mat-card-header>
+<mat-card class="example-card">
+  <img mat-card-image src="https://source.unsplash.com/1600x900/?classroom,education,study" alt="Tech Image">
+  <mat-card-header>
+    <mat-card-title style="font-size: medium;">Intoduction to Software Engineering</mat-card-title>
+    <mat-card-subtitle>Prof Abdullah Al Mumin</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <a mat-button [routerLink]="['/teacher/classroom/1']">Open</a>
+  </mat-card-actions>
 </mat-card>
