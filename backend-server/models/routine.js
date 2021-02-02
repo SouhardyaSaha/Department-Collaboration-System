@@ -37,8 +37,6 @@ const classRoutine = sequelize.define('classRoutine', {
         type: Sequelize.STRING,
         allowNull: false
     },
-}, {
-    underscored: true
 });
 
 

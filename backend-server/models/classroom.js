@@ -8,8 +8,6 @@ const Classroom = sequelize.define('classroom', {
         allowNull: false,
         primaryKey: true
     },
-}, {
-    underscored: true
 });
 
 module.exports = Classroom

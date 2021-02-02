@@ -18,7 +18,6 @@ const Teacher = sequelize.define('teacher', {
     }
 }, {
     timestamps: false,
-    underscored: true
 });
 
 module.exports = Teacher;

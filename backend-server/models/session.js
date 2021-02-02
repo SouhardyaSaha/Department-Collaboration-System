@@ -16,8 +16,6 @@ const Session = sequelize.define('session', {
             notEmpty: true
         }
     },
-}, {
-    underscored: true
 });
 
 module.exports = Session;

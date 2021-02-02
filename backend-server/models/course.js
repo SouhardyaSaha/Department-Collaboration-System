@@ -34,8 +34,6 @@ const Course = sequelize.define('course', {
             notEmpty: true
         }
     }
-}, {
-    underscored: true
 });
 
 module.exports = Course
