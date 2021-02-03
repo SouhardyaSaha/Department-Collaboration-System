@@ -19,7 +19,7 @@ const Student = sequelize.define('student', {
         }
     }
 }, {
-    underscored: true
+    timestamps: false
 });
 
 module.exports = Student;

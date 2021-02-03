@@ -9,8 +9,6 @@ const Admin = sequelize.define('admin', {
         allowNull: false,
         primaryKey: true
     },
-}, {
-    underscored: true
 });
 
 module.exports = Admin;

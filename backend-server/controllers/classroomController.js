@@ -36,9 +36,13 @@ const createClassroom = catchAsync(async (req, res) => {
                 transaction: t
             }
         )
-        const { students } = session;
 
-        await classroom.addStudents([...students, ...extra_students_id], { transaction: t })
+        const { students } = session;
+        let studentsToAdd
+        if (extra_students_id) studentsToAdd = [...students, ...extra_students_id]
+        else studentsToAdd = [...students]
+
+        await classroom.addStudents(studentsToAdd, { transaction: t })
 
         return classroom
     })

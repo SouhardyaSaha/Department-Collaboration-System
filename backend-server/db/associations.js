@@ -6,6 +6,9 @@ const Student = require("../models/student")
 const User = require("../models/user")
 const Teacher = require("../models/teacher")
 const Attendance = require("../models/attendance")
+const Post = require("../models/post")
+const Assignment = require("../models/assignment")
+const Comment = require("../models/comment")
 
 // User Relations
 User.hasOne(Teacher, { foreignKey: { allowNull: false } })
@@ -29,6 +32,27 @@ Classroom.belongsTo(Teacher, { foreignKey: { allowNull: false } })
 Student.belongsToMany(Classroom, { through: 'classroom_student' })
 Classroom.belongsToMany(Student, { through: 'classroom_student' })
 
+// Relation between classroom  and classroom assignments
+Classroom.hasMany(Assignment, { foreignKey: { allowNull: false } })
+Assignment.belongsTo(Classroom, { foreignKey: { allowNull: false } })
+
+Student.hasMany(Assignment, { foreignKey: { allowNull: false } })
+Assignment.belongsTo(Student, { foreignKey: { allowNull: false } })
+
+// Relation between classroom  and classroom posts
+Classroom.hasMany(Post, { foreignKey: { allowNull: false } })
+Post.belongsTo(Classroom, { foreignKey: { allowNull: false } })
+
+User.hasMany(Post, { foreignKey: { allowNull: false } })
+Post.belongsTo(User, { foreignKey: { allowNull: false } })
+
+// Relation between classroom posts and comments
+Post.hasMany(Comment, { foreignKey: { allowNull: false } })
+Comment.belongsTo(Post, { foreignKey: { allowNull: false } })
+
+User.hasMany(Comment, { foreignKey: { allowNull: false } })
+Comment.belongsTo(User, { foreignKey: { allowNull: false } })
+
 // Relation between student and session
 Session.hasMany(Student, { foreignKey: { allowNull: false } })
 Student.belongsTo(Session, { foreignKey: { allowNull: false } })
@@ -40,3 +64,11 @@ Attendance.belongsTo(Student,{foreignKey: { allowNull: false } })
 // Relation between Attendance & Class
 Classroom.hasMany(Attendance, { foreignKey: { allowNull: false } })
 Attendance.belongsTo(Classroom,{foreignKey: { allowNull: false } })
+// Class.hasMany(Attendance, { foreignKey: { allowNull: false } })
+// Attendance.belongsTo(Class,{foreignKey: { allowNull: false } })
+// Attendance.hasMany(Student, { foreignKey: { allowNull: false } })
+// Student.belongsTo(Attendance, { foreignKey: { allowNull: false } })
+
+// Relation between Attendance & Class
+// Attendance.hasMany(Class, { foreignKey: { allowNull: false } })
+// Class.belongsTo(Attendance, { foreignKey: { allowNull: false } })

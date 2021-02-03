@@ -1,16 +1,15 @@
-const { DataTypes } = require('sequelize');
-
+const { DataTypes } = require("sequelize");
 const sequelize = require('../db/config')
 
-const Session = sequelize.define('session', {
+const Comment = sequelize.define('comment', {
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    session: {
-        type: DataTypes.STRING,
+    content: {
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             notEmpty: true
@@ -18,4 +17,4 @@ const Session = sequelize.define('session', {
     },
 });
 
-module.exports = Session;
+module.exports = Comment

@@ -1,43 +1,42 @@
 <div class="container">
-    <div class="row justify-content-center mt-2">
-        <div class="col-12">
-            <mat-card class="p-0 mat-elevation-z8">
-                <div class="classroom-image  p-0">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1 class="text-center mt-5 font-weight-bold">Introduction To Software Engineering (SWE-332)
-                            </h1>
-                            <h3 class="text-center font-weight-bold">By</h3>
-                            <h2 class="text-center font-weight-bold">Asif Samir</h2>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
+  <div class="row justify-content-center mt-2">
+    <div class="col-12">
+      <mat-card class="p-0 mat-elevation-z8">
+        <div class="classroom-image  p-0">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="text-center mt-5 font-weight-bold">Introduction To Software Engineering (SWE-332)
+              </h1>
+              <h3 class="text-center font-weight-bold">By</h3>
+              <h2 class="text-center font-weight-bold">Asif Samir</h2>
+            </div>
+          </div>
         </div>
+      </mat-card>
     </div>
+  </div>
 
-    <div class="row mt-3">
-        <div class="col-12">
-            <ng-container *ngIf="(asyncTabs | async) === null">
-                <div class="row">
-                    <mat-spinner class="mx-auto"></mat-spinner>
-                </div>
-            </ng-container>
-            <mat-tab-group mat-align-tabs="center" backgroundColor="" #tabGroup>
-                <mat-tab>
-                    <ng-template mat-tab-label>General</ng-template>
-                    <app-classroom-general></app-classroom-general>
-                </mat-tab>
-                <mat-tab>
-                    <ng-template mat-tab-label>Class</ng-template>
-                    Content2
-                </mat-tab>
-                <mat-tab>
-                    <ng-template mat-tab-label>Students</ng-template>
-                    <app-classroom-students></app-classroom-students>
-                </mat-tab>
-            </mat-tab-group>
+  <div class="row mt-3">
+    <div class="col-12">
+      <ng-container *ngIf="(asyncTabs | async) === null;">
+        <div class="row">
+          <mat-spinner class="mx-auto"></mat-spinner>
         </div>
+      </ng-container>
+      <mat-tab-group *ngIf="(asyncTabs | async) !== null;" mat-align-tabs="center" backgroundColor="" #tabGroup>
+        <mat-tab>
+          <ng-template mat-tab-label>General</ng-template>
+          <app-classroom-general></app-classroom-general>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>Classwork</ng-template>
+          <app-classroom-classwork></app-classroom-classwork>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>Students</ng-template>
+          <app-classroom-students></app-classroom-students>
+        </mat-tab>
+      </mat-tab-group>
     </div>
-
+  </div>
 </div>

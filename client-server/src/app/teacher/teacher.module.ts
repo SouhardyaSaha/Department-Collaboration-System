@@ -16,6 +16,15 @@ import { ClassroomPostComponent } from './classroom-show/classroom-general/class
 import { ClassroomPostEditComponent } from './classroom-show/classroom-general/classroom-post-edit/classroom-post-edit.component';
 import { ClassroomPostCommentComponent } from './classroom-show/classroom-general/classroom-post/classroom-post-comment/classroom-post-comment.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { ClassroomClassworkComponent } from './classroom-show/classroom-classwork/classroom-classwork.component';
+import { ClassroomClassworkTileComponent } from './classroom-show/classroom-classwork/classroom-classwork-tile/classroom-classwork-tile.component';
+import { ClassworkEditComponent } from './classroom-show/classroom-classwork/classwork-edit/classwork-edit.component';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule,
+} from '@angular-material-components/datetime-picker';
+import { ClassroomClassworkDetailsComponent } from './classroom-show/classroom-classwork/classroom-classwork-details/classroom-classwork-details.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +39,10 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     ClassroomPostComponent,
     ClassroomPostEditComponent,
     ClassroomPostCommentComponent,
+    ClassroomClassworkComponent,
+    ClassroomClassworkTileComponent,
+    ClassworkEditComponent,
+    ClassroomClassworkDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +50,9 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     MaterialModule,
     ReactiveFormsModule,
     NgxFileDropModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
   ],
 })
 export class TeacherModule {}
