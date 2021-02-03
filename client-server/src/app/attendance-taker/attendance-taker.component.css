@@ -5,3 +5,9 @@
 table {
   width: 75%;
 }
+button {
+  margin-right: 5px;
+}
+mat-icon {
+  margin-right: 2px;
+}
