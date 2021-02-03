@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { ClassroomEditComponent } from './classroom-edit/classroom-edit.component';
+import { ClassroomService } from './classroom.service';
+import { MultipleClassroomResponseBody } from './models/classroom.model';
 
 @Component({
   selector: 'app-classroom',
@@ -8,7 +11,16 @@ import { ClassroomEditComponent } from './classroom-edit/classroom-edit.componen
   styleUrls: ['./classroom.component.css'],
 })
 export class ClassroomComponent implements OnInit {
-  constructor(public classroomCreateDialog: MatDialog) {}
+  classrooms$: Observable<MultipleClassroomResponseBody>;
+
+  constructor(
+    private classroomCreateDialog: MatDialog,
+    private classroomService: ClassroomService,
+  ) {}
+
+  ngOnInit(): void {
+    this.classrooms$ = this.classroomService.getClassrooms();
+  }
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -24,5 +36,4 @@ export class ClassroomComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  ngOnInit(): void {}
 }

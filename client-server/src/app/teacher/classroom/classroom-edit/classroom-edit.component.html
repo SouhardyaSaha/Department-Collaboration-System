@@ -1,72 +1,77 @@
 <h2 mat-dialog-title>Add New Classroom</h2>
 <mat-dialog-content class="mat-typography">
-    <form [formGroup]="classroomForm">
+  <form [formGroup]="classroomForm">
 
-        <!-- <h3>session:</h3> -->
+    <ng-template #loader>
+      <mat-spinner class="mx-auto" value="100" diameter="40"></mat-spinner>
+    </ng-template>
+
+    <ng-container *ngIf="!isLoading;else loader">
+      <!-- <h3>session:</h3> -->
+      <ng-container *ngIf="sessions$|async as sessions; else loader">
         <mat-form-field appearance="legacy" class="w-100">
-            <mat-label>Session</mat-label>
-            <mat-select [formControlName]="'session'">
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let session of sessions" [value]="session.id">
-                    {{session.name}}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="classroomForm.get('session').hasError('required')">
-                Please choose a session
-            </mat-error>
+          <mat-label>Session</mat-label>
+          <mat-select [formControlName]="'sessionId'">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let session of sessions.data.sessions" [value]="session.id">
+              {{session.session}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="classroomForm.get('sessionId').hasError('required')">
+            Please choose a session
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+      <br>
+
+      <!-- <h3>course:</h3> -->
+      <ng-container *ngIf="courses$|async as courses; else loader">
+        <mat-form-field appearance="legacy" class="w-100">
+          <mat-label>Course</mat-label>
+          <mat-select [formControlName]="'courseId'">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let course of courses.data.courses" [value]="course.id">
+              {{course.title}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="classroomForm.get('courseId').hasError('required')">
+            Please choose a course
+          </mat-error>
         </mat-form-field>
         <br>
-
-        <!-- <h3>course:</h3> -->
-        <mat-form-field appearance="legacy" class="w-100">
-            <mat-label>Course</mat-label>
-            <mat-select [formControlName]="'course'">
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let course of courses" [value]="course.id">
-                    {{course.title}}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="classroomForm.get('course').hasError('required')">
-                Please choose a course
-            </mat-error>
-        </mat-form-field>
-        <br>
-
-        <!-- Medicines -->
-        <div class="row my-2">
-            <div class="col-12" [formArrayName]="'medicines'">
-                <!-- +Extra Student -->
-                <button (click)="onAddMedicine()" type="button" class="mr-2" mat-stroked-button color="primary">
-                    +Add Extra Student
-                </button>
-                <br>
-                <div class="row" *ngFor="let igControl of classroomForm.get('medicines')['controls']; let i = index"
-                    [formGroupName]="i">
-                    <div class="col-10">
-                        <mat-form-field appearance="legacy" class="w-100">
-                            <mat-label>Student Name or Email: </mat-label>
-                            <input matInput [formControlName]="'name'">
-                            <mat-error
-                                *ngIf="classroomForm.get('medicines')['controls'][i].get('name').hasError('required')">
-                                Required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-2">
-                        <button (click)="onDeleteMedicine(i)" type="button" class="btn btn-outline-danger">
-                            x
-                        </button>
-                    </div>
-                </div>
+        <!-- Extra Students -->
+        <!-- <div class="row my-2">
+        <div class="col-12" [formArrayName]="'extra_students_id'">
+          <button (click)="onAddExtraStudent()" type="button" class="mr-2" mat-stroked-button color="primary">
+            +Add Extra Student
+          </button>
+          <br>
+          <div class="row" *ngFor="let igControl of classroomForm.get('extra_students_id')['controls']; let i = index"
+            [formGroupName]="i">
+            <div class="col-10">
+              <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Student Name or Email: </mat-label>
+                <input matInput [formControlName]="'name'">
+                <mat-error
+                  *ngIf="classroomForm.get('extra_students_id')['controls'][i].get('name').hasError('required')">
+                  Required
+                </mat-error>
+              </mat-form-field>
             </div>
+            <div class="col-2">
+              <button (click)="onDeleteExtraStudent(i)" type="button" class="btn btn-outline-danger">
+                x
+              </button>
+            </div>
+          </div>
         </div>
-
-        <!-- <button type="submit" mat-raised-button color="primary" [disabled]="classroomForm.invalid">
-            Submit
-        </button> -->
-    </form>
+      </div> -->
+      </ng-container>
+    </ng-container>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" [disabled]="classroomForm.invalid" (click)="onSubmit()">Create</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" [disabled]="classroomForm.invalid" (click)="onSubmit()">Create</button>
 </mat-dialog-actions>
