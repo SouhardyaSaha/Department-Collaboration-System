@@ -6,6 +6,7 @@ const {
     removeStudentsFromClassroom,
     createClassroom,
     getClassroomById,
+    getClassrooms,
     updateClassroom
 } = require('../controllers/classroomController');
 const { protect, restrictTo } = require('../middlewares/protect');
@@ -17,6 +18,7 @@ const classroomRouter = require('express').Router();
 // Setting up the routes
 classroomRouter.route('/')
     .post(protect, restrictTo([roles.Teacher]), createClassroom)
+    .get(protect, restrictTo([roles.Teacher]), getClassrooms)
 
 classroomRouter.route('/:id')
     .get(protect, restrictTo([roles.Teacher]), getClassroomById)
