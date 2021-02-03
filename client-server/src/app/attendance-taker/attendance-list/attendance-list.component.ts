@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { IndividualAttendanceComponent } from '../individual-attendance/individual-attendance.component';
 export interface UserData {
   id: string;
   name: string;
@@ -21,6 +22,7 @@ export class AttendanceListComponent implements OnInit {
     'absence',
     'percentage',
     'isPresent',
+    'actions',
   ];
   dataSource: MatTableDataSource<UserData>;
   dates: string[] = [];
@@ -28,7 +30,7 @@ export class AttendanceListComponent implements OnInit {
   ngOnInit(): void {
     this.dates = ['12-01-20', '13-01-20', '15-01-20', '16-01-20', '19-01-20'];
   }
-  constructor() {
+  constructor(private dialog: MatDialog) {
     // Create 100 users
     const users = Array.from([
       {
@@ -79,6 +81,18 @@ export class AttendanceListComponent implements OnInit {
     // if (this.dataSource.paginator) {
     //   this.dataSource.paginator.firstPage();
     // }
+  }
+  onDelete(id) {}
+  onDetails(id) {
+    // console.log(id);
+    console.log('Details of id :' + id);
+    const dialogConfig = new MatDialogConfig();
+    // let id = this.routines[index].id;
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = false;
+    dialogConfig.width = '60%';
+    dialogConfig.data = { message: 'Individual Form', id: id };
+    this.dialog.open(IndividualAttendanceComponent, dialogConfig);
   }
 }
 

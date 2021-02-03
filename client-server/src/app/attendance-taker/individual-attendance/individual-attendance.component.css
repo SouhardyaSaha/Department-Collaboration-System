@@ -1,0 +1,39 @@
+.example-card {
+  max-width: auto;
+  /* background: transparent; */
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.mat-table {
+  width: 100%;
+  /* text-align: center; */
+  /* text-size-adjust: auto; */
+}
+.mat-column-date,
+.mat-column-absent {
+  /* border-left: 1px solid grey; */
+  /* align-self: stretch; */
+  text-align: center;
+  padding: 0px;
+  width: 50%;
+}
+
+/* .mat-cell,
+#borderStyle {
+  background-color: grey;
+  border: 5px solid black;
+}
+p {
+  border-left: 6px solid red;
+  background-color: lightgrey;
+  text-align: center;
+
+}
+#sMatIcon {
+  display: block;
+} */

@@ -18,7 +18,7 @@ export class AttendanceTakerComponent implements OnInit {
     // let id = this.routines[index].id;
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
-    dialogConfig.width = '50%';
+    dialogConfig.width = '60%';
     dialogConfig.data = { message: 'New Form' };
     this.dialog.open(AttendanceFormComponent, dialogConfig);
   }

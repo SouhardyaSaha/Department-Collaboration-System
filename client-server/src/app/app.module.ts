@@ -21,6 +21,8 @@ import { ChatComponent } from './chat/chat.component';
 import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
 import { AttendanceFormComponent } from './attendance-taker/attendance-form/attendance-form.component';
 import { AttendanceListComponent } from './attendance-taker/attendance-list/attendance-list.component';
+import { AllAttendanceComponent } from './attendance-taker/all-attendance/all-attendance.component';
+import { IndividualAttendanceComponent } from './attendance-taker/individual-attendance/individual-attendance.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { AttendanceListComponent } from './attendance-taker/attendance-list/atte
     AttendanceTakerComponent,
     AttendanceFormComponent,
     AttendanceListComponent,
+    AllAttendanceComponent,
+    IndividualAttendanceComponent,
   ],
   imports: [
     BrowserModule,

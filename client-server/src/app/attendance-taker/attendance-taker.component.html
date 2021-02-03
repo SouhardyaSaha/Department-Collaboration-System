@@ -1,6 +1,25 @@
 <div class="container">
-  <button button mat-raised-button color="primary" class="tablinks" (click)="takeAttendance()">
+  <button  mat-raised-button color="primary" class="tablinks" (click)="takeAttendance()">
     <mat-icon>add</mat-icon><span></span>Add Item
   </button>
-  <app-attendance-list></app-attendance-list>
+  <button  mat-raised-button color="primary" class="tablinks" (click)="takeAttendance()">
+    <mat-icon>list_alt</mat-icon><span></span>Student List
+  </button>
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>preview</mat-icon><span></span>
+        Overview
+      </ng-template>
+      <app-attendance-list></app-attendance-list>
+    </mat-tab>
+    <mat-tab >
+      <ng-template mat-tab-label>
+        <mat-icon>list_alt</mat-icon><span></span>
+        Details Attendance
+      </ng-template>
+      <app-all-attendance></app-all-attendance>
+    </mat-tab>
+  </mat-tab-group>
+
 </div>

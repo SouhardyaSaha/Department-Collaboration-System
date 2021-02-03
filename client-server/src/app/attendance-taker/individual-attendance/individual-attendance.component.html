@@ -1,0 +1,94 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Attendance data
+      </mat-panel-title>
+      <mat-panel-description>
+        Total classes : 15
+      </mat-panel-description>
+      <mat-panel-description>
+        Absent : 5
+      </mat-panel-description>
+      <mat-panel-description>
+        Present Percentage : 65%
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- Attandence Data -->
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- DATE Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>
+              Date
+          </th>
+            <ng-container  *matCellDef="let row">
+              <td mat-cell>
+                <ng-container *ngFor = "let item of row.date">
+                  <p style="display: block;height: 29px; ">{{item}}</p>
+                </ng-container>
+              </td>
+            </ng-container>
+        </ng-container>
+
+        <!-- Absent Column -->
+        <ng-container matColumnDef="absent">
+          <th mat-header-cell *matHeaderCellDef>
+              Absent[Marked]
+          </th>
+          <ng-container *matCellDef="let row">
+            <!-- <tr *ngFor = "let item of row.absent;" > -->
+              <td mat-cell >
+                <ng-container *ngFor="let item of row.absent" >
+                 <p style="display: block;text-align: center;">
+                  <mat-icon *ngIf = "item == true" color = "primary"  >check_circle_outline</mat-icon>
+                  <mat-icon  *ngIf = "item == false" color = "warn" >highlight_off</mat-icon>
+                 </p>
+                </ng-container>
+              </td>
+            <!-- </tr> -->
+          </ng-container>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div style="text-align: center;" *ngIf = "records === 0">
+        <h3>
+          No records found
+        </h3>
+      </div>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Assigned Assignment : 3
+      </mat-panel-description>
+      <mat-panel-description>
+        Submitted Assignment : 1
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1">
+    </mat-form-field>
+
+  </mat-expansion-panel>
+</mat-accordion>
