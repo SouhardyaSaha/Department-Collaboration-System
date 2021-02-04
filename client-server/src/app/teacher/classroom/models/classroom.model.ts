@@ -1,18 +1,19 @@
 import { Course } from './course.model';
+import { Post } from './post.model';
 
-interface User {
+export interface User {
   id: number;
   name: string;
-  email: string;
+  email?: string;
 }
 
-interface Student {
+export interface Student {
   id: number;
   registration: number;
   user: User;
 }
 
-interface Teacher {
+export interface Teacher {
   id: number;
   designation: string;
   user: User;
@@ -26,7 +27,8 @@ export interface Classroom {
   teacherId?: number;
   course: Course;
   teacher: Teacher;
-  student?: Student[];
+  students?: Student[];
+  posts?: Post[];
 }
 
 export interface SingleClassroomResponseBody {

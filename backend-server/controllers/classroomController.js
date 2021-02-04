@@ -3,10 +3,12 @@
 const sequelize = require("../db/config");
 const Classroom = require("../models/classroom");
 const Course = require("../models/course");
+const Post = require("../models/post");
 const Session = require("../models/session");
 const Student = require("../models/student");
 const Teacher = require("../models/teacher");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
@@ -126,7 +128,28 @@ const getClassroomById = catchAsync(async (req, res, next) => {
                         attributes: []
                     }
                 },
-
+                {
+                    model: Post,
+                    separate: true,
+                    order: [
+                        ['createdAt', 'desc']
+                    ],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'name', 'email']
+                        },
+                        {
+                            model: Comment,
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['id', 'name']
+                                }
+                            ]
+                        }
+                    ]
+                }
             ]
         }
     )

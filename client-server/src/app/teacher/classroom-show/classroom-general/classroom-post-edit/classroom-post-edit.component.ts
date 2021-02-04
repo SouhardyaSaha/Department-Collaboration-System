@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import {
   FileSystemDirectoryEntry,
   FileSystemFileEntry,
   NgxFileDropEntry,
   NgxFileDropModule,
 } from 'ngx-file-drop';
-
+import { PostSubmitBody } from 'src/app/teacher/classroom/models/post.model';
+import { ClassroomGeneralService } from '../classroom-general.service';
 @Component({
   selector: 'app-classroom-post-edit',
   templateUrl: './classroom-post-edit.component.html',
@@ -14,22 +17,44 @@ import {
 })
 export class ClassroomPostEditComponent implements OnInit {
   classroomPostForm: FormGroup;
-  constructor() {}
+  isLoading: boolean = false;
+  classroomId: number;
+  activatedRouteSnapshot: ActivatedRouteSnapshot;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private classroomGeneralService: ClassroomGeneralService,
+  ) {}
 
   ngOnInit(): void {
     this.formInit();
+    this.classroomId = this.data.classroomId;
+    // console.log(this.classroomId);
   }
 
   private formInit() {
-    let post = '';
+    let content = '';
 
     this.classroomPostForm = new FormGroup({
-      post: new FormControl(post, [Validators.required]),
+      content: new FormControl(content, [Validators.required]),
     });
   }
 
   onSubmit() {
-    console.log(this.classroomPostForm.value);
+    let postBody: PostSubmitBody = this.classroomPostForm.value;
+    console.log(postBody);
+    this.isLoading = true;
+    this.classroomGeneralService.addPost(this.classroomId, postBody).subscribe(
+      res => {
+        this.isLoading = false;
+        console.log(res);
+        location.reload();
+        // location.reload()
+      },
+      err => {
+        this.isLoading = false;
+        console.log(err);
+      },
+    );
   }
 
   public files: NgxFileDropEntry[] = [];
