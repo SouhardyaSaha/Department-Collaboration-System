@@ -1,67 +1,68 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Student } from '../../classroom/models/classroom.model';
 
-export interface PeriodicElement {
-  id: number;
-  name: string;
-  user_img_uri: string;
-  registration: number;
-  email: string;
-}
+// export interface PeriodicElement {
+//   id: number;
+//   name: string;
+//   user_img_uri: string;
+//   registration: number;
+//   email: string;
+// }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Hydrogen',
-    registration: 2017831024,
-    email: 'souhardyasaha98@gmail.com',
-  },
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Helium',
-    registration: 2017831025,
-    email: 'saha98@gmail.com',
-  },
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Lithium',
-    registration: 2017831026,
-    email: 'souhardya98@gmail.com',
-  },
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Beryllium',
-    registration: 2017831027,
-    email: 'sou98@gmail.com',
-  },
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Beryllium',
-    registration: 2017831027,
-    email: 'sou98@gmail.com',
-  },
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Beryllium',
-    registration: 2017831027,
-    email: 'sou98@gmail.com',
-  },
-  {
-    id: 23,
-    user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-    name: 'Beryllium',
-    registration: 2017831027,
-    email: 'sou98@gmail.com',
-  },
-];
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Hydrogen',
+//     registration: 2017831024,
+//     email: 'souhardyasaha98@gmail.com',
+//   },
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Helium',
+//     registration: 2017831025,
+//     email: 'saha98@gmail.com',
+//   },
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Lithium',
+//     registration: 2017831026,
+//     email: 'souhardya98@gmail.com',
+//   },
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Beryllium',
+//     registration: 2017831027,
+//     email: 'sou98@gmail.com',
+//   },
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Beryllium',
+//     registration: 2017831027,
+//     email: 'sou98@gmail.com',
+//   },
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Beryllium',
+//     registration: 2017831027,
+//     email: 'sou98@gmail.com',
+//   },
+//   {
+//     id: 23,
+//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
+//     name: 'Beryllium',
+//     registration: 2017831027,
+//     email: 'sou98@gmail.com',
+//   },
+// ];
 
 @Component({
   selector: 'app-classroom-students',
@@ -70,11 +71,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ClassroomStudentsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  dataSource: MatTableDataSource<Student>;
+  selection = new SelectionModel<Student>(true, []);
+  @Input() students: Student[];
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.students);
+    this.dataSource = new MatTableDataSource(this.students);
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -82,7 +87,7 @@ export class ClassroomStudentsComponent implements OnInit {
 
   displayedColumns: string[] = [
     'select',
-    'user_img_uri',
+    // 'user_img_uri',
     'name',
     'registration',
     'email',
@@ -103,12 +108,12 @@ export class ClassroomStudentsComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: Student): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.user_img_uri + 1
+      row.id
     }`;
   }
 
@@ -122,6 +127,6 @@ export class ClassroomStudentsComponent implements OnInit {
     this.selection.selected.forEach(student => {
       studentsId.push(student.id);
     });
-    console.log(studentsId);
+    console.log(this.selection.selected);
   }
 }

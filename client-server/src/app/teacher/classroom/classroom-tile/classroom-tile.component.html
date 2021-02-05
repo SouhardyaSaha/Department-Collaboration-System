@@ -1,10 +1,10 @@
 <mat-card class="example-card">
   <img mat-card-image src="https://source.unsplash.com/1600x900/?classroom,education,study" alt="Tech Image">
   <mat-card-header>
-    <mat-card-title style="font-size: medium;">Intoduction to Software Engineering</mat-card-title>
-    <mat-card-subtitle>Prof Abdullah Al Mumin</mat-card-subtitle>
+    <mat-card-title style="font-size: medium;">{{ classroom.course.title }}</mat-card-title>
+    <mat-card-subtitle>{{ classroom.teacher.designation }} {{ classroom.teacher.user.name }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
-    <a mat-button [routerLink]="['/teacher/classroom/1']">Open</a>
+    <a mat-button [routerLink]="['/teacher/classroom', classroom.id]">Open</a>
   </mat-card-actions>
 </mat-card>

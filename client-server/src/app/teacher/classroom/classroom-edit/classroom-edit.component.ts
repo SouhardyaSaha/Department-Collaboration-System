@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ClassroomService } from '../classroom.service';
+import { CourseService } from '../course.service';
+import { CourseResponseBody } from '../models/course.model';
+import { SessionResponseBody } from '../models/session.model';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-classroom-edit',
@@ -8,53 +15,37 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ClassroomEditComponent implements OnInit {
   classroomForm: FormGroup;
-  
-  sessions = [
-    {
-      id: 1,
-      name: '2017-18',
-    },
-    {
-      id: 1,
-      name: '2016-17',
-    },
-    {
-      id: 1,
-      name: '2018-19',
-    },
-  ];
+  sessions$: Observable<SessionResponseBody>;
+  courses$: Observable<CourseResponseBody>;
+  isLoading: boolean = false;
 
-  courses = [
-    {
-      id: 1,
-      title: 'Data Science',
-    },
-    {
-      id: 2,
-      title: 'Data Structure',
-    },
-  ];
-
-  constructor() {}
+  constructor(
+    private sessionService: SessionService,
+    private classroomService: ClassroomService,
+    private courseService: CourseService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.formInit();
+    this.sessions$ = this.sessionService.getSessions();
+    this.courses$ = this.courseService.getCourses();
   }
 
   private formInit() {
     let session = '';
     let course = '';
-    let medicineDetails = new FormArray([]);
+    let extra_students_id = new FormArray([]);
 
     this.classroomForm = new FormGroup({
-      session: new FormControl(session, [Validators.required]),
-      course: new FormControl(course, [Validators.required]),
-      medicines: medicineDetails,
+      sessionId: new FormControl(session, [Validators.required]),
+      courseId: new FormControl(course, [Validators.required]),
+      extra_students_id: extra_students_id,
     });
   }
 
-  onAddMedicine() {
-    (<FormArray>this.classroomForm.get('medicines')).push(
+  onAddExtraStudent() {
+    (<FormArray>this.classroomForm.get('extra_students_id')).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
         per_day: new FormControl(null, [
@@ -67,11 +58,23 @@ export class ClassroomEditComponent implements OnInit {
     );
   }
 
-  onDeleteMedicine(index: number) {
-    (<FormArray>this.classroomForm.get('medicines')).removeAt(+index);
+  onDeleteExtraStudent(index: number) {
+    (<FormArray>this.classroomForm.get('extra_students_id')).removeAt(+index);
   }
 
   onSubmit() {
     console.log(this.classroomForm.value);
+    this.isLoading = true;
+    this.classroomService.createClassroom(this.classroomForm.value).subscribe(
+      res => {
+        console.log(res);
+        this.isLoading = false;
+        this.router.navigate(['teacher', 'classroom', res.data.classroom.id]);
+      },
+      err => {
+        console.log(err);
+        this.isLoading = false;
+      },
+    );
   }
 }

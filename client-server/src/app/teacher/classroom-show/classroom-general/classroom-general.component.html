@@ -26,6 +26,8 @@
       </div>
     </div>
 
-    <app-classroom-post></app-classroom-post>
+    <ng-container *ngFor="let post of posts">
+      <app-classroom-post [post]="post"></app-classroom-post>
+    </ng-container>
   </div>
 </div>

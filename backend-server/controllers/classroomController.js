@@ -3,14 +3,17 @@
 const sequelize = require("../db/config");
 const Classroom = require("../models/classroom");
 const Course = require("../models/course");
+const Post = require("../models/post");
 const Session = require("../models/session");
 const Student = require("../models/student");
 const Teacher = require("../models/teacher");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const Classwork = require("../models/classwork");
 
-const createClassroom = catchAsync(async (req, res) => {
+const createClassroom = catchAsync(async (req, res, next) => {
 
     const { sessionId, extra_students_id } = req.body
 
@@ -54,6 +57,44 @@ const createClassroom = catchAsync(async (req, res) => {
 
 })
 
+const getClassrooms = catchAsync(async (req, res, next) => {
+    let dbData
+    let queryOptions = {
+        include: {
+            model: Classroom,
+            attributes: ['id'],
+            include: [
+                {
+                    model: Course,
+                    // attributes: ['title', 'id']
+                },
+                {
+                    model: Teacher,
+                    attributes: ['id', 'designation'],
+                    include: {
+                        model: User,
+                        attributes: ['id', 'name', 'email']
+                    }
+                }
+            ]
+        }
+    }
+
+    if (req.user.role === 'teacher') {
+        dbData = await req.user.getTeacher(queryOptions)
+    }
+    else {
+        dbData = await req.user.getStudent(queryOptions)
+    }
+
+    // console.log(classrooms);
+    res.json({
+        status: 'success',
+        data: {
+            classrooms: dbData.classrooms
+        }
+    })
+})
 
 const getClassroomById = catchAsync(async (req, res, next) => {
     const { id } = req.params;
@@ -88,7 +129,35 @@ const getClassroomById = catchAsync(async (req, res, next) => {
                         attributes: []
                     }
                 },
-
+                {
+                    model: Post,
+                    separate: true,
+                    order: [
+                        ['createdAt', 'desc']
+                    ],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'name', 'email']
+                        },
+                        {
+                            model: Comment,
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['id', 'name']
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    model: Classwork,
+                    separate: true,
+                    order: [
+                        ['createdAt', 'desc']
+                    ],
+                }
             ]
         }
     )
@@ -175,5 +244,6 @@ module.exports = {
     getClassroomById,
     updateClassroom,
     addStudentsToClassroom,
-    removeStudentsFromClassroom
+    removeStudentsFromClassroom,
+    getClassrooms
 }

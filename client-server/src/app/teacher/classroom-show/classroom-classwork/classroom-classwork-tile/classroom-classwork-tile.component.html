@@ -1,8 +1,10 @@
 <mat-card class="example-card">
   <!-- <img mat-card-image src="https://source.unsplash.com/1600x900/?classroom,education,study" alt="Tech Image"> -->
   <mat-card-header>
-    <mat-card-title style="font-size: medium;">Statistical Analysis Of Baal</mat-card-title>
-    <mat-card-subtitle>Assignment</mat-card-subtitle>
+    <mat-card-title style="font-size: medium;">
+      {{ classwork.task_type === 'assignment'? 'Assignment': 'Term Test' }}
+    </mat-card-title>
+    <!-- <mat-card-subtitle>Assignment</mat-card-subtitle> -->
   </mat-card-header>
   <mat-card-content>
 

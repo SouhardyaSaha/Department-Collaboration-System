@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   FileSystemDirectoryEntry,
   FileSystemFileEntry,
   NgxFileDropEntry,
 } from 'ngx-file-drop';
+import {
+  Classwork,
+  ClassworkResponseBody,
+} from 'src/app/teacher/classroom/models/classwork.model';
 
 @Component({
   selector: 'app-classroom-classwork-details',
@@ -11,9 +16,12 @@ import {
   styleUrls: ['./classroom-classwork-details.component.css'],
 })
 export class ClassroomClassworkDetailsComponent implements OnInit {
-  constructor() {}
+  classwork: Classwork;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   isStudent: boolean = true;
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.classwork = this.data.classwork;
+  }
 
   public files: NgxFileDropEntry[] = [];
 

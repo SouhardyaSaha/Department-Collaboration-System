@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Comment } from 'src/app/teacher/classroom/models/comment.model';
+import { ClassroomGeneralService } from '../../classroom-general.service';
 
 @Component({
   selector: 'app-classroom-post-comment',
@@ -7,8 +11,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassroomPostCommentComponent implements OnInit {
   commentPanelOpenState: boolean = false;
+  @Input() comments: Comment[];
+  @Input() postId: number;
+  classroomId: number;
+  content: FormControl;
+  isLoading: boolean = false;
+  constructor(
+    private classroomGeneralService: ClassroomGeneralService,
+    private route: ActivatedRoute,
+  ) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    this.classroomId = this.route.snapshot.params['id'];
+    let content = '';
+    // console.log('comments', this.comments);
+    this.content = new FormControl(content, Validators.required);
+  }
 
-  ngOnInit(): void {}
+  onAddComment() {
+    // console.log(this.content.value);
+    let comment = this.content.value;
+    if (comment === '') return;
+    this.classroomGeneralService
+      .addPostComment(this.classroomId, this.postId, { content: comment })
+      .subscribe(
+        res => {
+          this.isLoading = true;
+          console.log(res);
+          location.reload();
+        },
+        err => {
+          this.isLoading = false;
+          console.log(err);
+        },
+      );
+  }
 }
