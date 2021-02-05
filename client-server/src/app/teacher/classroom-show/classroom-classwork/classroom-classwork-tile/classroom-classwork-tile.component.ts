@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Classwork } from 'src/app/teacher/classroom/models/classwork.model';
 import { ClassroomClassworkDetailsComponent } from '../classroom-classwork-details/classroom-classwork-details.component';
 import {} from '../classroom-classwork.component';
 
@@ -11,7 +12,7 @@ import {} from '../classroom-classwork.component';
 })
 export class ClassroomClassworkTileComponent implements OnInit {
   constructor(public classworkDetailsDialog: MatDialog) {}
-
+  @Input() classwork: Classwork;
   ngOnInit(): void {}
 
   onClassworkDetailsDialogOpen() {
@@ -19,6 +20,9 @@ export class ClassroomClassworkTileComponent implements OnInit {
       maxWidth: '90%',
       width: '700px',
       disableClose: true,
+      data: {
+        classwork: this.classwork,
+      },
     };
 
     const dialogRef = this.classworkDetailsDialog.open(

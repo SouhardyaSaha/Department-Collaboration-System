@@ -2,29 +2,21 @@
 <mat-dialog-content class="mat-typography">
   <div class="row">
     <div class="col-md-4 col-sm-12">
-      <span class="font-weight-bold mr-1">Type:</span> Assignment
+      <span class="font-weight-bold mr-1">Type:</span>
+      {{ classwork.task_type === 'assignment'? 'Assignment': 'Term Test' }}
     </div>
     <div class="col-md-4 col-sm-12 text-md-center">
-      <span class="font-weight-bold mr-1">Deadline:</span> 30 June, 2017
+      <span class="font-weight-bold mr-1">Deadline:</span>
+      {{ classwork.deadlineDate|date:'short' }}
     </div>
     <div class="col-md-4 col-sm-12 text-md-right">
-      <span class="font-weight-bold mr-1">Total Marks:</span> 30
+      <span class="font-weight-bold mr-1">Total Marks:</span>
+      {{ classwork.total_marks }}
     </div>
   </div>
   <br>
   <p class="mt-2 text-justify">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae fuga fugiat, laborum modi dicta totam iure veniam
-    eligendi est optio, quasi beatae provident ullam! Inventore nobis ex accusamus sint a. Lorem ipsum dolor sit, amet
-    consectetur adipisicing elit. Ex praesentium, quisquam ipsum repellat pariatur totam earum reiciendis laborum ea
-    alias fugit enim tenetur sapiente sed ducimus magnam aliquid officiis quia. Lorem ipsum dolor sit amet consectetur
-    adipisicing elit. Vitae fuga fugiat, laborum modi dicta totam iure veniam
-    eligendi est optio, quasi beatae provident ullam! Inventore nobis ex accusamus sint a. Lorem ipsum dolor sit, amet
-    consectetur adipisicing elit. Ex praesentium, quisquam ipsum repellat pariatur totam earum reiciendis laborum ea
-    alias fugit enim tenetur sapiente sed ducimus magnam aliquid officiis quia.Lorem ipsum dolor sit amet consectetur
-    adipisicing elit. Vitae fuga fugiat, laborum modi dicta totam iure veniam
-    eligendi est optio, quasi beatae provident ullam! Inventore nobis ex accusamus sint a. Lorem ipsum dolor sit, amet
-    consectetur adipisicing elit. Ex praesentium, quisquam ipsum repellat pariatur totam earum reiciendis laborum ea
-    alias fugit enim tenetur sapiente sed ducimus magnam aliquid officiis qui
+    {{ classwork.details }}
   </p>
 
   <ng-container *ngIf="isStudent">

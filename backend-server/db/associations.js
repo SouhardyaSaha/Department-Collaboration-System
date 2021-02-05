@@ -7,7 +7,7 @@ const User = require("../models/user")
 const Teacher = require("../models/teacher")
 const Attendance = require("../models/attendance")
 const Post = require("../models/post")
-const Assignment = require("../models/assignment")
+const Classwork = require("../models/classwork")
 const Comment = require("../models/comment")
 
 // User Relations
@@ -32,12 +32,9 @@ Classroom.belongsTo(Teacher, { foreignKey: { allowNull: false } })
 Student.belongsToMany(Classroom, { through: 'classroom_student' })
 Classroom.belongsToMany(Student, { through: 'classroom_student' })
 
-// Relation between classroom  and classroom assignments
-Classroom.hasMany(Assignment, { foreignKey: { allowNull: false } })
-Assignment.belongsTo(Classroom, { foreignKey: { allowNull: false } })
-
-Student.hasMany(Assignment, { foreignKey: { allowNull: false } })
-Assignment.belongsTo(Student, { foreignKey: { allowNull: false } })
+// Relation between classroom  and classwork
+Classroom.hasMany(Classwork, { foreignKey: { allowNull: false } })
+Classwork.belongsTo(Classroom, { foreignKey: { allowNull: false } })
 
 // Relation between classroom  and classroom posts
 Classroom.hasMany(Post, { foreignKey: { allowNull: false } })
@@ -59,11 +56,11 @@ Student.belongsTo(Session, { foreignKey: { allowNull: false } })
 
 // Relation between Attendance & Student
 Student.hasMany(Attendance, { foreignKey: { allowNull: false } })
-Attendance.belongsTo(Student,{foreignKey: { allowNull: false } })
+Attendance.belongsTo(Student, { foreignKey: { allowNull: false } })
 
 // Relation between Attendance & Class
 Classroom.hasMany(Attendance, { foreignKey: { allowNull: false } })
-Attendance.belongsTo(Classroom,{foreignKey: { allowNull: false } })
+Attendance.belongsTo(Classroom, { foreignKey: { allowNull: false } })
 // Class.hasMany(Attendance, { foreignKey: { allowNull: false } })
 // Attendance.belongsTo(Class,{foreignKey: { allowNull: false } })
 // Attendance.hasMany(Student, { foreignKey: { allowNull: false } })

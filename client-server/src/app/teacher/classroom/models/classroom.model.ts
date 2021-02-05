@@ -1,3 +1,4 @@
+import { Classwork } from './classwork.model';
 import { Course } from './course.model';
 import { Post } from './post.model';
 
@@ -29,6 +30,7 @@ export interface Classroom {
   teacher: Teacher;
   students?: Student[];
   posts?: Post[];
+  classworks?: Classwork[];
 }
 
 export interface SingleClassroomResponseBody {
