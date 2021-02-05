@@ -23,7 +23,6 @@ import { AttendanceFormComponent } from './attendance-taker/attendance-form/atte
 import { AttendanceListComponent } from './attendance-taker/attendance-list/attendance-list.component';
 import { AllAttendanceComponent } from './attendance-taker/all-attendance/all-attendance.component';
 import { IndividualAttendanceComponent } from './attendance-taker/individual-attendance/individual-attendance.component';
-
 @NgModule({
   declarations: [
     AppComponent,

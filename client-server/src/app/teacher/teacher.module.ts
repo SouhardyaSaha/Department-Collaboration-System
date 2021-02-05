@@ -25,7 +25,7 @@ import {
   NgxMatTimepickerModule,
 } from '@angular-material-components/datetime-picker';
 import { ClassroomClassworkDetailsComponent } from './classroom-show/classroom-classwork/classroom-classwork-details/classroom-classwork-details.component';
-
+import { ClassListComponent } from './home/class-list/class-list.component';
 @NgModule({
   declarations: [
     TeacherComponent,
@@ -43,6 +43,7 @@ import { ClassroomClassworkDetailsComponent } from './classroom-show/classroom-c
     ClassroomClassworkTileComponent,
     ClassworkEditComponent,
     ClassroomClassworkDetailsComponent,
+    ClassListComponent,
   ],
   imports: [
     CommonModule,

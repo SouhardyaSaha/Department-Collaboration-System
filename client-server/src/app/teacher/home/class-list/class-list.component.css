@@ -1,0 +1,24 @@
+.example-container {
+  margin-top: 10px;
+  background-color: #f0f3fb;
+  height: 400px;
+  overflow: auto;
+  width: 100%;
+  border-radius: 6px;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+table {
+  width: 100%;
+  border-radius: 6px;
+}
+th {
+  background-color: lightgray;
+}
+.header {
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+}
