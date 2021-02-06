@@ -352,7 +352,9 @@ export class RoutineGeneratorComponent implements OnInit {
       if (initialcols < 0) {
         initialcols = 0;
       }
-      this.tiles.push({ text: '', cols: initialcols, rows: 1, color: '' });
+      if (initialcols != 0)
+        this.tiles.push({ text: '', cols: initialcols, rows: 1, color: '' });
+      console.log(v, this.tiles);
     }
 
     // console.log(this.tiles);

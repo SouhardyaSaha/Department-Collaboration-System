@@ -1,0 +1,25 @@
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 30px 8px 0;
+  /* text-align: center; */
+}
+
+.student-container {
+  position: relative;
+  /* min-height: 500px; */
+}
+
+.student-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.user_avatar {
+  height: 50px;
+  width: 50px;
+  border: 7px solid #f5f6fa;
+}
