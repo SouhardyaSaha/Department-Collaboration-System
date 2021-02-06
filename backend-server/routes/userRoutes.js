@@ -7,8 +7,13 @@ const {
   getUserProfile,
   login,
   logout,
+  sendInvitation,
+  signUpByInvitation
 } = require('../controllers/userController');
 const { protect } = require('../middlewares/protect');
+const { protectUserRegistration } = require('../middlewares/protectUserRegistration');
+const User = require('../models/user');
+const catchAsync = require('../utils/catchAsync');
 
 // Importing the express router
 const userRouter = require('express').Router();
@@ -17,6 +22,12 @@ const userRouter = require('express').Router();
 userRouter.route('/')
   .get(protect, getUsers)
   .post(signUp);
+
+userRouter.route('/invite')
+  .post(sendInvitation)
+
+userRouter.route('/register/:token')
+  .post(protectUserRegistration, signUpByInvitation)
 
 userRouter.route('/login')
   .post(login);

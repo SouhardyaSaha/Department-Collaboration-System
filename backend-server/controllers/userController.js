@@ -10,6 +10,73 @@ const User = require('../models/user');
 const sequelize = require('../db/config');
 const Teacher = require('../models/teacher');
 const Student = require('../models/student');
+const sendEmail = require('../mail/sendEmail');
+
+const sendInvitation = catchAsync(async (req, res, next) => {
+  const { role, sessionId } = req.body
+  req.body.emails.forEach(email => {
+
+    let token = jwt.sign(
+      { email, role, sessionId },
+      process.env.JWT_USER_REGISTRATION_SECRET,
+      {
+        expiresIn: process.env.JWT_USER_REGISTRATION_EXPIRES_IN,
+      }
+    );
+
+    let url = `http://localhost:4200/auth/register/${token}/${role}`
+    let html = `
+      <a href="${url}">Click Here</a>
+      <br>
+      ${token}
+    `
+    sendEmail(email, 'Invitation to Join', html)
+  });
+
+  res.json({
+    status: 'success'
+  })
+})
+
+const signUpByInvitation = catchAsync(async (req, res, next) => {
+  let { profile } = req.body
+  const { name, password } = req.body
+  const { email, role, sessionId } = req.reg_data
+
+  const existingEmail = (await User.count({ where: { email } })) === 1
+  if (existingEmail) {
+    return next(new AppError('Email Already in use', 409))
+  }
+
+  profile = {
+    ...profile,
+    sessionId,
+  }
+  const createdUser = await sequelize.transaction(async (t) => {
+    const user = await User.create({ name, password, email, role }, { transaction: t });
+    // Creating role profile
+    switch (role) {
+      case roles.Admin:
+        await user.createAdmin(profile, { transaction: t })
+        break;
+      case roles.Student:
+        await user.createStudent(profile, { transaction: t })
+        break;
+      case roles.Teacher:
+        await user.createTeacher(profile, { transaction: t })
+        break;
+
+      default:
+        break;
+    }
+
+    return user
+  })
+  // console.log(createdUser);
+
+  // const role_data = await getRoleProfile(user)
+  sendToken({ user: createdUser }, 201, res);
+});
 
 // Function to get all users
 const getUsers = catchAsync(async (req, res, next) => {
@@ -157,4 +224,4 @@ const sendToken = (data, statusCode, res) => {
 
 // }
 
-module.exports = { signUp, getUsers, getUserProfile, login, logout };
+module.exports = { signUp, getUsers, getUserProfile, login, logout, sendInvitation, signUpByInvitation };

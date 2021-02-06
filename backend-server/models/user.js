@@ -41,7 +41,6 @@ const User = sequelize.define('user', {
     role: {
         type: DataTypes.STRING,
         values: ['teacher', 'student', 'admin'],
-        defaultValue: 'student'
     }
 });
 
