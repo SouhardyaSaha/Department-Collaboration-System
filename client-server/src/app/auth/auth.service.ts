@@ -7,81 +7,72 @@ import {
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
-import { User } from './user.model';
+import {
+  AuthResponseData,
+  LoginBody,
+  RegistrationBody,
+  User,
+} from './user.model';
 import { Router } from '@angular/router';
-
-export interface Credentials {
-  email: string;
-  password: string;
-}
-
-export interface AuthResponseData {
-  data: {
-    user: {
-      email: string;
-      createdAt: string;
-      updatedAt: string;
-      id: string;
-    };
-  };
-}
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseURL = `http://localhost:3000`;
+  private baseURL = environment.serverURL;
   user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  signUp(credentials: Credentials) {
-    return (
-      this.http
-        // .post<AuthResponseData>(`${this.baseURL}/users`, credentials)
-        .post<AuthResponseData>(`${this.baseURL}/users`, credentials)
-        .pipe(
-          tap(res => {
-            console.log(res);
-            const user = res.data.user;
+  signUp(registrationBody: RegistrationBody, token: string) {
+    return this.http
+      .post<AuthResponseData>(
+        `${this.baseURL}/users/register/${token}`,
+        registrationBody,
+      )
+      .pipe(
+        tap(res => {
+          console.log(res);
+          const user = res.data.user;
 
-            this.handleAuthenticatedUser(
-              user.email,
-              user.id,
-              user.createdAt,
-              user.updatedAt,
-            );
-          }),
-          catchError(this.handleError),
-        )
-    );
+          this.handleAuthenticatedUser(
+            user.id,
+            user.name,
+            user.email,
+            user.createdAt,
+            user.updatedAt,
+            user.role,
+          );
+        }),
+        catchError(this.handleError),
+      );
   }
 
-  logIn(credentials: Credentials) {
-    return (
-      this.http
-        // .post<AuthResponseData>(`${this.baseURL}/users/login`, credentials)
-        .post<AuthResponseData>(`${this.baseURL}/users/login`, credentials)
-        .pipe(
-          tap(res => {
-            console.log(res);
-            const user = res.data.user;
+  logIn(loginBody: LoginBody) {
+    return this.http
+      .post<AuthResponseData>(`${this.baseURL}/users/login`, loginBody)
+      .pipe(
+        tap(res => {
+          console.log(res);
+          const user = res.data.user;
 
-            this.handleAuthenticatedUser(
-              user.email,
-              user.id,
-              user.createdAt,
-              user.updatedAt,
-            );
-          }),
-          catchError(this.handleError),
-        )
-    );
+          this.handleAuthenticatedUser(
+            user.id,
+            user.name,
+            user.email,
+            user.createdAt,
+            user.updatedAt,
+            user.role,
+          );
+        }),
+        catchError(this.handleError),
+      );
   }
 
   logout() {
     this.http.post(`${this.baseURL}/users/logout`, {}).subscribe(
       response => {
         console.log(response);
-        
+
         this.user.next(null);
         this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
@@ -91,14 +82,23 @@ export class AuthService {
   }
 
   private handleAuthenticatedUser(
+    userId: number,
+    name: string,
     email: string,
-    userId: string,
     createdAt: string,
     updatedAt: string,
+    role: string,
   ) {
     const firstCreatedAt = new Date(createdAt);
     const lastEditedAt = new Date(updatedAt);
-    const user = new User(email, userId, firstCreatedAt, lastEditedAt);
+    const user = new User(
+      userId,
+      name,
+      email,
+      firstCreatedAt,
+      lastEditedAt,
+      role,
+    );
 
     localStorage.setItem('userData', JSON.stringify(user));
 

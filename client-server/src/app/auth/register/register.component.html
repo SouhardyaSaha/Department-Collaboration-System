@@ -1,0 +1,84 @@
+<div class="row">
+  <mat-card class="login-card mx-auto p-4">
+    <ng-template #loader>
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </ng-template>
+    <ng-container *ngIf="!isLoading;else loader">
+      <mat-card-header>
+        <div class="mx-auto">
+          <mat-card-title>Registration</mat-card-title>
+        </div>
+      </mat-card-header>
+      <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput [formControlName]="'name'">
+            <mat-error *ngIf="authenticationForm.get('name').hasError('required')">
+              Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [formControlName]="'email'" placeholder="Ex. pat@example.com">
+            <mat-error
+              *ngIf="authenticationForm.get('email').hasError('email') && !authenticationForm.get('email').hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="authenticationForm.get('email').hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field> -->
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [formControlName]="'password'">
+            <mat-error *ngIf="authenticationForm.get('password').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput [formControlName]="'confirm_password'" [errorStateMatcher]="errorMatcher">
+            <mat-error *ngIf="authenticationForm.hasError('misMatch')">
+              Passwords don't <strong>match</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <ng-container *ngIf="isTeacher">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Designation</mat-label>
+              <mat-select [formControlName]="'designation'">
+                <mat-option *ngFor="let designation of designations" [value]="designation">
+                  <span class="text-uppercase">{{designation}}</span>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="authenticationForm.get('designation').hasError('required')">
+                Designation is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </ng-container>
+
+          <ng-container *ngIf="!isTeacher">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Registration</mat-label>
+              <input matInput [formControlName]="'registration'" placeholder="Ex. pat@example.com">
+              <mat-error *ngIf="authenticationForm.get('registration').hasError('required')">
+                Registration is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </ng-container>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button [disabled]="authenticationForm.invalid" type="submit" mat-raised-button color="primary">
+            Register
+          </button>
+        </mat-card-actions>
+      </form>
+    </ng-container>
+  </mat-card>
+</div>

@@ -6,8 +6,19 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: AuthComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      isRegisterMode: false,
+    },
+  },
+  {
+    path: 'register/:token/:role',
+    component: AuthComponent,
+    data: {
+      isRegisterMode: true,
+    },
   },
 ];
 
