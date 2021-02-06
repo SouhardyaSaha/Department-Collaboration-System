@@ -1,10 +1,10 @@
 <div class="container">
-  <mat-card>
+  <!-- <mat-card>
     <div fxLayout="row" fxLayoutGap="10">
         <div fxFlex="30%" fxLayoutAlign="center center">
             <mat-card-content>
                 <img src="https://www.freepnglogos.com/uploads/teacher-png/teacher-profiles-four-types-teachers-the-games-project-21.png"
-                    alt="Welcome Image" class="img-fluid" style=" height: 220px;">
+                    alt="Welcome Image" class="img-fluid" style=" max-height: 220px;">
             </mat-card-content>
         </div>
         <div fxFlex="70%" fxLayoutAlign="center center">
@@ -18,7 +18,28 @@
             </mat-card-content>
         </div>
     </div>
+  </mat-card> -->
+  <mat-card>
+    <div class="row container">
+      <div class="col-md-4 col-sm-6">
+        <mat-card-content fxLayoutAlign="center center">
+          <img src="https://www.freepnglogos.com/uploads/teacher-png/teacher-profiles-four-types-teachers-the-games-project-21.png"
+              alt="Welcome Image" class="img-fluid" style=" max-height: 220px;">
+      </mat-card-content>
+      </div>
+      <div class="col-md-8 col-sm-6" fxLayoutAlign="center center">
+        <mat-card-content >
+          <div class="mat-headline">Welcome Back!</div>
+          <div class="mat-title" style="color: #007bff ;">{{User_Name}}</div>
+          <div class="mat-subheading-1">We would like to take this opportunity to welcome you to our practice and
+              to thank you for choosing our physicians to participate in your healthcare. We look forward to
+              providing you with personalized, comprehensive health care focusing on wellness and prevention.
+          </div>
+      </mat-card-content>
+      </div>
+    </div>
   </mat-card>
+
 <br>
   <div class="row">
     <div class="col-12">
@@ -39,7 +60,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
               <mat-card>
                   <mat-card-header>
-                      <div mat-card-avatar style="width:45%;height: 50px;">
+                      <div mat-card-avatar style="width:45%;max-height: 50px;">
                           <img src="https://media.istockphoto.com/vectors/group-of-students-vector-id910098436?k=6&m=910098436&s=612x612&w=0&h=ts1tIGl2J40iXoVrDAJHIIo1ah7uS9BotKx7qMQxeWg=" alt="Heart"
                               class="img-fluid">
                       </div>

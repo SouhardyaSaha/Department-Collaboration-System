@@ -1,0 +1,27 @@
+.container {
+  margin-top: 10px;
+  max-width: 90%;
+  width: 800px;
+}
+.mat-form-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.mat-raised-button {
+  margin-left: 5px;
+}
+.form-container {
+  width: 100%;
+  margin: 0 px auto;
+  margin-top: 200 px;
+}
+
+.form-field,
+.example-margin {
+  display: block;
+}
+
+.example-check_box-margin {
+  margin: 0 10px;
+}
