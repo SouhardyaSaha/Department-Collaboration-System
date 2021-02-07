@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { CourseModel } from '.././course.model';
 import { CourseService } from '.././course.service';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-course',
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class AddCourseComponent implements OnInit {
   sessionForm: FormGroup;
-  private courseSub: Subscription;
+  // private courseSub: Subscription;
   checked = false;
   semesters: string[] = [
     '1/1',
@@ -40,7 +40,7 @@ export class AddCourseComponent implements OnInit {
     });
   }
   ngOnDestroy() {
-    this.courseSub.unsubscribe();
+    // this.courseSub.unsubscribe();
   }
 
   submit() {

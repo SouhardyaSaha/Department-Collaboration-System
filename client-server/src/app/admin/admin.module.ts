@@ -10,6 +10,7 @@ import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { CoursesComponent } from './courses/courses.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CourseListComponent } from './courses/course-list/course-list.component';
+import { IndividualCourseComponent } from './courses/individual-course/individual-course.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CourseListComponent } from './courses/course-list/course-list.component
     AddCourseComponent,
     CoursesComponent,
     CourseListComponent,
+    IndividualCourseComponent,
   ],
   imports: [
     CommonModule,
