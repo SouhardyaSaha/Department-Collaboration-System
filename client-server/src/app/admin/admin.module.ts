@@ -5,14 +5,25 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material.module';
-
+import { AddCourseComponent } from './courses/add-course/add-course.component';
+// import { CoursesComponent } from './add-courses/courses.component';
+import { CoursesComponent } from './courses/courses.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CourseListComponent } from './courses/course-list/course-list.component';
 
 @NgModule({
-  declarations: [AdminComponent, HomeComponent],
+  declarations: [
+    AdminComponent,
+    HomeComponent,
+    AddCourseComponent,
+    CoursesComponent,
+    CourseListComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MaterialModule
-  ]
+    MaterialModule,
+    ReactiveFormsModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

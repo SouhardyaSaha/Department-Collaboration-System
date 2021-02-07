@@ -69,3 +69,7 @@ Attendance.belongsTo(Classroom, { foreignKey: { allowNull: false } })
 // Relation between Attendance & Class
 // Attendance.hasMany(Class, { foreignKey: { allowNull: false } })
 // Class.belongsTo(Attendance, { foreignKey: { allowNull: false } })
+
+// Relation between Course & Admin
+Admin.hasMany(Course,{foreignKey: {allowNull:false}})
+Course.belongsTo(Admin,{foreignKey:{allowNull:false}})

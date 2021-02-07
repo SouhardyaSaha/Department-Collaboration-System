@@ -41,7 +41,31 @@
               <mat-icon>library_books</mat-icon>
               &nbsp; &nbsp; Add Courses
           </a>
+           <!--  -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header >
+        <mat-panel-title>
+          <mat-icon>library_books</mat-icon>
+                &nbsp; &nbsp; Courses
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a mat-list-item [routerLink]="['/admin/courses']" routerLinkActive="active">
+              <mat-icon>library_books</mat-icon>
+              &nbsp; &nbsp; Add Courses
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item [routerLink]="['/admin/courses']" routerLinkActive="active">
+            <mat-icon>library_books</mat-icon>
+            &nbsp; &nbsp; Add Courses
+        </a>
           </mat-nav-list>
+
+  </mat-expansion-panel>
+          </mat-nav-list>
+
+
       </mat-sidenav>
 
       <mat-sidenav-content>

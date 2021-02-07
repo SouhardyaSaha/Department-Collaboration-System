@@ -124,7 +124,7 @@ export class RoutineGeneratorComponent implements OnInit {
     if (!this.routineForm.valid) {
       return;
     }
-    // console.log(this.routineForm.value);
+    // console.log(this.routineForm.valid);
     // this.routineData.id = 1;
     let i = 0;
     let daysString = '';

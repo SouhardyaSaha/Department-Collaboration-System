@@ -6,7 +6,8 @@ import { AddTeacherComponent } from './add-teacher/add-teacher.component';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { AddUsersComponent } from './add-users/add-users.component';
 import { AddSessionsComponent } from './add-sessions/add-sessions.component';
-import { AddCoursesComponent } from './add-courses/add-courses.component';
+// import { CoursesComponent } from './add-courses/courses.component';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,7 @@ const routes: Routes = [
       },
       {
         path: 'courses',
-        component: AddCoursesComponent,
+        component: CoursesComponent,
       },
     ],
   },

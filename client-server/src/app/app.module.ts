@@ -29,7 +29,7 @@ import { TeacherListComponent } from './admin/add-teacher/teacher-list/teacher-l
 import { StudentListComponent } from './admin/add-student/student-list/student-list.component';
 import { AddUsersComponent } from './admin/add-users/add-users.component';
 import { AddSessionsComponent } from './admin/add-sessions/add-sessions.component';
-import { AddCoursesComponent } from './admin/add-courses/add-courses.component';
+// import { AddCoursesComponent } from './admin/add-courses/add-courses.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +48,7 @@ import { AddCoursesComponent } from './admin/add-courses/add-courses.component';
     StudentListComponent,
     AddUsersComponent,
     AddSessionsComponent,
-    AddCoursesComponent,
+    // AddCoursesComponent,
   ],
   imports: [
     BrowserModule,
