@@ -17,7 +17,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        component: HomeComponent,
+        redirectTo: '/admin/home',
       },
       {
         path: 'home',

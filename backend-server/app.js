@@ -2,6 +2,7 @@
 
 // Imports
 const express = require('express');
+const path = require('path')
 const helmet = require('helmet');
 const morgan = require('morgan');
 const router = require('./routes');
@@ -29,7 +30,9 @@ app.use(compression());
 
 // Parsing JSON and Cookies
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
+app.use('/files', express.static(path.join(__dirname, 'public/storage/files')))
 
 // Prevent XSS attacks
 app.use(xssClean());

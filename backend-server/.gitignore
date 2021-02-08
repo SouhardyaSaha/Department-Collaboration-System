@@ -105,3 +105,6 @@ dist
 .tern-port
  
  db/config.js
+
+ 
+public/storage/files/*

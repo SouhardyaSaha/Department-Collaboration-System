@@ -5,6 +5,7 @@
 const { createPost, getPosts } = require('../controllers/postController');
 const { protect } = require('../middlewares/protect');
 const { createComment, getComments } = require('../controllers/commentController');
+const upload = require('../middlewares/fileUploader');
 
 // Importing the express router
 const postRouter = require('express').Router({ mergeParams: true });
@@ -13,7 +14,8 @@ const postRouter = require('express').Router({ mergeParams: true });
 // Setting up the routes
 postRouter.route('/')
     .get(protect, getPosts)
-    .post(protect, createPost)
+    .post(protect, upload.array('files', 10), createPost)
+// upload.array('files', 10),
 
 // postRouter.route('/:postId').delete().patch()
 
