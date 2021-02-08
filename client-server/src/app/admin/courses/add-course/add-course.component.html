@@ -1,0 +1,54 @@
+
+<h2 mat-dialog-title >Add Course <button class="float-right" mat-icon-button  mat-dialog-close><mat-icon>close</mat-icon></button></h2>
+
+<mat-dialog-content class="mat-typography" >
+<div class="container" >
+
+      <div class="form-container" >
+        <form [formGroup]="sessionForm" (ngSubmit)="submit()" #formDirective="ngForm" >
+
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Course Title</mat-label>
+            <input matInput formControlName="courseTitle" placeholder="Ex. CSE 350" required>
+            <mat-error>
+              <span *ngIf="sessionForm.controls.courseTitle.errors?.required">This field is mandatory.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- <pre>{{sessionForm.get('courseTitle').valid}}</pre> -->
+
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Credit</mat-label>
+            <input matInput formControlName="credit" placeholder="Ex. 3" required>
+          </mat-form-field>
+          <!-- <pre>{{sessionForm.get('credit').valid}}</pre> -->
+
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Select Sessions</mat-label>
+            <mat-select formControlName="session" required>
+              <mat-option *ngFor="let semester of semesters" value="{{semester}}">{{semester}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- <pre>{{sessionForm.get('session').valid}}</pre> -->
+          <mat-checkbox class="example-margin" formControlName="optional">Optional Course</mat-checkbox>
+
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Details</mat-label>
+            <textarea formControlName="details" matInput rows="15" required></textarea>
+          </mat-form-field>
+          <!-- <pre>{{sessionForm.get('details').valid}}</pre> -->
+          <!-- <pre>{{sessionForm.get('optional').valid}}</pre> -->
+
+
+        </form>
+      </div>
+
+
+</div>
+<br>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" type="button" (click) = "submit()" mat-dialog-close [disabled]="sessionForm.invalid">Add Course</button>
+  <!-- [disabled]="routineForm.invalid" -->
+  <button mat-raised-button color="warn" type="button" (click)="clearForm()">RESET</button>
+</mat-dialog-actions>

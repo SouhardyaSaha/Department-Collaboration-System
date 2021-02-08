@@ -23,6 +23,13 @@ import { AttendanceFormComponent } from './attendance-taker/attendance-form/atte
 import { AttendanceListComponent } from './attendance-taker/attendance-list/attendance-list.component';
 import { AllAttendanceComponent } from './attendance-taker/all-attendance/all-attendance.component';
 import { IndividualAttendanceComponent } from './attendance-taker/individual-attendance/individual-attendance.component';
+import { AddTeacherComponent } from './admin/add-teacher/add-teacher.component';
+import { AddStudentComponent } from './admin/add-student/add-student.component';
+import { TeacherListComponent } from './admin/add-teacher/teacher-list/teacher-list.component';
+import { StudentListComponent } from './admin/add-student/student-list/student-list.component';
+import { AddUsersComponent } from './admin/add-users/add-users.component';
+import { AddSessionsComponent } from './admin/add-sessions/add-sessions.component';
+// import { AddCoursesComponent } from './admin/add-courses/add-courses.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +42,13 @@ import { IndividualAttendanceComponent } from './attendance-taker/individual-att
     AttendanceListComponent,
     AllAttendanceComponent,
     IndividualAttendanceComponent,
+    AddTeacherComponent,
+    AddStudentComponent,
+    TeacherListComponent,
+    StudentListComponent,
+    AddUsersComponent,
+    AddSessionsComponent,
+    // AddCoursesComponent,
   ],
   imports: [
     BrowserModule,

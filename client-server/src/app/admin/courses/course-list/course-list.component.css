@@ -1,0 +1,63 @@
+h2 {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgb(216, 214, 214);
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+h2 span {
+  background: #fff;
+  padding: 0 10px;
+}
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+  /* text-align: center; */
+}
+th {
+  background-color: #f7fff7;
+  /* text-align: center; */
+}
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+.mat-column-courseTitle {
+  /* background-color: rgb(130, 130, 233); */
+  text-align: center;
+  width: 20%;
+}
+.mat-column-session {
+  /* background-color: rgb(200, 200, 212); */
+  width: 20%;
+  text-align: center;
+}
+.mat-column-credit {
+  /* background-color: rgb(28, 28, 51); */
+  width: 20%;
+  text-align: center;
+}
+.mat-column-isOptional {
+  /* background-color: rgb(200, 200, 212); */
+  text-align: center;
+  width: 20%;
+}
+.mat-column-actions {
+  /* background-color: blue; */
+  text-align: center;
+}
+.mat-mini-fab {
+  margin-left: 5px;
+  /* display: block; */
+  /* padding: 50px; */
+}

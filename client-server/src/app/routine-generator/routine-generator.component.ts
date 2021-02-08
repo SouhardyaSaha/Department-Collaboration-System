@@ -30,6 +30,11 @@ export interface TestRoutine {
   time: string;
   id: number;
 }
+export interface CheckConflictR {
+  startTime: string;
+  endTime: string;
+  id: number;
+}
 
 const ELEMENT_DATA: PeriodicElement[] = [
   { position1: 'SUN' },
@@ -119,7 +124,7 @@ export class RoutineGeneratorComponent implements OnInit {
     if (!this.routineForm.valid) {
       return;
     }
-    // console.log(this.routineForm.value);
+    // console.log(this.routineForm.valid);
     // this.routineData.id = 1;
     let i = 0;
     let daysString = '';
@@ -142,10 +147,77 @@ export class RoutineGeneratorComponent implements OnInit {
       roomNum: this.routineForm.value.roomNum,
     };
 
+    //Check Conflict
+    // console.log(routineData1);
+    let isConflict = false;
+    let unsortedArray: CheckConflictR[][] = [[], [], [], [], []];
+    let index = 0;
+    for (let i = 0; i < 5; i++) {
+      if (routineData1.booldays[i] == 'T') {
+        unsortedArray[i].push({
+          startTime: routineData1.startTime,
+          endTime: routineData1.endTime,
+          id: index,
+        });
+      }
+    }
+    for (let routine of this.routineList) {
+      for (let i = 0; i < 5; i++) {
+        if (routine.booldays[i] == 'T') {
+          unsortedArray[i].push({
+            startTime: routine.startTime,
+            endTime: routine.endTime,
+            id: index,
+          });
+        }
+      }
+      index++;
+    }
+    let sortedArray: CheckConflictR[][] = [[], [], [], [], []];
+    for (let i = 0; i < 5; i++) {
+      sortedArray[i] = unsortedArray[i].sort((obj1, obj2) => {
+        if (
+          this.stringToInt(obj1.startTime) > this.stringToInt(obj2.startTime)
+        ) {
+          return 1;
+        }
+        if (
+          this.stringToInt(obj1.startTime) < this.stringToInt(obj2.startTime)
+        ) {
+          return -1;
+        }
+
+        return 0;
+      });
+    }
+    // console.log('From SA1');
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(sortedArray[i]);
+    // }
+    for (let i = 0; i < 5; i++) {
+      let size = sortedArray[i].length;
+      for (let j = 0; j < size - 1; j++) {
+        if (
+          this.stringToInt(sortedArray[i][j].endTime) >
+          this.stringToInt(sortedArray[i][j + 1].startTime)
+        ) {
+          isConflict = true;
+          break;
+        }
+      }
+    }
+
     if (!this.isValid) {
       this.sweetAlert(
         'Cancelled',
-        'Please select week days to add a course:)',
+        'Please select a valid week days to add a course :)',
+        'error',
+      );
+    }
+    if (isConflict) {
+      this.sweetAlert(
+        'Cancelled',
+        'Please select a free time schedule :)',
         'error',
       );
     } else {
@@ -172,14 +244,17 @@ export class RoutineGeneratorComponent implements OnInit {
       { name: 'WED', completed: false },
       { name: 'THU', completed: false },
     ];
-    this.routineForm = this.formBuilder.group({
-      courseTitle: '',
-      instructorName: '',
-      booldays: [[false, false, false, false, false]],
-      startTime: '12:00 PM',
-      endTime: '1:00 PM',
-      roomNum: '',
-    });
+    this.routineForm = this.formBuilder.group(
+      {
+        courseTitle: '',
+        instructorName: '',
+        booldays: [[false, false, false, false, false]],
+        startTime: '12:00 PM',
+        endTime: '1:00 PM',
+        roomNum: '',
+      },
+      { validator: TimeValidator },
+    );
   }
   onAddItem() {
     // console.log('Add');
@@ -208,7 +283,7 @@ export class RoutineGeneratorComponent implements OnInit {
     this.isValid = true;
 
     const edTime = this.stringToInt(event);
-    console.log(edTime);
+    // console.log(edTime);
     if (edTime > 17) {
       this.isValid = false;
     }
@@ -273,8 +348,8 @@ export class RoutineGeneratorComponent implements OnInit {
         return 0;
       });
     }
-    // for(let i = 0;i<5;i++)
-    // {
+    // console.log('From SA');
+    // for (let i = 0; i < 5; i++) {
     //   console.log(sortedArray[i]);
     // }
 
@@ -354,7 +429,7 @@ export class RoutineGeneratorComponent implements OnInit {
       }
       if (initialcols != 0)
         this.tiles.push({ text: '', cols: initialcols, rows: 1, color: '' });
-      console.log(v, this.tiles);
+      // console.log(v, this.tiles);
     }
 
     // console.log(this.tiles);
