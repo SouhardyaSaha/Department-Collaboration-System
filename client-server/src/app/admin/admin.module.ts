@@ -5,14 +5,34 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material.module';
-
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddCoursesComponent } from './add-courses/add-courses.component';
+import { AddSessionsComponent } from './add-sessions/add-sessions.component';
+import { AddStudentComponent } from './add-student/add-student.component';
+import { StudentListComponent } from './add-student/student-list/student-list.component';
+import { AddTeacherComponent } from './add-teacher/add-teacher.component';
+import { TeacherListComponent } from './add-teacher/teacher-list/teacher-list.component';
+import { AddUsersComponent } from './add-users/add-users.component';
 
 @NgModule({
-  declarations: [AdminComponent, HomeComponent],
+  declarations: [
+    AdminComponent,
+    HomeComponent,
+    AddTeacherComponent,
+    AddStudentComponent,
+    TeacherListComponent,
+    StudentListComponent,
+    AddUsersComponent,
+    AddSessionsComponent,
+    AddCoursesComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MaterialModule
-  ]
+    MaterialModule,
+    ReactiveFormsModule,
+    NgxFileDropModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}
