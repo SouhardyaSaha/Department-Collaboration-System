@@ -107,4 +107,4 @@ dist
  db/config.js
 
  
-# public/storage/files/*
+public/storage/files/*
