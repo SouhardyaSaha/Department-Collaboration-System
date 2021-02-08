@@ -12,6 +12,7 @@ const Comment = require("../models/comment");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const Classwork = require("../models/classwork");
+const File = require("../models/file");
 
 const createClassroom = catchAsync(async (req, res, next) => {
 
@@ -136,6 +137,9 @@ const getClassroomById = catchAsync(async (req, res, next) => {
                         ['createdAt', 'desc']
                     ],
                     include: [
+                        {
+                            model: File
+                        },
                         {
                             model: User,
                             attributes: ['id', 'name', 'email']

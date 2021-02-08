@@ -9,6 +9,7 @@ const Attendance = require("../models/attendance")
 const Post = require("../models/post")
 const Classwork = require("../models/classwork")
 const Comment = require("../models/comment")
+const File = require("../models/file")
 
 // User Relations
 User.hasOne(Teacher, { foreignKey: { allowNull: false } })
@@ -42,6 +43,10 @@ Post.belongsTo(Classroom, { foreignKey: { allowNull: false } })
 
 User.hasMany(Post, { foreignKey: { allowNull: false } })
 Post.belongsTo(User, { foreignKey: { allowNull: false } })
+
+// Relation between post and file
+Post.hasMany(File)
+File.belongsTo(Post)
 
 // Relation between classroom posts and comments
 Post.hasMany(Comment, { foreignKey: { allowNull: false } })
