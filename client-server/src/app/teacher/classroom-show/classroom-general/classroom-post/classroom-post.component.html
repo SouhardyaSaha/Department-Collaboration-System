@@ -28,9 +28,27 @@
           {{ post.content }}
         </p>
         <mat-divider></mat-divider>
+        <br>
+        <mat-chip-list aria-label="Files">
+          <ng-container class="mb-3" *ngFor="let file of post.files">
+            <mat-chip *ngIf="file.is_image === '0'" (click)="goto(file.uri)" [selectable]="true" class="mr-2"
+              style="cursor: pointer;">
+              File
+            </mat-chip>
+          </ng-container>
+        </mat-chip-list>
+
+        <ng-container *ngFor="let file of post.files">
+          <img (click)="goto(file.uri)" *ngIf="file.is_image === '1'" [src]="file.uri"
+            class="img-fluid img-thumbnail mt-2" style="cursor: pointer; max-width: 33.33%;">
+        </ng-container>
+
+        <br>
+        <mat-divider></mat-divider>
       </mat-card-content>
 
-      <app-classroom-post-comment [comments]="post.comments" [postId]="post.id"></app-classroom-post-comment>
+      <app-classroom-post-comment [comments]="post.comments" [postId]="post.id">
+      </app-classroom-post-comment>
 
     </mat-card>
   </div>

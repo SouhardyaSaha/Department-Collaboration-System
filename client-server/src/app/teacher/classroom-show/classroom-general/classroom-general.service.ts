@@ -20,7 +20,13 @@ export class ClassroomGeneralService {
 
   addPost(classroomId: number, post: PostSubmitBody) {
     let url: string = `${this.baseURL}/classrooms/${classroomId}/posts`;
-    return this.http.post<PostResponseBody>(url, post);
+    const submitData: FormData = new FormData();
+    submitData.append('content', post.content);
+    post.files.forEach(file => {
+      submitData.append('files', file);
+    });
+    return this.http.post<PostResponseBody>(url, submitData);
+    // return this.http.post<PostResponseBody>(url, post);
   }
 
   addPostComment(

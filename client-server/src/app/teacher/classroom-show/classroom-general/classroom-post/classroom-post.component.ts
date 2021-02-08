@@ -10,4 +10,12 @@ export class ClassroomPostComponent implements OnInit {
   constructor() {}
   @Input() post: Post;
   ngOnInit(): void {}
+  goto(uri) {
+    window.open(
+      uri,
+      '_blank',
+      'location=yes,height=570,width=520,scrollbars=yes,status=yes',
+    );
+    // window.location.href = uri;
+  }
 }
