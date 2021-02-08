@@ -1,15 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Inject } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { CourseModel } from '../course.model';
 @Component({
   selector: 'app-individual-course',
   templateUrl: './individual-course.component.html',
-  styleUrls: ['./individual-course.component.css']
+  styleUrls: ['./individual-course.component.css'],
 })
 export class IndividualCourseComponent implements OnInit {
-
-  constructor() { }
+  individualCourse: CourseModel;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data,
+    public dialogRef: MatDialogRef<IndividualCourseComponent>,
+  ) {}
 
   ngOnInit(): void {
+    // console.log(this.data.courses[this.data.id]);
+    var dataFetched;
+    // this.individualCourse = this.data.courses[this.data.id];
+    for (let item of this.data.courses) {
+      if (item.id == this.data.id) {
+        dataFetched = item;
+        break;
+      }
+    }
+    // console.log(dataFetched);
+    this.individualCourse = {
+      admin_id: 1,
+      course_title: dataFetched.courseTitle,
+      credit: dataFetched.credit,
+      session: dataFetched.session,
+      details: 'details',
+      optional: dataFetched.isOptional,
+    };
   }
-
 }

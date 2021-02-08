@@ -6,6 +6,7 @@ import { IndividualCourseComponent } from '../individual-course/individual-cours
 import { MatSort } from '@angular/material/sort';
 
 export interface DataModel {
+  id: number;
   courseTitle: string;
   credit: string;
   session: string;
@@ -25,76 +26,66 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     'actions',
   ];
   dataSource: MatTableDataSource<DataModel>;
+  courses: DataModel[];
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    const users = Array.from([
+    this.courses = Array.from([
       {
+        id: 1,
         courseTitle: 'A',
         credit: '3',
         session: '1/1',
         isOptional: false,
       },
       {
+        id: 2,
         courseTitle: 'B',
         credit: '3',
         session: '1/2',
         isOptional: true,
       },
       {
+        id: 3,
         courseTitle: 'C',
         credit: '3',
         session: '2/1',
         isOptional: false,
       },
       {
+        id: 4,
         courseTitle: 'DA',
         credit: '3',
         session: '3/1',
         isOptional: false,
       },
       {
+        id: 5,
         courseTitle: 'AD',
         credit: '3',
         session: '4/1',
         isOptional: true,
       },
       {
+        id: 6,
         courseTitle: 'A',
         credit: '3',
         session: '1/1',
         isOptional: false,
       },
       {
+        id: 7,
         courseTitle: 'B',
         credit: '3',
         session: '1/2',
-        isOptional: true,
-      },
-      {
-        courseTitle: 'C',
-        credit: '3',
-        session: '2/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'DA',
-        credit: '3',
-        session: '3/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'AD',
-        credit: '3',
-        session: '4/1',
         isOptional: true,
       },
     ]);
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(this.courses);
   }
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -117,7 +108,11 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = false;
     dialogConfig.width = '60%';
-    dialogConfig.data = { message: 'Individual Form', id: id };
+    dialogConfig.data = {
+      message: 'Individual Form',
+      id: id,
+      courses: this.courses,
+    };
     this.dialog.open(IndividualCourseComponent, dialogConfig);
   }
 }
