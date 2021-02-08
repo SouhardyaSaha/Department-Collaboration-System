@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from 'src/app/teacher/classroom/models/post.model';
+import { FileBody, Post } from 'src/app/teacher/classroom/models/post.model';
 
 @Component({
   selector: 'app-classroom-post',
@@ -9,7 +9,15 @@ import { Post } from 'src/app/teacher/classroom/models/post.model';
 export class ClassroomPostComponent implements OnInit {
   constructor() {}
   @Input() post: Post;
-  ngOnInit(): void {}
+  files: FileBody[];
+  ngOnInit(): void {
+    this.files = [];
+    this.post.files.forEach(file => {
+      if (file.is_image === '0') {
+        this.files.push(file);
+      }
+    });
+  }
   goto(uri) {
     window.open(
       uri,

@@ -29,19 +29,28 @@
         </p>
         <mat-divider></mat-divider>
         <br>
-        <mat-chip-list aria-label="Files">
-          <ng-container class="mb-3" *ngFor="let file of post.files">
-            <mat-chip *ngIf="file.is_image === '0'" (click)="goto(file.uri)" [selectable]="true" class="mr-2"
+
+        <!-- <div class="row"> -->
+        <!-- <div class="col-12" *ngFor="let file of post.files"> -->
+        <mat-form-field *ngIf="files.length > 0" class="w-100">
+          <mat-chip-list aria-label="Files">
+            <mat-chip *ngFor="let file of files" (click)="goto(file.uri)" [selectable]="true" class="mr-2"
               style="cursor: pointer;">
               File
             </mat-chip>
-          </ng-container>
-        </mat-chip-list>
+          </mat-chip-list>
+        </mat-form-field>
 
-        <ng-container *ngFor="let file of post.files">
-          <img (click)="goto(file.uri)" *ngIf="file.is_image === '1'" [src]="file.uri"
-            class="img-fluid img-thumbnail mt-2" style="cursor: pointer; max-width: 33.33%;">
-        </ng-container>
+
+        <!-- </div>
+        </div> -->
+
+        <div class="row">
+          <div *ngFor="let file of post.files" class="col-4">
+            <img (click)="goto(file.uri)" *ngIf="file.is_image === '1'" [src]="file.uri"
+              class="img-fluid img-thumbnail mt-2" style="cursor: pointer; max-width: 100%;">
+          </div>
+        </div>
 
         <br>
         <mat-divider></mat-divider>
