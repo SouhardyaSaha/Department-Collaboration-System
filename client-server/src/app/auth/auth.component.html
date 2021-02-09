@@ -5,12 +5,13 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 align-self-center">
 
-      <ng-container *ngIf="!isRegistrationMode">
+      <!-- <ng-container *ngIf="!isRegistrationMode">
         <app-login></app-login>
       </ng-container>
       <ng-container *ngIf="isRegistrationMode">
         <app-register></app-register>
-      </ng-container>
+      </ng-container> -->
+      <router-outlet></router-outlet>
 
     </div>
   </div>
