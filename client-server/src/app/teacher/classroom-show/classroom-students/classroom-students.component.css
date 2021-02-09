@@ -23,3 +23,23 @@
   width: 50px;
   border: 7px solid #f5f6fa;
 }
+/* .mat-column-isPresent {
+  border-left: 1px solid grey;
+  align-self: stretch;
+  text-align: center;
+  padding: 10px;
+  width: auto;
+} */
+.mat-column-actions {
+  /* border-left: 1px solid grey; */
+  align-self: stretch;
+  text-align: center;
+  /* justify-content: space-between; */
+  padding: 0px;
+  width: 12%;
+}
+.mat-mini-fab {
+  margin-left: 5px;
+  /* display: block; */
+  /* padding: 50px; */
+}
