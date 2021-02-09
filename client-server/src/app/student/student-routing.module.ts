@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { StudentComponent } from './student.component';
+import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
+import { ClassRoutineComponent } from './class-routine/class-routine.component';
 
 const routes: Routes = [
   {
@@ -11,7 +13,21 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
+        redirectTo: '/teacher/home',
+      },
+      {
+        path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'classroom',
+        pathMatch: 'full',
+        component: ClassroomShowComponent,
+      },
+      {
+        path: 'routine',
+        pathMatch: 'full',
+        component: ClassRoutineComponent,
       },
     ],
   },
@@ -19,6 +35,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class StudentRoutingModule { }
+export class StudentRoutingModule {}
