@@ -10,6 +10,7 @@ const Post = require("../models/post")
 const Classwork = require("../models/classwork")
 const Comment = require("../models/comment")
 const File = require("../models/file")
+const Submission = require("../models/submission")
 
 // User Relations
 User.hasOne(Teacher, { foreignKey: { allowNull: false } })
@@ -48,6 +49,19 @@ Post.belongsTo(User, { foreignKey: { allowNull: false } })
 Post.hasMany(File)
 File.belongsTo(Post)
 
+// Classwork.hasMany(File)
+// File.belongsTo(Classwork)
+
+// Classwork and submission
+Classwork.hasMany(Submission, { foreignKey: { allowNull: false } })
+Submission.belongsTo(Classwork, { foreignKey: { allowNull: false } })
+
+Student.hasMany(Submission, { foreignKey: { allowNull: false } })
+Submission.belongsTo(Student, { foreignKey: { allowNull: false } })
+
+Submission.hasMany(File)
+File.belongsTo(Submission)
+
 // Relation between classroom posts and comments
 Post.hasMany(Comment, { foreignKey: { allowNull: false } })
 Comment.belongsTo(Post, { foreignKey: { allowNull: false } })
@@ -76,5 +90,5 @@ Attendance.belongsTo(Classroom, { foreignKey: { allowNull: false } })
 // Class.belongsTo(Attendance, { foreignKey: { allowNull: false } })
 
 // Relation between Course & Admin
-Admin.hasMany(Course,{foreignKey: {allowNull:false}})
-Course.belongsTo(Admin,{foreignKey:{allowNull:false}})
+Admin.hasMany(Course, { foreignKey: { allowNull: false } })
+Course.belongsTo(Admin, { foreignKey: { allowNull: false } })

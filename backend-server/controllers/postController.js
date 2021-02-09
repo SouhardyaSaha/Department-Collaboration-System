@@ -36,7 +36,7 @@ const createPost = catchAsync(async (req, res, next) => {
         const files = req.files
         console.log(files);
         const url = req.protocol + '://' + req.get('host')
-        console.log(url);
+        // console.log(url);
         let createdFiles = []
 
         for (let index = 0; index < files.length; index++) {
