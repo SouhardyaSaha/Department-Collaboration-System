@@ -77,13 +77,13 @@
 - Authorized And Performed By User Himself
 
     * Get Profile : `GET /api/users/me`
-    * Logout User : `Post /api/users/logout` 
+    * Logout User : `POST /api/users/logout` 
 
 ## Course Related
 ###
 - With Admin Authorization 
 
-    * Create Course :  `Post /api/courses`
+    * Create Course :  `POST /api/courses`
         ```json
             Request Body
             {
@@ -95,12 +95,12 @@
                 "adminId": 1
             }
         ```
-    * Get Courses :  `Post /api/courses`
-    * New Request :  `Post /api`
+    * Get Courses :  `GET /api/courses`
+    * New Request :  `GET /api`
 
 ## Classroom Related
 -  With Teacher Authorization 
-    * Create Classroom :  `Post /api/classrooms`
+    * Create Classroom :  `POST /api/classrooms`
         ```json
             Request Body 
             {
