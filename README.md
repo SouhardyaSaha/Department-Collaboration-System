@@ -6,7 +6,7 @@
 
 ### 
 
-* Register Admin : `POST /users/`
+* Register Admin : `POST /api/users/`
     ```json
     Request Body
     {
@@ -16,7 +16,7 @@
         "role": "admin"
     }
     ```
-* Register Teachers : `POST /users/`
+* Register Teachers : `POST /api/users/`
     ```json
     Request Body
     {
@@ -29,7 +29,7 @@
         }
     }
     ```
-* Register Student : `POST /users/`
+* Register Student : `POST /api/users/`
     ```json
     Request Body
     {
@@ -52,10 +52,10 @@
         "password":"xxxxxxxx"
     }
     ```
-* Get Profile : `GET /users/me`
-* Logout User : `Post /users/logout` 
+* Get Profile : `GET /api/users/me`
+* Logout User : `Post /api/users/logout` 
 
-* Show All Users : `GET /users/`
+* Show All Users : `GET /api/users/`
     ```json
     Request Body
     {
@@ -65,7 +65,7 @@
     }
     ```
 
-* Show All Teachers : `GET /teachers/`
+* Show All Teachers : `GET /api/teachers/`
     ```json
     Request Body
     {
