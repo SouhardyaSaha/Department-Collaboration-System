@@ -61,3 +61,14 @@ th {
   /* display: block; */
   /* padding: 50px; */
 }
+
+.student-container {
+  position: relative;
+  /* min-height: 500px; */
+}
+
+.student-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}

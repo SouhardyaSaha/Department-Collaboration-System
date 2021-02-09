@@ -4,8 +4,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CourseModel } from '../course.model';
 import { IndividualCourseComponent } from '../individual-course/individual-course.component';
 import { MatSort } from '@angular/material/sort';
-
+import { CourseService } from '../course.service';
+import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 export interface DataModel {
+  id: number;
   courseTitle: string;
   credit: string;
   session: string;
@@ -24,80 +27,92 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     'isOptional',
     'actions',
   ];
-  dataSource: MatTableDataSource<DataModel>;
+  dataSource: MatTableDataSource<CourseModel>;
+  private courseSub: Subscription;
+  courses: CourseModel[];
+  loadingData = false;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private courseService: CourseService,
+  ) {}
 
   ngOnInit(): void {
-    const users = Array.from([
-      {
-        courseTitle: 'A',
-        credit: '3',
-        session: '1/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'B',
-        credit: '3',
-        session: '1/2',
-        isOptional: true,
-      },
-      {
-        courseTitle: 'C',
-        credit: '3',
-        session: '2/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'DA',
-        credit: '3',
-        session: '3/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'AD',
-        credit: '3',
-        session: '4/1',
-        isOptional: true,
-      },
-      {
-        courseTitle: 'A',
-        credit: '3',
-        session: '1/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'B',
-        credit: '3',
-        session: '1/2',
-        isOptional: true,
-      },
-      {
-        courseTitle: 'C',
-        credit: '3',
-        session: '2/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'DA',
-        credit: '3',
-        session: '3/1',
-        isOptional: false,
-      },
-      {
-        courseTitle: 'AD',
-        credit: '3',
-        session: '4/1',
-        isOptional: true,
-      },
-    ]);
+    this.loadingData = true;
+
+    this.courseService.getCourseData();
+    this.courseSub = this.courseService
+      .getCourseUpdate()
+      .subscribe((courses: CourseModel[]) => {
+        this.loadingData = false;
+        console.log('Get', courses);
+        this.courses = courses;
+        this.dataSource = new MatTableDataSource(this.courses);
+      });
+
+    // this.courses = Array.from([
+    //   {
+    //     id: 1,
+    //     courseTitle: 'A',
+    //     credit: '3',
+    //     session: '1/1',
+    //     isOptional: false,
+    //   },
+    //   {
+    //     id: 2,
+    //     courseTitle: 'B',
+    //     credit: '3',
+    //     session: '1/2',
+    //     isOptional: true,
+    //   },
+    //   {
+    //     id: 3,
+    //     courseTitle: 'C',
+    //     credit: '3',
+    //     session: '2/1',
+    //     isOptional: false,
+    //   },
+    //   {
+    //     id: 4,
+    //     courseTitle: 'DA',
+    //     credit: '3',
+    //     session: '3/1',
+    //     isOptional: false,
+    //   },
+    //   {
+    //     id: 5,
+    //     courseTitle: 'AD',
+    //     credit: '3',
+    //     session: '4/1',
+    //     isOptional: true,
+    //   },
+    //   {
+    //     id: 6,
+    //     courseTitle: 'A',
+    //     credit: '3',
+    //     session: '1/1',
+    //     isOptional: false,
+    //   },
+    //   {
+    //     id: 7,
+    //     courseTitle: 'B',
+    //     credit: '3',
+    //     session: '1/2',
+    //     isOptional: true,
+    //   },
+    // ]);
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    // console.log(this.courses);
   }
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+    }, 5000);
+  }
+  ngOnDestroy() {
+    this.courseSub.unsubscribe();
   }
 
   applyFilter(event: Event) {
@@ -108,7 +123,14 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     //   this.dataSource.paginator.firstPage();
     // }
   }
-  onDelete(id) {}
+  onDelete(index) {
+    this.courseService.deleteCourseData(index);
+    this.sweetAlert(
+      'Deleted!',
+      'Course has been successfully removed.',
+      'success',
+    );
+  }
   onDetails(id) {
     // console.log(id);
     console.log('Details of id :' + id);
@@ -117,7 +139,18 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = false;
     dialogConfig.width = '60%';
-    dialogConfig.data = { message: 'Individual Form', id: id };
+    dialogConfig.data = {
+      message: 'Individual Form',
+      id: id,
+      courses: this.courses,
+    };
     this.dialog.open(IndividualCourseComponent, dialogConfig);
+  }
+  sweetAlert(title, text, icon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+    });
   }
 }

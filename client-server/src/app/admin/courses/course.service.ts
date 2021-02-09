@@ -9,7 +9,27 @@ export class CourseService {
   private updateCourse = new Subject<CourseModel[]>();
   constructor(private http: HttpClient) {}
 
-  getCourseData() {}
+  getCourseData() {
+    this.http
+      .get<{ status: string; data }>('http://localhost:3000/courses')
+      .subscribe(response => {
+        // console.log(response.data.courses);
+        // this.CourseData = response.data.courses;
+        this.CourseData = response.data.courses.map(o => {
+          return {
+            id: o.id,
+            admin_id: o.adminId,
+            course_title: o.title,
+            credit: o.credit,
+            session: o.semester,
+            details: o.details,
+            optional: o.is_optional,
+          };
+        });
+        // console.log(this.CourseData);
+        this.updateCourse.next([...this.CourseData]);
+      });
+  }
   getCourseUpdate() {
     return this.updateCourse.asObservable();
   }
@@ -25,9 +45,21 @@ export class CourseService {
         console.log(responseData.message, responseData.id);
         postData.admin_id = responseData.id;
         this.CourseData.push(postData);
-        // console.log("Add Post: ",this.routineData);
+        console.log('Add Course: ', this.CourseData);
         this.updateCourse.next([...this.CourseData]);
       });
   }
   updateCourseData(id, data: CourseModel) {}
+  deleteCourseData(id) {
+    this.http
+      .delete('http://localhost:3000/courses/' + id)
+      .subscribe(responseData => {
+        console.log(responseData);
+        const UpdatedList = this.CourseData.filter(
+          routine => routine.id !== id,
+        );
+        this.CourseData = UpdatedList;
+        this.updateCourse.next([...this.CourseData]);
+      });
+  }
 }

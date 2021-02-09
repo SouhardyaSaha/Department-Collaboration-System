@@ -4,6 +4,7 @@ import { RoutineData } from '../routine.model';
 import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RoutineEditComponent } from '../routine-edit/routine-edit.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-routine-list',
   templateUrl: './routine-list.component.html',
@@ -39,6 +40,11 @@ export class RoutineListComponent implements OnInit, OnDestroy {
     console.log('delete', index, this.routines[index]);
     const id = this.routines[index].id;
     this.routineService.deleteRoutineData(id);
+    this.sweetAlert(
+      'Deleted!',
+      'Course has been successfully deleted.',
+      'success',
+    );
   }
   onClickEdit(index) {
     console.log('List-edit', index, this.routines[index].id);
@@ -49,5 +55,12 @@ export class RoutineListComponent implements OnInit, OnDestroy {
     dialogConfig.width = '50%';
     dialogConfig.data = { index: index, routine: this.routines };
     this.dialog.open(RoutineEditComponent, dialogConfig);
+  }
+  sweetAlert(title, text, icon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+    });
   }
 }

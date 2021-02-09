@@ -26,6 +26,8 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { ClassroomClassworkDetailsComponent } from './classroom-show/classroom-classwork/classroom-classwork-details/classroom-classwork-details.component';
 import { ClassListComponent } from './home/class-list/class-list.component';
+import { IndividualStudentComponent } from './classroom-show/classroom-students/individual-student/individual-student.component';
+import { AttendanceFormComponent } from './classroom-show/classroom-students/attendance-form/attendance-form.component';
 @NgModule({
   declarations: [
     TeacherComponent,
@@ -44,6 +46,8 @@ import { ClassListComponent } from './home/class-list/class-list.component';
     ClassworkEditComponent,
     ClassroomClassworkDetailsComponent,
     ClassListComponent,
+    IndividualStudentComponent,
+    AttendanceFormComponent,
   ],
   imports: [
     CommonModule,

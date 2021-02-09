@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+button {
+  margin: 5px;
+}
+.mat-column-select {
+  width: 25%;
+}
+.mat-column-position {
+  width: 15%;
+  text-align: center;
+}
+.mat-column-name {
+  width: auto;
+  text-align: center;
+}

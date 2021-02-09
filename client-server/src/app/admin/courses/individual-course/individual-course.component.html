@@ -1,1 +1,41 @@
-<p>individual-course works!</p>
+<mat-card>
+  <h2 class="mt-3">
+    <span> {{ individualCourse.course_title }}</span>
+  </h2>
+</mat-card>
+<mat-card style="margin-top: 10px">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="demon">
+          <p id="color1">Session :</p>
+
+          <p>{{ individualCourse.session }}</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="demon">
+          <p id="color1">Credit :</p>
+          <p>{{ individualCourse.credit }}</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="demon">
+          <p id="color1">Required :</p>
+          <!-- <p>{{ individualCourse.optional }}</p> -->
+          <p *ngIf="individualCourse.optional">Optional</p>
+          <p *ngIf="!individualCourse.optional">Mandatory</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<mat-card style="margin-top: 10px">
+  <h4 class="mt-3" id="color1">
+    <span> Syllabus</span>
+  </h4>
+  <div class="row" style="margin-left: 40px; margin-top: 10px">
+    <p>{{ individualCourse.details }}</p>
+  </div>
+</mat-card>

@@ -16,7 +16,7 @@ const Course = sequelize.define('course', {
         }
     },
     details: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             notEmpty: true
