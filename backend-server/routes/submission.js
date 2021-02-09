@@ -12,6 +12,7 @@ const submissionRouter = require('express').Router({ mergeParams: true });
 
 submissionRouter.route('/')
     .post(protect, restrictTo([roles.Student]), upload.array('files', 10), submitClasswork)
+// .post(protect, upload.array('files', 10), submitClasswork)
 
 
 
