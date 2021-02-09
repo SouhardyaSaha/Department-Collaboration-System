@@ -12,7 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AuthComponent implements OnInit {
   isRegistrationMode: boolean;
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+  ) {}
   ngOnInit(): void {
     this.isRegistrationMode = this.route.snapshot.data['isRegisterMode'];
   }

@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/teacher/home',
+        redirectTo: '/student/home',
       },
       {
         path: 'home',

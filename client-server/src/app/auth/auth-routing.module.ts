@@ -7,8 +7,8 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: AuthComponent,
     canActivate: [AuthGuard],
+    component: AuthComponent,
     data: {
       isRegisterMode: false,
     },
