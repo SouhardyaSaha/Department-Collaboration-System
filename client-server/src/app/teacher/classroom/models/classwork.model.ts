@@ -9,6 +9,14 @@ export interface Classwork {
   createdAt: Date;
 }
 
+export interface ClassworkSubmissionBody {
+  files: File[];
+}
+
+export interface ClassworkSubmissionResponseBody {
+  status: string;
+}
+
 export interface ClassworkResponseBody {
   status: string;
   data: {

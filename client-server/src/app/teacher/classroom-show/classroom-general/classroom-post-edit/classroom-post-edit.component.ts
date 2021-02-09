@@ -57,7 +57,7 @@ export class ClassroomPostEditComponent implements OnInit {
     );
   }
 
-  public files: File[] = [];
+  // public files: File[] = [];
 
   public dropped(files: NgxFileDropEntry[]) {
     for (const droppedFile of files) {

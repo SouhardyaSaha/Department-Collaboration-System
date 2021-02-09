@@ -13,7 +13,10 @@ import {} from '../classroom-classwork.component';
 export class ClassroomClassworkTileComponent implements OnInit {
   constructor(public classworkDetailsDialog: MatDialog) {}
   @Input() classwork: Classwork;
-  ngOnInit(): void {}
+  isAssignment: boolean;
+  ngOnInit(): void {
+    this.isAssignment = this.classwork.task_type === 'assignment';
+  }
 
   onClassworkDetailsDialogOpen() {
     const dialogConfig: MatDialogConfig = {
