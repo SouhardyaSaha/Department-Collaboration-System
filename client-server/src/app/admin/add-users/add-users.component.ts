@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { SessionResponseBody } from 'src/app/teacher/classroom/models/session.model';
-import { SessionService } from 'src/app/teacher/classroom/session.service';
+import { SessionResponseBody } from 'src/app/shared/classroom/models/session.model';
+import { SessionService } from 'src/app/shared/classroom/session.service';
 import { AdminService } from '../admin.service';
 import { InvitationBody } from '../models/invitation.model';
 

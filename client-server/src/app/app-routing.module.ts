@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
-import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
+// import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
 import { RoutineGeneratorComponent } from './routine-generator/routine-generator.component';
 import { RoutineListComponent } from './routine-generator/routine-list/routine-list.component';
 const routes: Routes = [
@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./teacher/teacher.module').then(m => m.TeacherModule),
   },
-  { path: 'attendance', component: AttendanceTakerComponent },
+  // { path: 'attendance', component: AttendanceTakerComponent },
   {
     path: 'chat',
     component: ChatComponent,

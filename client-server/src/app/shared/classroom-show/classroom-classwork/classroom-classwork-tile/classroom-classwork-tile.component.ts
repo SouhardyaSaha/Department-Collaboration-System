@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Classwork } from 'src/app/teacher/classroom/models/classwork.model';
+import { Classwork } from 'src/app/shared/classroom/models/classwork.model';
 import { ClassroomClassworkDetailsComponent } from '../classroom-classwork-details/classroom-classwork-details.component';
 import {} from '../classroom-classwork.component';
 

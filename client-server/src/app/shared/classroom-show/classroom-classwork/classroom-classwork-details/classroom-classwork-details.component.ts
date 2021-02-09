@@ -6,10 +6,7 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry,
 } from 'ngx-file-drop';
-import {
-  Classwork,
-  ClassworkResponseBody,
-} from 'src/app/teacher/classroom/models/classwork.model';
+import { Classwork } from 'src/app/shared/classroom/models/classwork.model';
 import Swal from 'sweetalert2';
 import { ClassroomClassworkService } from '../classroom-classwork.service';
 

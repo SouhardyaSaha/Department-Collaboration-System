@@ -18,11 +18,12 @@ import { RoutineListComponent } from './routine-generator/routine-list/routine-l
 import { ExportAsModule } from 'ngx-export-as';
 import { RoutineEditComponent } from './routine-generator/routine-edit/routine-edit.component';
 import { ChatComponent } from './chat/chat.component';
-import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
-import { AttendanceFormComponent } from './attendance-taker/attendance-form/attendance-form.component';
-import { AttendanceListComponent } from './attendance-taker/attendance-list/attendance-list.component';
-import { AllAttendanceComponent } from './attendance-taker/all-attendance/all-attendance.component';
-import { IndividualAttendanceComponent } from './attendance-taker/individual-attendance/individual-attendance.component';
+// import { AttendanceTakerComponent } from './attendance-taker/attendance-taker.component';
+// import { AttendanceFormComponent } from './attendance-taker/attendance-form/attendance-form.component';
+// import { AttendanceListComponent } from './attendance-taker/attendance-list/attendance-list.component';
+// import { AllAttendanceComponent } from './attendance-taker/all-attendance/all-attendance.component';
+// import { IndividualAttendanceComponent } from './attendance-taker/individual-attendance/individual-attendance.component';
+import { SharedModule } from './shared/shared.module';
 // import { AddCoursesComponent } from './admin/add-courses/add-courses.component';
 @NgModule({
   declarations: [
@@ -31,11 +32,11 @@ import { IndividualAttendanceComponent } from './attendance-taker/individual-att
     RoutineListComponent,
     RoutineEditComponent,
     ChatComponent,
-    AttendanceTakerComponent,
-    AttendanceFormComponent,
-    AttendanceListComponent,
-    AllAttendanceComponent,
-    IndividualAttendanceComponent,
+    // AttendanceTakerComponent,
+    // AttendanceFormComponent,
+    // AttendanceListComponent,
+    // AllAttendanceComponent,
+    // IndividualAttendanceComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +49,7 @@ import { IndividualAttendanceComponent } from './attendance-taker/individual-att
     HttpClientModule,
     ReactiveFormsModule,
     ExportAsModule,
+    SharedModule,
   ],
   providers: [
     {

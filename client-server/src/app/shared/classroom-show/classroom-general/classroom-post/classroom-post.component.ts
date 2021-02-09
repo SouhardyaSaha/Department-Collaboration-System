@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FileBody, Post } from 'src/app/teacher/classroom/models/post.model';
+import { FileBody, Post } from 'src/app/shared/classroom/models/post.model';
 
 @Component({
   selector: 'app-classroom-post',
