@@ -10,6 +10,7 @@ const User = require('../models/user');
 const sequelize = require('../db/config');
 const Teacher = require('../models/teacher');
 const Student = require('../models/student');
+const Session = require('../models/session');
 const sendEmail = require('../mail/sendEmail');
 
 const sendInvitation = catchAsync(async (req, res, next) => {
@@ -86,6 +87,32 @@ const getUsers = catchAsync(async (req, res, next) => {
     data: { users },
   });
 });
+
+const getAllStudents = catchAsync(async (req, res, next) => {
+  const students = await User.findAll({
+    where: { role: roles.Student }, include: [
+      {
+        model: Student,
+        include: [
+          Session
+        ]
+      }
+    ]
+  });
+  res.status(200).json({
+    status: 'success',
+    data: { students },
+  });
+});
+
+const getAllTeachers = catchAsync(async (req, res, next) => {
+  const teachers = await User.findAll({ where: { role: roles.Teacher }, include: [Teacher] });
+  res.status(200).json({
+    status: 'success',
+    data: { teachers },
+  });
+});
+
 
 // Function to sign up a user
 const signUp = catchAsync(async (req, res, next) => {
@@ -202,26 +229,14 @@ const sendToken = (data, statusCode, res) => {
   });
 };
 
-// Get User Profile by Role
-// const getRoleProfile = async (user) => {
-//   const options = {
-//     include:
-//     {
-//       model: User,
-//       attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
-//     },
-//   }
-//   const role = user.role
-//   if (role === roles.Admin) {
-//     return await user.getAdmin(options)
-//   }
-//   else if (role === roles.Student) {
-//     return await user.getStudent(options, { include: Session })
-//   }
-//   else if (role === roles.Teacher) {
-//     return await user.getTeacher(options)
-//   }
-
-// }
-
-module.exports = { signUp, getUsers, getUserProfile, login, logout, sendInvitation, signUpByInvitation };
+module.exports = {
+  signUp,
+  getUsers,
+  getUserProfile,
+  login,
+  logout,
+  sendInvitation,
+  signUpByInvitation,
+  getAllStudents,
+  getAllTeachers
+};

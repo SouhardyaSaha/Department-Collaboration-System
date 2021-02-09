@@ -8,11 +8,13 @@ import { AddUsersComponent } from './add-users/add-users.component';
 import { AddSessionsComponent } from './add-sessions/add-sessions.component';
 // import { CoursesComponent } from './add-courses/courses.component';
 import { CoursesComponent } from './courses/courses.component';
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [AdminGuard],
     children: [
       {
         path: '',

@@ -8,12 +8,15 @@ const {
   login,
   logout,
   sendInvitation,
-  signUpByInvitation
+  signUpByInvitation,
+  getAllStudents,
+  getAllTeachers
 } = require('../controllers/userController');
-const { protect } = require('../middlewares/protect');
+const { protect, restrictTo } = require('../middlewares/protect');
 const { protectUserRegistration } = require('../middlewares/protectUserRegistration');
 const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
+const { roles } = require('../utils/roles');
 
 // Importing the express router
 const userRouter = require('express').Router();
@@ -22,6 +25,12 @@ const userRouter = require('express').Router();
 userRouter.route('/')
   .get(protect, getUsers)
   .post(signUp);
+
+userRouter.route('/students')
+  .get(protect, restrictTo([roles.Admin]), getAllStudents)
+
+userRouter.route('/teachers')
+  .get(protect, restrictTo([roles.Admin]), getAllTeachers)
 
 userRouter.route('/invite')
   .post(sendInvitation)

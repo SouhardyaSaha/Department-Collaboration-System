@@ -4,11 +4,13 @@ import { HomeComponent } from './home/home.component';
 import { StudentComponent } from './student.component';
 // import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
 import { ClassRoutineComponent } from './class-routine/class-routine.component';
+import { StudentGuard } from './student.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: StudentComponent,
+    canActivate: [StudentGuard],
     children: [
       {
         path: '',
