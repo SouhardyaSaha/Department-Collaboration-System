@@ -78,3 +78,64 @@
 
     * Get Profile : `GET /api/users/me`
     * Logout User : `Post /api/users/logout` 
+
+## Course Related
+###
+- With Admin Authorization 
+
+    * Create Course :  `Post /api/courses`
+        ```json
+            Request Body
+            {
+                "title": "Introduction to software engineering",
+                "credit": 3,
+                "is_optional": false,
+                "semester": "3/2",
+                "details": "Very important course",
+                "adminId": 1
+            }
+        ```
+    * Get Courses :  `Post /api/courses`
+    * New Request :  `Post /api`
+
+## Classroom Related
+-  With Teacher Authorization 
+    * Create Classroom :  `Post /api/classrooms`
+        ```json
+            Request Body 
+            {
+                "courseId": 2,
+                "sessionId": 1,
+                "extra_students_id": []
+            }
+        ```
+    * Update Classroom :  `Patch /api/classrooms//32`
+        ```json
+            Request Body 
+            {
+                "courseId": 5
+            }
+        ```
+    * Add Students To Classroom :`Patch /api/classrooms//38/addStudents`
+        ```json
+            Request Body 
+            {
+                "students": [
+                    12,13, 14, 15
+                ]
+            }
+        ```
+    * Remove Students From Classroom : `Patch /api/classrooms//38/removeStudents`
+        ```json
+            Request Body 
+            {
+                "students": [
+                    12, 13
+                ]
+            }
+        ```
+-  With Student Authorization 
+    * Get Classrooms :  `GET /api/classrooms`
+    * Get Single Classroom :  `GET /api/classrooms/2`
+
+
