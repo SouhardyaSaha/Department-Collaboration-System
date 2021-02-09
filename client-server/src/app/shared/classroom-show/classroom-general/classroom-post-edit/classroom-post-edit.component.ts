@@ -8,8 +8,8 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry,
 } from 'ngx-file-drop';
-import { PostSubmitBody } from 'src/app/teacher/classroom/models/post.model';
 import { ClassroomGeneralService } from '../classroom-general.service';
+import { PostSubmitBody } from 'src/app/shared/classroom/models/post.model';
 @Component({
   selector: 'app-classroom-post-edit',
   templateUrl: './classroom-post-edit.component.html',
@@ -57,7 +57,7 @@ export class ClassroomPostEditComponent implements OnInit {
     );
   }
 
-  public files: File[] = [];
+  // public files: File[] = [];
 
   public dropped(files: NgxFileDropEntry[]) {
     for (const droppedFile of files) {

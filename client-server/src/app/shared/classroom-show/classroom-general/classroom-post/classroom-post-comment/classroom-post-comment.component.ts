@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Comment } from 'src/app/teacher/classroom/models/comment.model';
+import { Comment } from 'src/app/shared/classroom/models/comment.model';
 import { ClassroomGeneralService } from '../../classroom-general.service';
 
 @Component({

@@ -2,7 +2,7 @@
   <!-- <img mat-card-image src="https://source.unsplash.com/1600x900/?classroom,education,study" alt="Tech Image"> -->
   <mat-card-header>
     <mat-card-title style="font-size: medium;">
-      {{ classwork.task_type === 'assignment'? 'Assignment': 'Term Test' }}
+      {{ isAssignment? 'Assignment': 'Term Test' }}
     </mat-card-title>
     <!-- <mat-card-subtitle>Assignment</mat-card-subtitle> -->
   </mat-card-header>

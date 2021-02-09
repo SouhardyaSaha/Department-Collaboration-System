@@ -2,7 +2,6 @@ const catchAsync = require("../utils/catchAsync");
 const { roles } = require('../utils/roles');
 const AppError = require("../utils/appError");
 const sequelize = require("../db/config");
-const Student = require('../models/student')
 
 const createClasswork = catchAsync(async (req, res, next) => {
     const id = req.params.classroomId
@@ -26,7 +25,6 @@ const submitClasswork = catchAsync(async (req, res, next) => {
     const classroomId = req.params.classroomId
     const classworkId = req.params.classworkId
     const student = await req.user.getStudent()
-    // const student = await Student.findByPk(1)
 
     // If student is in the classroom
     const classroom = (await student.getClassrooms({ where: { id: classroomId } }))[0]

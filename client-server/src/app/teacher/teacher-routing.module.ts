@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RoutineGeneratorComponent } from '../routine-generator/routine-generator.component';
 import { RoutineListComponent } from '../routine-generator/routine-list/routine-list.component';
-import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
-import { ClassroomEditComponent } from './classroom/classroom-edit/classroom-edit.component';
-import { ClassroomComponent } from './classroom/classroom.component';
+import { ClassroomShowComponent } from '../shared/classroom-show/classroom-show.component';
+import { ClassroomComponent } from '../shared/classroom/classroom.component';
 import { HomeComponent } from './home/home.component';
 import { TeacherComponent } from './teacher.component';
 
@@ -16,7 +15,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/teacher/home'
+        redirectTo: '/teacher/home',
       },
       {
         path: 'home',

@@ -6,7 +6,7 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry,
 } from 'ngx-file-drop';
-import { ClassworkSubmitBody } from 'src/app/teacher/classroom/models/classwork.model';
+import { ClassworkSubmitBody } from 'src/app/shared/classroom/models/classwork.model';
 import { ClassroomClassworkService } from '../classroom-classwork.service';
 
 @Component({

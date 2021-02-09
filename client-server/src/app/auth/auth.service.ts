@@ -68,14 +68,38 @@ export class AuthService {
       );
   }
 
+  autoLogin() {
+    const userData: {
+      id: number;
+      name: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+      role: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+    // this.handleAuthenticatedUser()
+    this.handleAuthenticatedUser(
+      userData.id,
+      userData.name,
+      userData.email,
+      userData.createdAt,
+      userData.updatedAt,
+      userData.role,
+    );
+  }
+
   logout() {
     this.http.post(`${this.baseURL}/users/logout`, {}).subscribe(
       response => {
         console.log(response);
 
         this.user.next(null);
-        this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
+        this.router.navigate(['/auth']);
       },
       error => console.log(error),
     );
@@ -103,6 +127,10 @@ export class AuthService {
     localStorage.setItem('userData', JSON.stringify(user));
 
     this.user.next(user);
+    // console.log();
+    console.log('from auth service', user.role);
+
+    this.router.navigate([user.role]);
   }
 
   private handleError(error: HttpErrorResponse) {

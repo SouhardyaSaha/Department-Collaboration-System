@@ -6,65 +6,7 @@ import { Student } from '../../classroom/models/classroom.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IndividualStudentComponent } from './individual-student/individual-student.component';
 import { AttendanceFormComponent } from './attendance-form/attendance-form.component';
-// export interface PeriodicElement {
-//   id: number;
-//   name: string;
-//   user_img_uri: string;
-//   registration: number;
-//   email: string;
-// }
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Hydrogen',
-//     registration: 2017831024,
-//     email: 'souhardyasaha98@gmail.com',
-//   },
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Helium',
-//     registration: 2017831025,
-//     email: 'saha98@gmail.com',
-//   },
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Lithium',
-//     registration: 2017831026,
-//     email: 'souhardya98@gmail.com',
-//   },
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Beryllium',
-//     registration: 2017831027,
-//     email: 'sou98@gmail.com',
-//   },
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Beryllium',
-//     registration: 2017831027,
-//     email: 'sou98@gmail.com',
-//   },
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Beryllium',
-//     registration: 2017831027,
-//     email: 'sou98@gmail.com',
-//   },
-//   {
-//     id: 23,
-//     user_img_uri: 'https://ui-avatars.com/api/?name=John+Doe',
-//     name: 'Beryllium',
-//     registration: 2017831027,
-//     email: 'sou98@gmail.com',
-//   },
-// ];
 export interface studentList {
   student: Student;
   totalClass: number;
