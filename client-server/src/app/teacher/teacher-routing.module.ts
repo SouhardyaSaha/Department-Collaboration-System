@@ -6,11 +6,13 @@ import { ClassroomShowComponent } from '../shared/classroom-show/classroom-show.
 import { ClassroomComponent } from '../shared/classroom/classroom.component';
 import { HomeComponent } from './home/home.component';
 import { TeacherComponent } from './teacher.component';
+import { TeacherGuard } from './teacher.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: TeacherComponent,
+    canActivate: [TeacherGuard],
     children: [
       {
         path: '',
