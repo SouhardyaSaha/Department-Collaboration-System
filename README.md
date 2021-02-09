@@ -7,6 +7,7 @@
 ### 
 - Without any authorization
     * Show All Users : `GET /api/users/`
+
         ```json
         Request Body
         {
@@ -17,6 +18,7 @@
         ```
 
     * Show Teachers : `GET /api/teachers/`
+
         ```json
         Request Body
         {
@@ -26,6 +28,7 @@
         }
         ```
     * Login User : `POST /api/user/login/`
+
         ```json
         Request Body
         {
@@ -34,8 +37,9 @@
         }
         ```
 ###
-- After Authorization
+- Authorizaed By Admin
     * Register Admin : `POST /api/users/`
+
         ```json
         Request Body
         {
@@ -46,6 +50,7 @@
         }
         ```
     * Register Teachers : `POST /api/users/`
+
         ```json
         Request Body
         {
@@ -59,6 +64,7 @@
         }
         ```
     * Register Student : `POST /api/users/`
+
         ```json
         Request Body
         {
@@ -83,6 +89,7 @@
 ###
 - With Admin Authorization
     * Create Session: `POST /api/sessions`
+
         ```json
         Request Body
         {
@@ -96,6 +103,7 @@
 - With Admin Authorization 
 
     * Create Course :  `POST /api/courses`
+
         ```json
         Request Body
         {
@@ -114,6 +122,7 @@
 ## Classroom Related
 -  With Teacher Authorization 
     * Create Classroom :  `POST /api/classrooms`
+
         ```json
         Request Body 
         {
@@ -123,6 +132,7 @@
         }
         ```
     * Update Classroom :  `Patch /api/classrooms//32`
+
         ```json
         Request Body 
         {
@@ -130,6 +140,7 @@
         }
         ```
     * Add Students To Classroom :`Patch /api/classrooms//38/addStudents`
+
         ```json
         Request Body 
         {
@@ -139,6 +150,7 @@
         }
         ```
     * Remove Students From Classroom : `Patch /api/classrooms//38/removeStudents`
+
         ```json
         Request Body 
         {
@@ -157,6 +169,7 @@
 ###
 - With Teacher Authorization
     * Create Classwork : `POST /api/classrooms/2/classworks`
+
         ```json
         Request Body 
         {
@@ -175,6 +188,7 @@
     * Create Post : `POST /api/classrooms/2/posts`
 - With User Authorization
     * Get Posts for Classroom: `GET /api/classrooms/2/posts`
+
         ```json
         Request Body 
         {
@@ -182,6 +196,7 @@
         }
         ```
     * Create Comment On Post : `POST /api/classrooms/2/posts/1/comments`
+
         ```json
         Request Body
         {
