@@ -1,6 +1,6 @@
 'use strict';
 
-const { getAllSessions, createSession } = require('../controllers/sessionController');
+const { getAllSessions, createSession,deleteSession } = require('../controllers/sessionController');
 
 // Importing functions from the controller
 
@@ -9,7 +9,9 @@ const sessionRouter = require('express').Router();
 
 // Setting up the routes
 sessionRouter.route('/')
-    .get(getAllSessions)
-    .post(createSession)
+.get(getAllSessions)
+.post(createSession)
+sessionRouter.route('/:id')
+    .delete(deleteSession)
 
 module.exports = sessionRouter

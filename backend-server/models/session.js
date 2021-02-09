@@ -12,6 +12,7 @@ const Session = sequelize.define('session', {
     session: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
         validate: {
             notEmpty: true
         }

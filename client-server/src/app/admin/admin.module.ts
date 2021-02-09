@@ -19,6 +19,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { IndividualCourseComponent } from './courses/individual-course/individual-course.component';
+import { NewSessionComponent } from './add-sessions/new-session/new-session.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { IndividualCourseComponent } from './courses/individual-course/individua
     CoursesComponent,
     CourseListComponent,
     IndividualCourseComponent,
+    NewSessionComponent,
   ],
   imports: [
     CommonModule,
