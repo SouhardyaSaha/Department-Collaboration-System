@@ -1,0 +1,52 @@
+<mat-dialog-content class="mat-typography">
+  <div class="container">
+    <ng-template #loader>
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </ng-template>
+    <div *ngIf="!isLoading; else loader" class="form-container">
+      <form
+        [formGroup]="sessionForm"
+        (ngSubmit)="submit()"
+        #formDirective="ngForm"
+      >
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Course Title</mat-label>
+          <input
+            matInput
+            formControlName="session"
+            placeholder="Ex. 2017-18"
+            required
+          />
+          <mat-error>
+            <span *ngIf="sessionForm.controls.session.errors?.required"
+              >This field is mandatory.</span
+            >
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="!isLoading">
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="submit()"
+    [disabled]="sessionForm.invalid"
+    [mat-dialog-close]="isIt"
+  >
+    <!-- mat-dialog-close -->
+    Add Course
+  </button>
+  <!-- [disabled]="routineForm.invalid" -->
+  <button
+    mat-raised-button
+    color="warn"
+    type="button"
+    mat-dialog-close
+    #closeButton
+  >
+    Close
+  </button>
+</mat-dialog-actions>
