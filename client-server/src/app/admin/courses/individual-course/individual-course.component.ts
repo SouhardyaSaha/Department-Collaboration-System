@@ -18,7 +18,7 @@ export class IndividualCourseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // console.log(this.data.courses[this.data.id]);
+    console.log('Hello', this.data.courses);
     var dataFetched;
     // this.individualCourse = this.data.courses[this.data.id];
     for (let item of this.data.courses) {
@@ -29,12 +29,13 @@ export class IndividualCourseComponent implements OnInit {
     }
     // console.log(dataFetched);
     this.individualCourse = {
+      id: 1,
       admin_id: 1,
-      course_title: dataFetched.courseTitle,
+      course_title: dataFetched.course_title,
       credit: dataFetched.credit,
       session: dataFetched.session,
-      details: 'details',
-      optional: dataFetched.isOptional,
+      details: dataFetched.details,
+      optional: dataFetched.optional,
     };
   }
 }

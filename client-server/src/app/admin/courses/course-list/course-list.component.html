@@ -26,12 +26,13 @@
             style="overflow-x: scroll"
             class="w-100"
           >
+            <mat-spinner *ngIf="loadingData"></mat-spinner>
             <!-- ID Column -->
             <ng-container matColumnDef="courseTitle">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Course Title
               </th>
-              <td mat-cell *matCellDef="let row">{{ row.courseTitle }}</td>
+              <td mat-cell *matCellDef="let row">{{ row.course_title }}</td>
             </ng-container>
 
             <!-- Progress Column -->
@@ -52,10 +53,8 @@
                 Mandatory/Optional
               </th>
               <td mat-cell *matCellDef="let row">
-                <p *ngIf="row.isOptional == true">Mandatory</p>
-                <p *ngIf="row.isOptional == false" style="color: grey">
-                  Optional
-                </p>
+                <p *ngIf="row.optional == false">Mandatory</p>
+                <p *ngIf="row.optional == true" style="color: grey">Optional</p>
               </td>
             </ng-container>
 

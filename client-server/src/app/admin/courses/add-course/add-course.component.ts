@@ -46,6 +46,7 @@ export class AddCourseComponent implements OnInit {
   submit() {
     console.log(this.sessionForm.status);
     const formData: CourseModel = {
+      id: 1,
       admin_id: 1,
       course_title: this.sessionForm.value.courseTitle,
       credit: this.sessionForm.value.credit,
