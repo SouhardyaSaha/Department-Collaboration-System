@@ -96,45 +96,45 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.authenticationForm);
+    // console.log(this.authenticationForm);
 
-    // if (this.authenticationForm.invalid) {
-    //   return;
-    // }
+    if (this.authenticationForm.invalid) {
+      return;
+    }
 
-    // let profile;
-    // const registration = this.authenticationForm.value.registration;
-    // if (registration) {
-    //   profile = {
-    //     registration,
-    //   };
-    // } else {
-    //   profile = {
-    //     designation: this.authenticationForm.value.designation.toLowerCase(),
-    //   };
-    // }
-    // const { name, password } = this.authenticationForm.value;
+    let profile;
+    const registration = this.authenticationForm.value.registration;
+    if (registration) {
+      profile = {
+        registration,
+      };
+    } else {
+      profile = {
+        designation: this.authenticationForm.value.designation.toLowerCase(),
+      };
+    }
+    const { name, password } = this.authenticationForm.value;
 
-    // let token: string = this.route.snapshot.params['token'];
-    // let registrationBody: RegistrationBody = { name, password, profile };
-    // console.log(registrationBody, token);
+    let token: string = this.route.snapshot.params['token'];
+    let registrationBody: RegistrationBody = { name, password, profile };
+    console.log(registrationBody, token);
 
-    // console.log(registrationBody);
-    // this.isLoading = true;
-    // this.authService.signUp(registrationBody, token).subscribe(
-    //   res => {
-    //     console.log(res);
-    //     // this.error = null
-    //     this.isLoading = false;
-    //     this.router.navigate(['/teacher']);
-    //   },
-    //   () => {
-    //     // this.error = errorMessage
-    //     this.isLoading = false;
-    //   },
-    // );
+    console.log(registrationBody);
+    this.isLoading = true;
+    this.authService.signUp(registrationBody, token).subscribe(
+      res => {
+        console.log(res);
+        // this.error = null
+        this.isLoading = false;
+        this.router.navigate(['/teacher']);
+      },
+      () => {
+        // this.error = errorMessage
+        this.isLoading = false;
+      },
+    );
 
-    // this.authenticationForm.reset();
+    this.authenticationForm.reset();
   }
 
   onClose() {

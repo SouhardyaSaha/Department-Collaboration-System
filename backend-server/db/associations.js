@@ -13,82 +13,82 @@ const File = require("../models/file")
 const Submission = require("../models/submission")
 
 // User Relations
-User.hasOne(Teacher, { foreignKey: { allowNull: false } })
-Teacher.belongsTo(User, { foreignKey: { allowNull: false } })
+User.hasOne(Teacher, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Teacher.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
-User.hasOne(Student, { foreignKey: { allowNull: false } })
-Student.belongsTo(User, { foreignKey: { allowNull: false } })
+User.hasOne(Student, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Student.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
-User.hasOne(Admin, { foreignKey: { allowNull: false } })
-Admin.belongsTo(User, { foreignKey: { allowNull: false } })
+User.hasOne(Admin, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Admin.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between course and classroom
-Course.hasMany(Classroom, { foreignKey: { allowNull: false } })
-Classroom.belongsTo(Course, { foreignKey: { allowNull: false } })
+Course.hasMany(Classroom, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Classroom.belongsTo(Course, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between student and classroom
-Teacher.hasMany(Classroom, { foreignKey: { allowNull: false } })
-Classroom.belongsTo(Teacher, { foreignKey: { allowNull: false } })
+Teacher.hasMany(Classroom, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Classroom.belongsTo(Teacher, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between student and classroom
-Student.belongsToMany(Classroom, { through: 'classroom_student' })
-Classroom.belongsToMany(Student, { through: 'classroom_student' })
+Student.belongsToMany(Classroom, { through: 'classroom_student', onDelete: 'cascade' })
+Classroom.belongsToMany(Student, { through: 'classroom_student', onDelete: 'cascade' })
 
 // Relation between classroom  and classwork
-Classroom.hasMany(Classwork, { foreignKey: { allowNull: false } })
-Classwork.belongsTo(Classroom, { foreignKey: { allowNull: false } })
+Classroom.hasMany(Classwork, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Classwork.belongsTo(Classroom, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between classroom  and classroom posts
-Classroom.hasMany(Post, { foreignKey: { allowNull: false } })
-Post.belongsTo(Classroom, { foreignKey: { allowNull: false } })
+Classroom.hasMany(Post, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Post.belongsTo(Classroom, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
-User.hasMany(Post, { foreignKey: { allowNull: false } })
-Post.belongsTo(User, { foreignKey: { allowNull: false } })
+User.hasMany(Post, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Post.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between post and file
-Post.hasMany(File)
-File.belongsTo(Post)
+Post.hasMany(File, { onDelete: 'cascade' })
+File.belongsTo(Post, { onDelete: 'cascade' })
 
 // Classwork.hasMany(File)
 // File.belongsTo(Classwork)
 
 // Classwork and submission
-Classwork.hasMany(Submission, { foreignKey: { allowNull: false } })
-Submission.belongsTo(Classwork, { foreignKey: { allowNull: false } })
+Classwork.hasMany(Submission, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Submission.belongsTo(Classwork, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
-Student.hasMany(Submission, { foreignKey: { allowNull: false } })
-Submission.belongsTo(Student, { foreignKey: { allowNull: false } })
+Student.hasMany(Submission, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Submission.belongsTo(Student, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
-Submission.hasMany(File)
-File.belongsTo(Submission)
+Submission.hasMany(File, { onDelete: 'cascade' })
+File.belongsTo(Submission, { onDelete: 'cascade' })
 
 // Relation between classroom posts and comments
-Post.hasMany(Comment, { foreignKey: { allowNull: false } })
-Comment.belongsTo(Post, { foreignKey: { allowNull: false } })
+Post.hasMany(Comment, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Comment.belongsTo(Post, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
-User.hasMany(Comment, { foreignKey: { allowNull: false } })
-Comment.belongsTo(User, { foreignKey: { allowNull: false } })
+User.hasMany(Comment, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Comment.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between student and session
-Session.hasMany(Student, { foreignKey: { allowNull: false } })
-Student.belongsTo(Session, { foreignKey: { allowNull: false } })
+Session.hasMany(Student, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Student.belongsTo(Session, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between Attendance & Student
-Student.hasMany(Attendance, { foreignKey: { allowNull: false } })
-Attendance.belongsTo(Student, { foreignKey: { allowNull: false } })
+Student.hasMany(Attendance, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Attendance.belongsTo(Student, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between Attendance & Class
-Classroom.hasMany(Attendance, { foreignKey: { allowNull: false } })
-Attendance.belongsTo(Classroom, { foreignKey: { allowNull: false } })
-// Class.hasMany(Attendance, { foreignKey: { allowNull: false } })
-// Attendance.belongsTo(Class,{foreignKey: { allowNull: false } })
-// Attendance.hasMany(Student, { foreignKey: { allowNull: false } })
-// Student.belongsTo(Attendance, { foreignKey: { allowNull: false } })
+Classroom.hasMany(Attendance, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Attendance.belongsTo(Classroom, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+// Class.hasMany(Attendance, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+// Attendance.belongsTo(Class,{foreignKey: { allowNull: false }, onDelete: 'cascade' })
+// Attendance.hasMany(Student, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+// Student.belongsTo(Attendance, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between Attendance & Class
-// Attendance.hasMany(Class, { foreignKey: { allowNull: false } })
-// Class.belongsTo(Attendance, { foreignKey: { allowNull: false } })
+// Attendance.hasMany(Class, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+// Class.belongsTo(Attendance, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
 
 // Relation between Course & Admin
-Admin.hasMany(Course, { foreignKey: { allowNull: false } })
-Course.belongsTo(Admin, { foreignKey: { allowNull: false } })
+Admin.hasMany(Course, { foreignKey: { allowNull: false }, onDelete: 'cascade' })
+Course.belongsTo(Admin, { foreignKey: { allowNull: false }, onDelete: 'cascade' })

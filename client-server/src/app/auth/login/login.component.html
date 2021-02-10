@@ -11,7 +11,7 @@
       </mat-card-header>
       <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
-          <mat-form-field appearance="legacy" class="w-100">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Email</mat-label>
             <input type="email" matInput [formControlName]="'email'" placeholder="Ex. pat@example.com">
             <mat-error
@@ -22,7 +22,7 @@
               Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-100">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Password</mat-label>
             <input type="password" matInput [formControlName]="'password'" placeholder="Ex. pat@example.com">
             <mat-error *ngIf="authenticationForm.get('password').hasError('required')">
