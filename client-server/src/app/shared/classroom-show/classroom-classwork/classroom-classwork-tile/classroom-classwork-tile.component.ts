@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AuthService } from 'src/app/auth/auth.service';
 import {
   Classwork,
   Submission,
@@ -17,13 +18,20 @@ import { ClassworkSubmissionsComponent } from '../classwork-submissions/classwor
 export class ClassroomClassworkTileComponent implements OnInit {
   @Input() classwork: Classwork;
   isAssignment: boolean;
+  isTeacher: boolean;
   classworkSubmissionDialogConfig: MatDialogConfig;
   constructor(
-    public classworkDetailsDialog: MatDialog,
-    public classworkEditDialog: MatDialog,
+    private classworkDetailsDialog: MatDialog,
+    private classworkEditDialog: MatDialog,
+    private authService: AuthService,
   ) {}
   ngOnInit(): void {
     this.isAssignment = this.classwork.task_type === 'assignment';
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.isTeacher = user.isTeacher;
+      }
+    });
   }
 
   onClassworkDetailsDialogOpen() {
