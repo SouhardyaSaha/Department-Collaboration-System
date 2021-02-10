@@ -97,9 +97,9 @@ export class AuthService {
       response => {
         console.log(response);
 
-        this.user.next(null);
-        localStorage.removeItem('userData');
         this.router.navigate(['/auth']);
+        localStorage.removeItem('userData');
+        this.user.next(null);
       },
       error => console.log(error),
     );
@@ -130,7 +130,7 @@ export class AuthService {
     // console.log();
     console.log('from auth service', user.role);
 
-    this.router.navigate([user.role]);
+    // this.router.navigate([user.role]);
   }
 
   private handleError(error: HttpErrorResponse) {

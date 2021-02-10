@@ -6,6 +6,7 @@ import {
   FileSystemFileEntry,
   NgxFileDropEntry,
 } from 'ngx-file-drop';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Classwork } from 'src/app/shared/classroom/models/classwork.model';
 import Swal from 'sweetalert2';
 import { ClassroomClassworkService } from '../classroom-classwork.service';
@@ -17,23 +18,32 @@ import { ClassroomClassworkService } from '../classroom-classwork.service';
 })
 export class ClassroomClassworkDetailsComponent implements OnInit {
   classwork: Classwork;
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private classworkService: ClassroomClassworkService,
-  ) {}
   submissionForm: FormGroup;
   isStudent: boolean = true;
   isLoading: boolean = false;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private classworkService: ClassroomClassworkService,
+    private authService: AuthService,
+  ) {}
+
   ngOnInit(): void {
     this.classwork = this.data.classwork;
     // console.log(this.classwork);
-
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.isStudent = user.isStudent;
+      }
+    });
     this.submissionForm = new FormGroup({
       files: new FormArray([], Validators.required),
     });
   }
 
   public dropped(files: NgxFileDropEntry[]) {
+    console.log('oks');
+
     for (const droppedFile of files) {
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {

@@ -1,6 +1,8 @@
-<mat-card class="m-3 p-4">
-  <button mat-raised-button color="primary" (click)="openDialog()">+ Create Classroom</button>
-</mat-card>
+<ng-container *ngIf="isTeacher">
+  <mat-card class="m-3 p-4">
+    <button mat-raised-button color="primary" (click)="openDialog()">+ Create Classroom</button>
+  </mat-card>
+</ng-container>
 
 <mat-card class="m-3 p-4">
   <h2 class="mt-3"><span>Your Classrooms</span></h2>

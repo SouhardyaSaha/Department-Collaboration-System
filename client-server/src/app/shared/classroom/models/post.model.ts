@@ -7,7 +7,8 @@ export interface FileBody {
   is_image: string;
   createdAt: string;
   updatedAt: string;
-  postId: number;
+  postId?: number;
+  submissionId?: number;
 }
 
 export interface Post {

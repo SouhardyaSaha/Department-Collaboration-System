@@ -5,6 +5,6 @@
     <mat-card-subtitle>{{ classroom.teacher.designation }} {{ classroom.teacher.user.name }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
-    <a mat-button [routerLink]="['/teacher/classroom', classroom.id]">Open</a>
+    <a mat-button [routerLink]="[classroom.id]">Open</a>
   </mat-card-actions>
 </mat-card>

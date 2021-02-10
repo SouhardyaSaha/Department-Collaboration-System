@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { RouterModule } from '@angular/router';
 import { AttendanceFormComponent } from './classroom-show/classroom-students/attendance-form/attendance-form.component';
+import { ClassworkSubmissionsComponent } from './classroom-show/classroom-classwork/classwork-submissions/classwork-submissions.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AttendanceFormComponent } from './classroom-show/classroom-students/att
     ClassroomClassworkDetailsComponent,
     IndividualStudentComponent,
     AttendanceFormComponent,
+    ClassworkSubmissionsComponent,
   ],
   imports: [
     CommonModule,
