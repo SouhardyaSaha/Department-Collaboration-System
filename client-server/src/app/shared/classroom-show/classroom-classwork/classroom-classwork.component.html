@@ -1,5 +1,8 @@
 <mat-card class="m-3 p-4">
-  <button mat-raised-button color="primary" (click)="openClassworkEditDialog()">+Add New Work</button>
+  <ng-container *ngIf="isTeacher">
+
+    <button mat-raised-button color="primary" (click)="openClassworkEditDialog()">+Add New Work</button>
+  </ng-container>
 </mat-card>
 
 <mat-card class="m-3 p-4">

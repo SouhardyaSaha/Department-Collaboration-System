@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,9 +15,9 @@ import { Submission } from 'src/app/shared/classroom/models/classwork.model';
   templateUrl: './classwork-submissions.component.html',
   styleUrls: ['./classwork-submissions.component.css'],
 })
-export class ClassworkSubmissionsComponent implements OnInit {
+export class ClassworkSubmissionsComponent implements OnInit, AfterViewInit {
   submissions: Submission[];
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<Submission>;
 
   displayedColumns: string[] = [
@@ -29,6 +35,10 @@ export class ClassworkSubmissionsComponent implements OnInit {
     this.submissions = this.data.submissions;
     console.log('form submission compotnent', this.submissions);
     this.dataSource = new MatTableDataSource(this.submissions);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {

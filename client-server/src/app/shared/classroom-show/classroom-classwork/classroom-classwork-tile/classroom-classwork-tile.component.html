@@ -11,6 +11,8 @@
   </mat-card-content>
   <mat-card-actions>
     <a mat-button (click)="onClassworkDetailsDialogOpen()">Open</a>
-    <a mat-stroked-button (click)="openClassworkSubmissionDialog()">Submissions</a>
+    <ng-container *ngIf="isTeacher">
+      <a mat-stroked-button (click)="openClassworkSubmissionDialog()">Submissions</a>
+    </ng-container>
   </mat-card-actions>
 </mat-card>

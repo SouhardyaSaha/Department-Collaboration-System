@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Classwork } from '../../classroom/models/classwork.model';
 import { ClassworkEditComponent } from './classwork-edit/classwork-edit.component';
 
@@ -11,12 +12,20 @@ import { ClassworkEditComponent } from './classwork-edit/classwork-edit.componen
 })
 export class ClassroomClassworkComponent implements OnInit {
   @Input() classworks: Classwork;
+  isTeacher: boolean = false;
   constructor(
     public classworkEditDialog: MatDialog,
     private route: ActivatedRoute,
+    private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.isTeacher = user.isTeacher;
+      }
+    });
+  }
 
   openClassworkEditDialog() {
     const dialogConfig: MatDialogConfig = {
