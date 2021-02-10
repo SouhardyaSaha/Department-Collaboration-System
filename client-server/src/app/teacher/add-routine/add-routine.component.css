@@ -1,0 +1,9 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mat-raised-button {
+  margin-left: 5px;
+  /* width: 10px; */
+}

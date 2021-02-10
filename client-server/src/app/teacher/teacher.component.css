@@ -35,9 +35,9 @@ mat-sidenav {
 }
 
 .mat-nav-list a.active {
-  background: #6e80e7;
+  background: #3f51b5;
   color: azure;
-  font-style: italic;
+  /* font-style: italic; */
   font-weight: 500;
   font-size: large;
 }

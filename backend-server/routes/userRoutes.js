@@ -28,10 +28,10 @@ userRouter.route('/')
   .post(signUp);
 
 userRouter.route('/students')
-  .get(protect, restrictTo([roles.Admin]), getAllStudents)
+  .get(protect, getAllStudents)
 
 userRouter.route('/teachers')
-  .get(protect, restrictTo([roles.Admin]), getAllTeachers)
+  .get(protect, getAllTeachers)
 
 userRouter.route('/:id')
   .delete(protect, restrictTo([roles.Admin]), deleteUser)

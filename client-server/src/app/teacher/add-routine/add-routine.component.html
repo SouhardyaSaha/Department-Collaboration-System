@@ -1,0 +1,118 @@
+<ng-template #loader>
+  <mat-spinner class="mx-auto" value="100" diameter="40"></mat-spinner>
+</ng-template>
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  "
+>
+  <mat-card style="width: 600px; background-color: #e2e2e2">
+    <div class="container">
+      <div class="row">
+        <div
+          class="col"
+          style="
+            display: flex;
+            margin: 0px;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          Session
+        </div>
+        <div
+          class="col"
+          style="
+            display: flex;
+            margin: 0px;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          Actions
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<ng-container *ngIf="!isLoading; else loader">
+  <!-- <h3>session:</h3> -->
+  <ng-container *ngIf="sessions$ | async as sessions; else loader">
+    <!-- <mat-form-field appearance="legacy" class="w-100"> -->
+
+    <div
+      class="d-flex flex-column justify-content-center"
+      style="
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* background-color: grey; */
+      "
+    >
+      <mat-card
+        *ngFor="let session of sessions.data.sessions"
+        style="width: 600px; margin-top: 10px"
+      >
+        <div class="container">
+          <div class="row">
+            <div
+              class="col"
+              style="
+                display: flex;
+                margin: 0px;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              {{ session.session }}
+            </div>
+            <div
+              class="col"
+              style="
+                display: flex;
+                margin: 0px;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="getDetails(session)"
+              >
+                <mat-icon>preview</mat-icon>
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="addRoutine(session.id)"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="deleteById(session.id)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <ng-container style="background-color: red">
+
+      </ng-container> -->
+      </mat-card>
+    </div>
+
+    <!-- <mat-error *ngIf="classroomForm.get('sessionId').hasError('required')">
+        Please choose a session
+      </mat-error> -->
+    <!-- </mat-form-field> -->
+  </ng-container>
+  <br />
+</ng-container>

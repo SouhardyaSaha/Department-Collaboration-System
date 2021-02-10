@@ -5,9 +5,20 @@
     </button>
     <h1 class="example-app-name">SWE, IICT</h1>
     <div class="ml-auto">
-      <a class="text-white" (click)="onLogout()" style="cursor: pointer"
-        >Logout</a
-      >
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          (click)="onLogout()"
+          style="cursor: pointer"
+          color="primary"
+        >
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
     </div>
   </mat-toolbar>
   <mat-sidenav-container
