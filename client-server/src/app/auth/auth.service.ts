@@ -130,7 +130,7 @@ export class AuthService {
     // console.log();
     console.log('from auth service', user.role);
 
-    this.router.navigate([user.role]);
+    // this.router.navigate([user.role]);
   }
 
   private handleError(error: HttpErrorResponse) {

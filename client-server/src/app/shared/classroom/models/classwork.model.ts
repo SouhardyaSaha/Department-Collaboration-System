@@ -1,3 +1,6 @@
+import { Student } from './classroom.model';
+import { FileBody } from './post.model';
+
 export interface Classwork {
   id: number;
   details: string;
@@ -5,8 +8,19 @@ export interface Classwork {
   deadlineDate: Date;
   task_type: string;
   classroomId: number;
+  submissions: Submission[];
   updatedAt: Date;
   createdAt: Date;
+}
+
+export interface Submission {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  classworkId: number;
+  studentId: number;
+  student: Student;
+  files: FileBody[];
 }
 
 export interface ClassworkSubmissionBody {

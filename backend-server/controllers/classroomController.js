@@ -163,7 +163,18 @@ const getClassroomById = catchAsync(async (req, res, next) => {
                 ],
                 include: {
                     model: Submission,
-
+                    include: [
+                        {
+                            model: Student,
+                            include: {
+                                model: User,
+                                attributes: ['id', 'name', 'email']
+                            }
+                        },
+                        {
+                            model: File,
+                        }
+                    ]
                 }
             }
         ]
@@ -181,12 +192,12 @@ const getClassroomById = catchAsync(async (req, res, next) => {
         classroom = (await teacher.getClassrooms(query))[0]
     }
     else {
-        query.include[4].include = {
-            ...query.include[4].include,
-            where: {
-                studentId: student.id
-            }
-        }
+        // query.include[4].include = {
+        //     ...query.include[4].include,
+        //     where: {
+        //         studentId: student.id
+        //     }
+        // }
         classroom = (await student.getClassrooms(query))[0]
     }
 
