@@ -89,13 +89,14 @@ const getUsers = catchAsync(async (req, res, next) => {
 });
 
 const getAllStudents = catchAsync(async (req, res, next) => {
-  const students = await User.findAll({
-    where: { role: roles.Student }, include: [
+  const students = await Student.findAll({
+    include: [
       {
-        model: Student,
-        include: [
-          Session
-        ]
+        model: User,
+        attributes: ['id', 'name', 'email'],
+      },
+      {
+        model: Session,
       }
     ]
   });
@@ -106,7 +107,14 @@ const getAllStudents = catchAsync(async (req, res, next) => {
 });
 
 const getAllTeachers = catchAsync(async (req, res, next) => {
-  const teachers = await User.findAll({ where: { role: roles.Teacher }, include: [Teacher] });
+  const teachers = await Teacher.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'name', 'email'],
+      }
+    ]
+  });
   res.status(200).json({
     status: 'success',
     data: { teachers },
