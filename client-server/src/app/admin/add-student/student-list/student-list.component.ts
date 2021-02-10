@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Student } from '../../models/classroom.model';
+import { StudentService } from '../student.service';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -10,26 +11,35 @@ import { Student } from '../../models/classroom.model';
 })
 export class StudentListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+  isLoading = false;
   dataSource: MatTableDataSource<Student>;
   selection = new SelectionModel<Student>(true, []);
-  @Input() students: Student[];
-  constructor() {}
+  // @Input() students: Student[];
+  students: Student[];
+  constructor(private studentService: StudentService) {}
 
   ngOnInit(): void {
-    console.log(this.students);
-    this.dataSource = new MatTableDataSource(this.students);
+    this.isLoading = true;
+    this.studentService.getStudents().subscribe(() => {});
+    this.studentService.getstudentUpdate().subscribe((students: Student[]) => {
+      this.isLoading = false;
+      this.students = students;
+      this.dataSource = new MatTableDataSource(this.students);
+    });
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    // this.dataSource.sort = this.sort;
   }
 
   displayedColumns: string[] = [
-    'select',
+    // 'select',
     // 'user_img_uri',
     'name',
     'registration',
     'email',
+    'session',
+    'actions',
   ];
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -61,11 +71,24 @@ export class StudentListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onRemoveStudents() {
-    let studentsId: number[] = [];
-    this.selection.selected.forEach(student => {
-      studentsId.push(student.id);
+  // onRemoveStudents() {
+  //   let studentsId: number[] = [];
+  //   this.selection.selected.forEach(student => {
+  //     studentsId.push(student.id);
+  //   });
+  //   console.log(this.selection.selected);
+  // }
+  onRemoveStudent(id: number) {
+    // let studentsId: number[] = [];
+    // this.selection.selected.forEach(student => {
+    //   // studentsId.push(student.id);
+    // });
+    // console.log(this.selection.selected);
+    this.isLoading = true;
+    // console.log(id);
+    this.studentService.deleteUserById(id).subscribe(res => {
+      // console.log('From all-teacher ts', res.status);
+      this.isLoading = false;
     });
-    console.log(this.selection.selected);
   }
 }

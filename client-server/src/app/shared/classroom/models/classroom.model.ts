@@ -60,3 +60,15 @@ export interface ClassroomCreateResponseBody {
     };
   };
 }
+export interface AllTeacherResponseBody {
+  status: string;
+  data: {
+    teachers: Teacher[];
+  };
+}
+export interface AllStudentResponseBody {
+  status: string;
+  data: {
+    students: Student[];
+  };
+}
