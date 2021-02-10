@@ -2,8 +2,15 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { User } from 'src/app/auth/user.model';
 import { Teacher } from '../../models/classroom.model';
-
+// import {User} from '../../models/classroom.model'
+import { TeacherService } from '../teacher.service';
+export interface showTeacher {
+  name: string;
+  designation: string;
+  email: string;
+}
 @Component({
   selector: 'app-teacher-list',
   templateUrl: './teacher-list.component.html',
@@ -11,14 +18,33 @@ import { Teacher } from '../../models/classroom.model';
 })
 export class TeacherListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: MatTableDataSource<Teacher>;
-  selection = new SelectionModel<Teacher>(true, []);
-  @Input() students: Teacher[];
-  constructor() {}
-
+  isLoading = false;
+  dataSource: MatTableDataSource<showTeacher>;
+  selection = new SelectionModel<showTeacher>(true, []);
+  teachers: showTeacher[];
+  user: User;
+  constructor(private teacherService: TeacherService) {}
+  list = [];
   ngOnInit(): void {
-    console.log(this.students);
-    this.dataSource = new MatTableDataSource(this.students);
+    this.isLoading = true;
+    this.teacherService.getTeachers().subscribe(res => {
+      this.isLoading = false;
+      // console.log('Teacher-List', res.data.teachers.values);
+      // // let list: any[];;
+      // const hell = res.data.teachers;
+      // console.log('hell', hell);
+      // for (let x of hell) {
+      //   console.log();
+      // }
+      // this.list = res.data.teachers.map(o => {
+      //   return {
+      //     name: o.designation,
+      //     // email: o.user.name,
+      //   };
+      // });
+      // console.log('Here', this.list);
+      this.dataSource = new MatTableDataSource(this.teachers);
+    });
   }
 
   ngAfterViewInit() {
@@ -26,10 +52,10 @@ export class TeacherListComponent implements OnInit {
   }
 
   displayedColumns: string[] = [
-    'select',
+    // 'select',
     // 'user_img_uri',
     'name',
-    'registration',
+    'designation',
     'email',
   ];
 
@@ -48,14 +74,14 @@ export class TeacherListComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Teacher): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.id
-    }`;
-  }
+  // checkboxLabel(row?: Teacher): string {
+  //   if (!row) {
+  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  //   }
+  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+  //     row.id
+  //   }`;
+  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -65,7 +91,7 @@ export class TeacherListComponent implements OnInit {
   onRemoveStudents() {
     let studentsId: number[] = [];
     this.selection.selected.forEach(student => {
-      studentsId.push(student.id);
+      // studentsId.push(student.id);
     });
     console.log(this.selection.selected);
   }
