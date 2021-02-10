@@ -1,44 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { AttendanceData } from '../attendance.model';
 import { AttendanceService } from '../attendance.service';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { Student } from 'src/app/shared/classroom/models/classroom.model';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { popupNotification } from 'src/app/shared/utils.class';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 @Component({
   selector: 'app-attendance-form',
   templateUrl: './attendance-form.component.html',
   styleUrls: ['./attendance-form.component.css'],
 })
 export class AttendanceFormComponent implements OnInit {
-  attendanceData: AttendanceData;
-  student_id_list: number[] = [];
-  constructor(private attendanceService: AttendanceService) {}
+  displayedColumns: string[] = ['select', 'registration', 'name'];
+  dataSource: MatTableDataSource<Student>;
+  selection: SelectionModel<Student>;
+  students: Student[];
+  classroomId: number;
+  isLoading: boolean = false;
+  closeTab: boolean = false;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private attendanceService: AttendanceService,
+  ) {}
 
   ngOnInit(): void {
-    this.attendanceData = null;
+    this.students = this.data.students;
+    this.classroomId = this.data.classroomId;
+    this.dataSource = new MatTableDataSource(this.students);
+    this.selection = new SelectionModel(true, []);
   }
-
-  displayedColumns: string[] = ['select', 'position', 'name'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -55,38 +47,40 @@ export class AttendanceFormComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: Student): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.position + 1
+      row.registration
     }`;
   }
-  takeAttendance() {
-    // console.log('Submit is Clicked!');
-    const numSelected = this.selection.selected.length;
 
-    if (numSelected > 0) {
-      for (let i = 0; i < numSelected; i++) {
-        console.log(this.selection.selected[i].position);
-        this.student_id_list.push(this.selection.selected[i].position);
-      }
-    } else {
-      console.log('None is selected.');
-    }
-    console.log(this.student_id_list);
-    this.attendanceData = {
-      id: 1,
-      class_id: 1,
-      date: new Date(),
-      student_id: this.student_id_list,
-    };
-    this.attendanceService.addAttendanceData(this.attendanceData);
-    console.log(this.attendanceData);
-    this.clearAttendance();
-  }
   clearAttendance() {
     this.selection.clear();
+  }
+
+  onSaveAttendance() {
+    this.isLoading = true;
+    const s_students = this.selection.selected;
+    const absent_student_ids: number[] = [];
+    s_students.forEach(s_student => {
+      absent_student_ids.push(s_student.id);
+    });
+    console.log(absent_student_ids, +this.classroomId);
+    this.attendanceService
+      .createAttendance(this.classroomId, absent_student_ids)
+      .subscribe(
+        res => {
+          this.isLoading = false;
+          popupNotification('Success', 'Attendance Submitted', 'success');
+          this.clearAttendance();
+          console.log(res);
+        },
+        err => {
+          this.isLoading = false;
+          console.log(err);
+        },
+      );
   }
 }

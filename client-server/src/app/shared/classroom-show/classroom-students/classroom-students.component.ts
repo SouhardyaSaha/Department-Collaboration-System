@@ -6,6 +6,7 @@ import { Student } from '../../classroom/models/classroom.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IndividualStudentComponent } from './individual-student/individual-student.component';
 import { AttendanceFormComponent } from './attendance-form/attendance-form.component';
+import { ActivatedRoute } from '@angular/router';
 
 export interface studentList {
   student: Student;
@@ -21,24 +22,16 @@ export interface studentList {
 })
 export class ClassroomStudentsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: MatTableDataSource<studentList>;
+  dataSource: MatTableDataSource<Student>;
   selection = new SelectionModel<Student>(true, []);
+  classroomId: number;
   @Input() students: Student[];
-  constructor(private dialog: MatDialog) {}
-  student: studentList[] = [];
+  constructor(private dialog: MatDialog, private route: ActivatedRoute) {}
+  // student: studentList[] = [];
   ngOnInit(): void {
     console.log(this.students);
-
-    // for (let item of this.students) {
-    //   this.student.push({
-    //     student: item,
-    //     totalClass: 5,
-    //     absent: 1,
-    //     percentage: 4,
-    //   });
-    // }
-    console.log('Hello', this.student);
-    this.dataSource = new MatTableDataSource(this.student);
+    this.dataSource = new MatTableDataSource(this.students);
+    this.classroomId = this.route.snapshot.params['id'];
   }
 
   ngAfterViewInit() {
@@ -48,37 +41,13 @@ export class ClassroomStudentsComponent implements OnInit {
   displayedColumns: string[] = [
     // 'select',
     // 'user_img_uri',
-    'registration',
     'name',
+    'registration',
     'email',
-    'absence',
-    'percentage',
     'actions',
+    // 'absence',
+    // 'percentage',
   ];
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  // isAllSelected() {
-  //   const numSelected = this.selection.selected.length;
-  //   const numRows = this.dataSource.data.length;
-  //   return numSelected === numRows;
-  // }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  // masterToggle() {
-  //   this.isAllSelected()
-  //     ? this.selection.clear()
-  //     : this.dataSource.data.forEach(row => this.selection.select(row));
-  // }
-
-  /** The label for the checkbox on the passed row */
-  // checkboxLabel(row?: Student): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-  //     row.id
-  //   }`;
-  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -92,7 +61,9 @@ export class ClassroomStudentsComponent implements OnInit {
     });
     console.log(this.selection.selected);
   }
+
   onDelete(id) {}
+
   onDetails(id) {
     // console.log(id);
     console.log('Details of id :' + id);
@@ -104,14 +75,20 @@ export class ClassroomStudentsComponent implements OnInit {
     dialogConfig.data = { message: 'Individual Form', id: id };
     this.dialog.open(IndividualStudentComponent, dialogConfig);
   }
+
   openAttendanceDialog() {
     console.log('New Attendance!');
-    const dialogConfig = new MatDialogConfig();
+    const dialogConfig: MatDialogConfig = {
+      autoFocus: true,
+      disableClose: true,
+      width: '60%',
+      data: {
+        students: this.students,
+        classroomId: this.classroomId,
+      },
+    };
     // let id = this.routines[index].id;
-    dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = true;
-    dialogConfig.width = '60%';
-    dialogConfig.data = { message: 'New Form' };
+
     this.dialog.open(AttendanceFormComponent, dialogConfig);
   }
 }

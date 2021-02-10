@@ -9,13 +9,15 @@ const User = require("../models/user");
 
 const createAttendances = catchAsync(async (req, res, next) => {
     const { classroomId } = req.params
+    // console.log(req.params);
     const { absent_student_ids } = req.body
+    console.log(req.body);
 
     const createdAttendances = await sequelize.transaction(async (t) => {
         const teacher = await req.user.getTeacher();
         const classroom = (await teacher.getClassrooms(
             {
-                where: { id: classroomId },
+                where: { id: parseInt(classroomId) },
                 include: {
                     model: Student,
                     where: {
@@ -61,7 +63,7 @@ const createAttendances = catchAsync(async (req, res, next) => {
 
 const getLectureWithAttendances = catchAsync(async (req, res, next) => {
     const { classroomId } = req.params
-
+    console.log(req.params);
     const teacher = await req.user.getTeacher()
 
     const classroom = (await teacher.getClassrooms(
