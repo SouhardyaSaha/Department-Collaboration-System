@@ -1,40 +1,17 @@
 const express = require('express');
+const { createAttendances, getStudentAttendance, getLectureWithAttendances } = require('../controllers/attendanceController');
+const { protect, restrictTo } = require('../middlewares/protect');
+const { roles } = require('../utils/roles');
+const { route } = require('./submission');
+const attendanceRouter = express.Router({ mergeParams: true });
 
-const router = express.Router();
+attendanceRouter.route('/')
+    .post(protect, restrictTo([roles.Teacher]), createAttendances)
 
-// const db = require('../db/config');
-const Attendance = require('../models/attendance');
+attendanceRouter.route('/students/:studentId')
+    .get(protect, restrictTo([roles.Teacher]), getStudentAttendance)
 
-router.get('/',(req,res,next)=>{
-    Attendance.findAll()
-    .then((response)=>{
-        res.status(200).json({
-            message: "Fetching all attendance",
-            body: response
-        })
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+attendanceRouter.route('/lectures')
+    .get(protect, restrictTo([roles.Teacher]), getLectureWithAttendances)
 
-})
-
-router.post('/',(req,res,next)=>{
-    const attendanceData = req.body;
-    console.log('Here in attendance route:',attendanceData);
-    let {student_id,class_id,date} = attendanceData;
-    Attendance.create({
-      studentId : student_id,
-      classId : class_id,
-      date
-    }).then((response)=>{
-      res.status(201).json({
-          message:"Attendance    has been added",
-          id:response.id
-        })
-    }).catch(err => console.log(err));
-  
-  });
-
-  module.exports = router;
-  
+module.exports = attendanceRouter;

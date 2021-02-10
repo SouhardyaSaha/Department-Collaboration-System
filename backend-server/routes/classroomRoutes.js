@@ -12,6 +12,7 @@ const {
 const { protect, restrictTo } = require('../middlewares/protect');
 
 const { roles } = require('../utils/roles');
+const attendanceRouter = require('./attendance');
 const classworkRouter = require('./classwork');
 const postRouter = require('./post');
 
@@ -27,6 +28,8 @@ classroomRouter.route('/')
 classroomRouter.use('/:classroomId/posts', postRouter)
 // For classroom classworks
 classroomRouter.use('/:classroomId/classworks', classworkRouter)
+// For classroom attendance
+classroomRouter.use('/:classroomId/attendances', attendanceRouter)
 
 classroomRouter.route('/:id')
     .get(protect, restrictTo([roles.Teacher, roles.Student]), getClassroomById)

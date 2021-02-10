@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../db/config');
 
-const Attendance = sequelize.define('attendance', {
+const Lecture = sequelize.define('lecture', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -12,4 +12,4 @@ const Attendance = sequelize.define('attendance', {
 });
 //StudentId & ClassId will be updated in future(Foreign Key)
 
-module.exports = Attendance;
+module.exports = Lecture;

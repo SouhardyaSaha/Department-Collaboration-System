@@ -2,68 +2,118 @@ const catchAsync = require("../utils/catchAsync");
 const { roles } = require('../utils/roles');
 const AppError = require("../utils/appError");
 const sequelize = require("../db/config");
+const Student = require("../models/student");
+const Lecture = require("../models/lecture");
+const Attendance = require("../models/attendance");
+const User = require("../models/user");
 
-const createClasswork = catchAsync(async (req, res, next) => {
-    const id = req.params.classroomId
-    let classroom
-    if (req.user.role === roles.Teacher) {
-        let teacher = await req.user.getTeacher();
-        classroom = (await teacher.getClassrooms({ where: { id } }))[0]
-    }
-    if (!classroom) return next(new AppError('Invalid Operation', 400));
+const createAttendances = catchAsync(async (req, res, next) => {
+    const { classroomId } = req.params
+    const { absent_student_ids } = req.body
 
-    const classwork = await classroom.createClasswork(req.body)
+    const createdAttendances = await sequelize.transaction(async (t) => {
+        const teacher = await req.user.getTeacher();
+        const classroom = (await teacher.getClassrooms(
+            {
+                where: { id: classroomId },
+                include: {
+                    model: Student,
+                    where: {
+                        id: absent_student_ids
+                    },
+                    through: {
+                        attributes: []
+                    }
+                },
+                transaction: t
+            }
+        )
+        )[0]
+        if (!classroom) return next(new AppError('Invalid Operation', 400))
+        const { students } = classroom
+
+        const attendances = []
+        const lecture = await classroom.createLecture({}, { transaction: t })
+        for (let index = 0; index < students.length; index++) {
+            const student = students[index];
+            const attendance = await student.createAttendance(
+                {
+                    classroomId: classroom.id,
+                    lectureId: lecture.id
+                },
+                {
+                    transaction: t
+                }
+            )
+            attendances.push(attendance)
+        }
+
+        return attendances
+    })
+
     res.json({
         status: 'success',
         data: {
-            classwork
+            attendances: createdAttendances
         }
     })
 })
 
-const submitClasswork = catchAsync(async (req, res, next) => {
-    const classroomId = req.params.classroomId
-    const classworkId = req.params.classworkId
-    const student = await req.user.getStudent()
+const getLectureWithAttendances = catchAsync(async (req, res, next) => {
+    const { classroomId } = req.params
 
-    // If student is in the classroom
-    const classroom = (await student.getClassrooms({ where: { id: classroomId } }))[0]
-    if (!classroom) return next(new AppError('Invalid Operation', 400));
+    const teacher = await req.user.getTeacher()
 
-    // If classroom contains the classwork
-    const classwork = (await classroom.getClassworks({ where: { id: classworkId } }))[0]
-    if (!classwork) return next(new AppError('Invalid Operation', 400));
-
-    const submittedSubmission = await sequelize.transaction(async (t) => {
-        const submission = await student.createSubmission({ classworkId }, { transaction: t })
-
-        const files = req.files
-        // console.log(files);
-        const url = req.protocol + '://' + req.get('host')
-        // console.log(url);
-        let createdFiles = []
-        for (let index = 0; index < files.length; index++) {
-            const file = files[index];
-            let uri = `${url}/files/${file.filename}`;
-            let is_image = file.mimetype.includes('image')
-            let createdFile = await submission.createFile({ uri, is_image }, { transaction: t })
-            createdFiles = [...createdFiles, createdFile]
+    const classroom = (await teacher.getClassrooms(
+        {
+            where: { id: classroomId },
+            include: {
+                model: Lecture,
+                include: {
+                    model: Attendance,
+                    include: {
+                        model: Student,
+                        include: {
+                            model: User,
+                            attributes: ['id', 'name', 'email']
+                        }
+                    }
+                }
+            }
         }
-
-        return { submission, createdFiles }
-    })
+    ))[0]
+    if (!classroom) return next(new AppError('Invalid Operation', 400))
 
     res.json({
         status: 'success',
         data: {
-            submission: submittedSubmission.submission,
-            files: submittedSubmission.createdFiles
+            lectures: classroom.lectures,
         }
     })
+})
 
+const getStudentAttendance = catchAsync(async (req, res, next) => {
+    const { classroomId, studentId } = req.params
+
+    const teacher = await req.user.getTeacher()
+
+    let classroom = (await teacher.getClassrooms({ where: { id: classroomId } }))[0]
+    if (!classroom) return next(new AppError('Invalid Operation', 400))
+
+    const total_lectures = await Lecture.count({ where: { classroomId } })
+    const absent_count = await Attendance.count({ where: { classroomId, studentId } })
+
+    res.json({
+        status: 'success',
+        data: {
+            total_lectures,
+            absent_count
+        }
+    })
 })
 
 module.exports = {
-    createClasswork,
-    submitClasswork
+    createAttendances,
+    getStudentAttendance,
+    getLectureWithAttendances
 }
