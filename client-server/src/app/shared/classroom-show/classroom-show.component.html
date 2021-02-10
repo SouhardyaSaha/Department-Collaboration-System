@@ -35,10 +35,13 @@
             <ng-template mat-tab-label>Classwork</ng-template>
             <app-classroom-classwork [classworks]="classroom.classworks"></app-classroom-classwork>
           </mat-tab>
-          <mat-tab>
-            <ng-template mat-tab-label>Students</ng-template>
-            <app-classroom-students [students]="classroom.students"></app-classroom-students>
-          </mat-tab>
+          <ng-container *ngIf="isTeacher">
+            <mat-tab>
+              <ng-template mat-tab-label>Students</ng-template>
+              <app-classroom-students [students]="classroom.students"></app-classroom-students>
+            </mat-tab>
+          </ng-container>
+
         </mat-tab-group>
       </div>
     </div>

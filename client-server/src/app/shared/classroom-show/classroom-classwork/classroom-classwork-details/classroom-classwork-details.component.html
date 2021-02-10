@@ -21,36 +21,37 @@
   <ng-template #loader>
     <mat-spinner class="mx-auto"></mat-spinner>
   </ng-template>
-  <!-- <ng-container *ngIf="!isLoading; else loader;"> -->
-  <form [formGroup]="submissionForm" (ngSubmit)="onSubmission()">
-    <!-- <ng-container *ngIf="isStudent"> -->
-    <h3 class="font-weight-bold text-center">Submit Here...</h3>
-    <div class="mt-3">
-      <ngx-file-drop dropZoneLabel="Drop files here" [multiple]="true" [directory]="false">
-        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-          <button mat-raised-button type="button" (click)="openFileSelector()">Browse</button>
-          <span>&nbsp; or Drop your files</span>
-        </ng-template>
-      </ngx-file-drop>
-    </div>
+  <ng-container *ngIf="!isLoading; else loader;">
+    <ng-container *ngIf="isStudent">
+      <form [formGroup]="submissionForm" (ngSubmit)="onSubmission()">
+        <h3 class="font-weight-bold text-center">Submit Here...</h3>
+        <div class="mt-3">
+          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" [multiple]="true"
+            [directory]="false">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <button mat-raised-button type="button" (click)="openFileSelector()">Browse</button>
+              <span>&nbsp; or Drop your files</span>
+            </ng-template>
+          </ngx-file-drop>
+        </div>
 
-    <ng-container *ngIf="submissionForm.get('files').value.length > 0">
-      <mat-form-field class="w-100">
-        <mat-chip-list aria-label="Selected Files">
-          <mat-chip *ngFor="let igControl of submissionForm.get('files')['controls']; let i=index" [removable]="true"
-            (removed)="removeFile(i)">
-            {{ igControl.value.name }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
-      </mat-form-field>
+        <ng-container *ngIf="submissionForm.get('files').value.length > 0">
+          <mat-form-field class="w-100">
+            <mat-chip-list aria-label="Selected Files">
+              <mat-chip *ngFor="let igControl of submissionForm.get('files')['controls']; let i=index"
+                [removable]="true" (removed)="removeFile(i)">
+                {{ igControl.value.name }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+        </ng-container>
+        <br>
+        <button [disabled]="submissionForm.invalid" class="mx-auto" type="submit" mat-raised-button
+          color="primary">Submit</button>
+      </form>
     </ng-container>
-    <!-- </ng-container> -->
-    <br>
-    <button [disabled]="submissionForm.invalid" class="mx-auto" type="submit" mat-raised-button
-      color="primary">Submit</button>
-  </form>
-  <!-- </ng-container> -->
+  </ng-container>
 
 
 

@@ -5,6 +5,8 @@ import { StudentComponent } from './student.component';
 // import { ClassroomShowComponent } from './classroom-show/classroom-show.component';
 import { ClassRoutineComponent } from './class-routine/class-routine.component';
 import { StudentGuard } from './student.guard';
+import { ClassroomComponent } from '../shared/classroom/classroom.component';
+import { ClassroomShowComponent } from '../shared/classroom-show/classroom-show.component';
 
 const routes: Routes = [
   {
@@ -21,11 +23,14 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
       },
-      // {
-      //   path: 'classroom',
-      //   pathMatch: 'full',
-      //   component: ClassroomShowComponent,
-      // },
+      {
+        path: 'classroom',
+        component: ClassroomComponent,
+      },
+      {
+        path: 'classroom/:id',
+        component: ClassroomShowComponent,
+      },
       {
         path: 'routine',
         pathMatch: 'full',
