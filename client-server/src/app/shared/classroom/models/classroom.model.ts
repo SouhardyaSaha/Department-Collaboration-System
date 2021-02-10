@@ -66,3 +66,9 @@ export interface AllTeacherResponseBody {
     teachers: Teacher[];
   };
 }
+export interface AllStudentResponseBody {
+  status: string;
+  data: {
+    students: Student[];
+  };
+}

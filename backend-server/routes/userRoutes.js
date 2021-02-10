@@ -10,7 +10,8 @@ const {
   sendInvitation,
   signUpByInvitation,
   getAllStudents,
-  getAllTeachers
+  getAllTeachers,
+  deleteUser
 } = require('../controllers/userController');
 const { protect, restrictTo } = require('../middlewares/protect');
 const { protectUserRegistration } = require('../middlewares/protectUserRegistration');
@@ -31,6 +32,9 @@ userRouter.route('/students')
 
 userRouter.route('/teachers')
   .get(protect, restrictTo([roles.Admin]), getAllTeachers)
+
+userRouter.route('/:id')
+  .delete(protect, restrictTo([roles.Admin]), deleteUser)
 
 userRouter.route('/invite')
   .post(sendInvitation)

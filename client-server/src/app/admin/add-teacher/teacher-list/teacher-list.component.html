@@ -1,11 +1,11 @@
 <div class="row mt-2 ml-0 mr-0">
   <div class="col-12">
     <mat-form-field class="w-50">
-      <mat-label>Type Name or Registration or Email...</mat-label>
+      <mat-label>Type Name or Designation...</mat-label>
       <input
         matInput
         (keyup)="applyFilter($event)"
-        placeholder="Ex. ium"
+        placeholder="Ex. Professor"
         #input
       />
     </mat-form-field>
@@ -18,7 +18,6 @@
           *ngIf="!isLoading; else loader"
           mat-table
           [dataSource]="dataSource"
-          matSort
           style="overflow-x: scroll"
           class="w-100"
         >
@@ -47,24 +46,36 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let element">{{ element.user.name }}</td>
           </ng-container>
 
           <!-- Registration Column -->
           <ng-container matColumnDef="designation">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              Registration
-            </th>
+            <th mat-header-cell *matHeaderCellDef>Designation</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.registration }}
+              {{ element.designation }}
             </td>
           </ng-container>
 
           <!-- Email Column -->
           <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+            <th mat-header-cell *matHeaderCellDef>Email</th>
             <td mat-cell *matCellDef="let element">{{ element.user.email }}</td>
+          </ng-container>
+
+          <!-- Action Column  -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                mat-mini-fab
+                color="warn"
+                (click)="onRemoveTeacher(element.user.id)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
           </ng-container>
 
           <tr
@@ -76,26 +87,22 @@
             *matRowDef="let row; columns: displayedColumns"
             (click)="selection.toggle(row)"
           ></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No data matching the filter "{{ input.value }}"
+            </td>
+          </tr>
         </table>
       </div>
     </div>
   </div>
 </div>
 
-<div class="row mr-0 ml-0">
+<!-- <div class="row mr-0 ml-0">
   <div class="col-12">
-    <mat-card class="my-3 mat-elevation-z8">
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="onRemoveStudents()"
-        [disabled]="selection.isEmpty()"
-      >
-        Remove
-      </button>
-    </mat-card>
+    <mat-card class="my-3 mat-elevation-z8"> </mat-card>
   </div>
-</div>
+</div> -->
 
 <!-- <div *ngIf="!selection.isEmpty()" class="row mr-0 ml-0">
   <div class="col-12">

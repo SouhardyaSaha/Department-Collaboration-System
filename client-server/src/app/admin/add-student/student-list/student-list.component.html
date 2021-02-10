@@ -1,24 +1,40 @@
 <div class="row mt-2 ml-0 mr-0">
   <div class="col-12">
-    <mat-form-field class=" w-50">
+    <mat-form-field class="w-50">
       <mat-label>Type Name or Registration or Email...</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. ium"
+        #input
+      />
     </mat-form-field>
     <div class="student-container mat-elevation-z8">
       <div class="student-table-container">
-        <table mat-table [dataSource]="dataSource" matSort style="overflow-x: scroll;" class="w-100">
-
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          style="overflow-x: scroll"
+          class="w-100"
+        >
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle() : null"
+              <mat-checkbox
+                (change)="$event ? masterToggle() : null"
                 [checked]="selection.hasValue() && isAllSelected()"
-                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [aria-label]="checkboxLabel()"
+              >
               </mat-checkbox>
             </th>
             <td mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+                [aria-label]="checkboxLabel(row)"
+              >
               </mat-checkbox>
             </td>
           </ng-container>
@@ -33,48 +49,68 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.user.name}} </td>
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.user.name }}</td>
           </ng-container>
 
           <!-- Registration Column -->
           <ng-container matColumnDef="registration">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Registration </th>
-            <td mat-cell *matCellDef="let element"> {{element.registration}} </td>
+            <th mat-header-cell *matHeaderCellDef>Registration</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.registration }}
+            </td>
           </ng-container>
 
           <!-- Email Column -->
           <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-            <td mat-cell *matCellDef="let element"> {{element.user.email}} </td>
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.user.email }}</td>
+          </ng-container>
+          <!-- Session Column -->
+          <ng-container matColumnDef="session">
+            <th mat-header-cell *matHeaderCellDef>Session</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.session.session }}
+            </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
-          </tr>
+          <!-- Action Column  -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                mat-mini-fab
+                color="warn"
+                (click)="onRemoveStudent(element.user.id)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="selection.toggle(row)"
+          ></tr>
         </table>
       </div>
-
     </div>
   </div>
 </div>
 
-<div class="row mr-0 ml-0">
-  <div class="col-12">
-    <mat-card class="my-3 mat-elevation-z8">
-
-      <button mat-raised-button color="warn" (click)="onRemoveStudents()"
-        [disabled]="selection.isEmpty()">Remove</button>
-    </mat-card>
-  </div>
-</div>
-
-<div *ngIf="!selection.isEmpty()" class="row mr-0 ml-0">
+<!-- <div *ngIf="!selection.isEmpty()" class="row mr-0 ml-0">
   <div class="col-12">
     <mat-card class="my-3 mat-elevation-z8">
       <mat-chip-list aria-label="For Removal">
-        <mat-chip *ngFor="let student of selection.selected">{{ student.user.name }}</mat-chip>
+        <mat-chip *ngFor="let student of selection.selected">{{
+          student.user.name
+        }}</mat-chip>
       </mat-chip-list>
     </mat-card>
   </div>
-</div>
+</div> -->

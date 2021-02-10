@@ -121,6 +121,15 @@ const getAllTeachers = catchAsync(async (req, res, next) => {
   });
 });
 
+const deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByPk(req.params.id);
+  await user.destroy();
+  res.status(200).json({
+    status: 'success',
+    // data: { teachers },
+  });
+});
+
 
 // Function to sign up a user
 const signUp = catchAsync(async (req, res, next) => {
@@ -246,5 +255,6 @@ module.exports = {
   sendInvitation,
   signUpByInvitation,
   getAllStudents,
-  getAllTeachers
+  getAllTeachers,
+  deleteUser
 };

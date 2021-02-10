@@ -2,34 +2,34 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AllTeacherResponseBody } from '../../shared/classroom/models/classroom.model';
-// import { TeacherModel } from './teacher.model';
+import { AllStudentResponseBody } from '../../shared/classroom/models/classroom.model';
+// import { studentModel } from './student.model';
 import { Subject } from 'rxjs';
-import { Teacher } from './teacher.model';
+import { Student } from '../../shared/classroom/models/classroom.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TeacherService {
+export class StudentService {
   baseURL: string = environment.serverURL;
-  private teacherData: Teacher[] = [];
-  private updateTeacherList = new Subject<Teacher[]>();
+  private studentData: Student[] = [];
+  private updateStudentList = new Subject<Student[]>();
   constructor(private http: HttpClient) {}
 
-  getTeachers() {
+  getStudents() {
     return this.http
-      .get<AllTeacherResponseBody>(`${this.baseURL}/users/teachers`)
+      .get<AllStudentResponseBody>(`${this.baseURL}/users/students`)
       .pipe(
         tap(res => {
-          // console.log('service', res);
-          this.teacherData = res.data.teachers;
-          this.updateTeacherList.next([...this.teacherData]);
+          console.log('Student service', res);
+          this.studentData = res.data.students;
+          this.updateStudentList.next([...this.studentData]);
         }),
       );
   }
 
-  getTeacherUpdate() {
-    return this.updateTeacherList.asObservable();
+  getstudentUpdate() {
+    return this.updateStudentList.asObservable();
   }
   deleteUserById(id: number) {
     return this.http
@@ -37,11 +37,11 @@ export class TeacherService {
       .pipe(
         tap(res => {
           if (res.status == 'success') {
-            const UpdatedList = this.teacherData.filter(
+            const UpdatedList = this.studentData.filter(
               routine => routine.user.id !== id,
             );
-            this.teacherData = UpdatedList;
-            this.updateTeacherList.next([...this.teacherData]);
+            this.studentData = UpdatedList;
+            this.updateStudentList.next([...this.studentData]);
           }
         }),
       );
