@@ -7,6 +7,7 @@ import { ClassroomComponent } from '../shared/classroom/classroom.component';
 import { HomeComponent } from './home/home.component';
 import { TeacherComponent } from './teacher.component';
 import { TeacherGuard } from './teacher.guard';
+import { AddRoutineComponent } from './add-routine/add-routine.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
         path: 'routine',
         component: RoutineGeneratorComponent,
         children: [{ path: 'list', component: RoutineListComponent }],
+      },
+      {
+        path: 'add-routine',
+        component: AddRoutineComponent,
       },
     ],
   },

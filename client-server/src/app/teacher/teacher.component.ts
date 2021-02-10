@@ -21,6 +21,8 @@ export class TeacherComponent implements OnInit {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
+  ngOnInit(): void {}
+
   onLogout() {
     this.authService.logout();
   }
@@ -42,6 +44,4 @@ export class TeacherComponent implements OnInit {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
-
-  ngOnInit(): void {}
 }
