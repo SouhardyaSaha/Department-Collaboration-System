@@ -7,6 +7,7 @@ export interface Session {
   session: string;
   createdAt: Date;
   updatedAt: Date;
+  routine_uri: string;
 }
 
 export interface SessionResponseBody {

@@ -1,1 +1,12 @@
-<p>routine-form works!</p>
+<!-- <mat-form-field> -->
+<div class="mt-3">
+  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" [multiple]="true" [directory]="false">
+    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+      <button mat-raised-button type="button" (click)="openFileSelector()">Browse</button>
+      <span>&nbsp; or Drop your files</span>
+    </ng-template>
+  </ngx-file-drop>
+</div>
+
+<button class="ml-2 mt-3" mat-stroked-button [disabled]="routineImage.invalid" (click)="onUpload()">Upload</button>
+<button class="ml-2 mt-3" mat-raised-button mat-dialog-close>Close</button>

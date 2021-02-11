@@ -4,6 +4,7 @@ const Classroom = require("../models/classroom");
 const User = require("../models/user");
 const { roles } = require('../utils/roles');
 const AppError = require("../utils/appError");
+const Comment = require("../models/comment");
 
 const createComment = catchAsync(async (req, res, next) => {
     const userId = req.user.id
@@ -19,9 +20,13 @@ const createComment = catchAsync(async (req, res, next) => {
         }
     )
 
+    const getComment = await Comment.findByPk(comment.id, { include: { model: User, attributes: ['id', 'name', 'email'] } })
+
     res.json({
         status: 'success',
-        comment
+        data: {
+            comment: getComment
+        }
     })
 })
 
@@ -31,7 +36,29 @@ const getComments = catchAsync(async (req, res, next) => {
 
 })
 
+const deleteComment = catchAsync(async (req, res, next) => {
+    const { classroomId, postId, commentId } = req.params
+    const comment = await Comment.findOne(
+        {
+            where: {
+                id: commentId,
+                postId
+            }
+        }
+    )
+
+    await comment.destroy()
+
+    res.json({
+        status: 'success',
+        comment
+    })
+
+})
+
+
 module.exports = {
     createComment,
-    getComments
+    getComments,
+    deleteComment
 }

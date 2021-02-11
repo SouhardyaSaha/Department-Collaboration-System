@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SessionResponseBody } from 'src/app/shared/classroom/models/session.model';
+import { SessionService } from 'src/app/shared/classroom/session.service';
 
 @Component({
   selector: 'app-class-routine',
@@ -7,7 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassRoutineComponent implements OnInit {
   semester = '1/2';
-  constructor() {}
+  session$: Observable<any>;
 
-  ngOnInit(): void {}
+  constructor(private sessionService: SessionService) {
+    this.session$ = this.sessionService.getStudentSession();
+  }
+
+  ngOnInit(): void {
+    this.session$ = this.sessionService.getStudentSession();
+  }
 }

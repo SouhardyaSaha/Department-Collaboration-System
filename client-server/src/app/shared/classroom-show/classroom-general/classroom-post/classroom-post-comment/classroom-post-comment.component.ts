@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Comment } from 'src/app/shared/classroom/models/comment.model';
+import { popupNotification } from 'src/app/shared/utils.class';
 import { ClassroomGeneralService } from '../../classroom-general.service';
 
 @Component({
@@ -16,15 +18,23 @@ export class ClassroomPostCommentComponent implements OnInit {
   classroomId: number;
   content: FormControl;
   isLoading: boolean = false;
+
+  user = null;
   constructor(
     private classroomGeneralService: ClassroomGeneralService,
     private route: ActivatedRoute,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.classroomId = this.route.snapshot.params['id'];
     let content = '';
-    // console.log('comments', this.comments);
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.user = user;
+        // console.log(this.user.id, this.post.user.id);
+      }
+    });
     this.content = new FormControl(content, Validators.required);
   }
 
@@ -36,12 +46,32 @@ export class ClassroomPostCommentComponent implements OnInit {
       .addPostComment(this.classroomId, this.postId, { content: comment })
       .subscribe(
         res => {
-          this.isLoading = true;
+          this.content.reset();
+          this.isLoading = false;
           console.log(res);
-          location.reload();
+          this.commentPanelOpenState = true;
+          this.comments.push(res.data.comment);
+          // location.reload();
         },
         err => {
           this.isLoading = false;
+          console.log(err);
+        },
+      );
+  }
+
+  onDelete(comment: Comment) {
+    this.classroomGeneralService
+      .deletePostComment(this.classroomId, comment.postId, comment.id)
+      .subscribe(
+        res => {
+          const index = this.comments.indexOf(comment);
+          this.comments.splice(index, 1);
+          popupNotification('Success', 'Successfully Deleted', 'success');
+          console.log(res);
+        },
+        err => {
+          popupNotification('Error', 'Error', 'error');
           console.log(err);
         },
       );
