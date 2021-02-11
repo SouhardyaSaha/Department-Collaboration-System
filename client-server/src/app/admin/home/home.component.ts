@@ -30,7 +30,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.user.subscribe(user => {
-      this.user = user;
+      if (user) {
+        this.user = user;
+      }
     });
     this.sessionService.getSessionData();
     this.sessionSub = this.sessionService

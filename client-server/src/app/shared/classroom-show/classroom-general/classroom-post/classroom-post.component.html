@@ -13,6 +13,10 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button mat-menu-item color="warn" (click)="openPostEditDialog()">
+                  <mat-icon>mode_edit</mat-icon>
+                  <span class="text-info">mode_edit</span>
+                </button>
                 <button mat-menu-item color="warn" (click)="onDelete()">
                   <mat-icon>delete</mat-icon>
                   <span class="text-danger">Delete</span>

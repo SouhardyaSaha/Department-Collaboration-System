@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FileBody, Post } from 'src/app/shared/classroom/models/post.model';
 import { popupNotification } from 'src/app/shared/utils.class';
 import { ClassroomGeneralService } from '../classroom-general.service';
+import { ClassroomPostEditComponent } from '../classroom-post-edit/classroom-post-edit.component';
 
 @Component({
   selector: 'app-classroom-post',
@@ -16,6 +18,7 @@ export class ClassroomPostComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private generalService: ClassroomGeneralService,
+    public postEditDialog: MatDialog,
   ) {}
   ngOnInit(): void {
     this.files = [];
@@ -28,7 +31,7 @@ export class ClassroomPostComponent implements OnInit {
     this.authService.user.subscribe(user => {
       if (user) {
         this.user = user;
-        console.log(this.user.id, this.post.user.id);
+        // console.log(this.user.id, this.post.user.id);
       }
     });
   }
@@ -55,5 +58,25 @@ export class ClassroomPostComponent implements OnInit {
           console.log(err);
         },
       );
+  }
+
+  openPostEditDialog() {
+    const dialogConfig: MatDialogConfig = {
+      maxWidth: '90%',
+      width: '700px',
+      disableClose: true,
+      data: {
+        post: this.post,
+      },
+    };
+
+    const dialogRef = this.postEditDialog.open(
+      ClassroomPostEditComponent,
+      dialogConfig,
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

@@ -9,7 +9,11 @@ import {
   NgxFileDropEntry,
 } from 'ngx-file-drop';
 import { ClassroomGeneralService } from '../classroom-general.service';
-import { PostSubmitBody } from 'src/app/shared/classroom/models/post.model';
+import {
+  FileBody,
+  Post,
+  PostSubmitBody,
+} from 'src/app/shared/classroom/models/post.model';
 @Component({
   selector: 'app-classroom-post-edit',
   templateUrl: './classroom-post-edit.component.html',
@@ -17,7 +21,10 @@ import { PostSubmitBody } from 'src/app/shared/classroom/models/post.model';
 })
 export class ClassroomPostEditComponent implements OnInit {
   classroomPostForm: FormGroup;
+  // post: Post;
   isLoading: boolean = false;
+  // isEditMode: boolean = false;
+  // filesToEdit: FileBody[];
   classroomId: number;
   // activatedRouteSnapshot: ActivatedRouteSnapshot;
   constructor(
@@ -28,10 +35,15 @@ export class ClassroomPostEditComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.classroomId = this.data.classroomId;
-    // console.log(this.classroomId);
+    // this.post = this.data.post;
+    // if (this.post) {
+    //   this.isEditMode = true;
+    //   this.filesToEdit = this.post.files;
+    // }
   }
 
   private formInit() {
+    // let content = this.post.content || '';
     let content = '';
 
     this.classroomPostForm = new FormGroup({
@@ -44,6 +56,11 @@ export class ClassroomPostEditComponent implements OnInit {
     let postBody: PostSubmitBody = this.classroomPostForm.value;
     console.log(this.classroomPostForm.value);
     this.isLoading = true;
+    // if(this.isEditMode) {
+
+    //   return;
+    // }
+
     this.classroomGeneralService.addPost(this.classroomId, postBody).subscribe(
       res => {
         this.isLoading = false;

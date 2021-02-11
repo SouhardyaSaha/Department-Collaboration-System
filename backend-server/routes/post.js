@@ -2,7 +2,7 @@
 
 // This router is called from classroom router
 
-const { createPost, getPosts, deletePost } = require('../controllers/postController');
+const { createPost, getPosts, deletePost, updatePost } = require('../controllers/postController');
 const { protect } = require('../middlewares/protect');
 const { createComment, getComments, deleteComment } = require('../controllers/commentController');
 const upload = require('../middlewares/fileUploader');
@@ -17,8 +17,9 @@ postRouter.route('/')
     .post(protect, upload.array('files', 10), createPost)
 // upload.array('files', 10),
 
-postRouter.route('/:postId').delete(protect, deletePost)
-// .patch()
+postRouter.route('/:postId')
+    .delete(protect, deletePost)
+    .patch(protect, updatePost)
 
 postRouter.route('/:postId/comments')
     .post(protect, createComment)

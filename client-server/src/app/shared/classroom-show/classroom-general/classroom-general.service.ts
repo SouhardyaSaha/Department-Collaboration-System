@@ -29,6 +29,19 @@ export class ClassroomGeneralService {
     // return this.http.post<PostResponseBody>(url, post);
   }
 
+  // updatePost(classroomId: number, post: PostSubmitBody) {
+  //   let url: string = `${this.baseURL}/classrooms/${classroomId}/posts`;
+  //   const submitData: FormData = new FormData();
+  //   submitData.append('content', post.content);
+  //   post.files.forEach(file => {
+  //     submitData.append('edited_files', post.files)
+  //   });
+  //   post.files.forEach(file => {
+  //     submitData.append('files', file);
+  //   });
+  //   return this.http.post<PostResponseBody>(url, submitData);
+  // }
+
   deletePost(classroomId: number, postId: number) {
     let url: string = `${this.baseURL}/classrooms/${classroomId}/posts/${postId}`;
     return this.http.delete(url);

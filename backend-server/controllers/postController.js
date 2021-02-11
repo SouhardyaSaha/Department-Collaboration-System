@@ -80,6 +80,17 @@ const getPosts = catchAsync(async (req, res, next) => {
 })
 
 
+const updatePost = catchAsync(async (req, res, next) => {
+    const { classroomId, postId } = req.params
+    const post = (await Post.findOne({ id: postId, classroomId, userId: req.user.id })).update(req.body)
+    res.json({
+        status: 'success',
+        data: {
+            post
+        }
+    })
+})
+
 const deletePost = catchAsync(async (req, res, next) => {
     const { classroomId, postId } = req.params
     const post = (await Post.findOne({ id: postId, classroomId, userId: req.user.id })).destroy()
@@ -95,5 +106,6 @@ const deletePost = catchAsync(async (req, res, next) => {
 module.exports = {
     createPost,
     getPosts,
+    updatePost,
     deletePost
 }
