@@ -50,7 +50,34 @@ export class CourseService {
         this.updateCourse.next([...this.CourseData]);
       });
   }
-  updateCourseData(id, data: CourseModel) {}
+  updateCourseData(id, postData: CourseModel) {
+    this.http
+      .patch<{ status: string; data: { course } }>(
+        'http://localhost:3000/courses/' + id,
+        postData,
+      )
+      .subscribe(response => {
+        const UpdatedList = this.CourseData.map(routine => {
+          if (routine.id !== id) {
+            return routine;
+          } else {
+            const o = response.data.course;
+            return {
+              id: o.id,
+              admin_id: o.adminId,
+              course_title: o.title,
+              credit: o.credit,
+              session: o.semester,
+              details: o.details,
+              optional: o.is_optional,
+            };
+          }
+        });
+        this.CourseData = UpdatedList;
+
+        this.updateCourse.next([...this.CourseData]);
+      });
+  }
   deleteCourseData(id) {
     this.http
       .delete('http://localhost:3000/courses/' + id)

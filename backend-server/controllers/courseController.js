@@ -4,15 +4,12 @@ const Admin = require('../models/admin')
 const User = require('../models/user')
 
 const createCourse = catchAsync(async (req, res, next) => {
+    console.log(req.body);
     const admin = await req.user.getAdmin()
     const course = await Course.create(
         {
-            title:req.body.course_title,
-            credit:req.body.credit,
+            ...req.body,
             adminId: admin.id,
-            is_optional:req.body.optional,
-            semester:req.body.session,
-            details:req.body.details,
         }
     )
     res.json({
@@ -55,5 +52,25 @@ const deleteCourse = catchAsync(async (req, res, next) => {
         }
     })
 })
+const updateCourse = catchAsync(async(req,res,next)=>{
+    // console.log(req.body,req.params.id)
+    const admin = await req.user.getAdmin()
+    const getCourse = await Course.findByPk(req.params.id);
+    const course = await getCourse.update({
+        title:req.body.course_title,
+        credit:req.body.credit,
+        is_optional:req.body.optional,
+        semester:req.body.semester,
+        adminId: admin.id,
+        details:req.body.details
+    })
+    // console.log('Here',course);
+    res.json({
+        status:'successfully updated',
+        data:{
+            course
+        }
+    })
+})
 
-module.exports = { createCourse, getAllCourses,deleteCourse }
+module.exports = { createCourse, getAllCourses,deleteCourse,updateCourse }

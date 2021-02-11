@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { IndividualCourseComponent } from './courses/individual-course/individual-course.component';
 import { NewSessionComponent } from './add-sessions/new-session/new-session.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NewSessionComponent } from './add-sessions/new-session/new-session.comp
     CourseListComponent,
     IndividualCourseComponent,
     NewSessionComponent,
+    EditCourseComponent,
   ],
   imports: [
     CommonModule,
