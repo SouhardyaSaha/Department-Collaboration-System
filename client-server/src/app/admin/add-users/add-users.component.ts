@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SessionResponseBody } from 'src/app/shared/classroom/models/session.model';
 import { SessionService } from 'src/app/shared/classroom/session.service';
+import { popupNotification } from 'src/app/shared/utils.class';
 import { AdminService } from '../admin.service';
 import { InvitationBody } from '../models/invitation.model';
 
@@ -18,6 +19,7 @@ export class AddUsersComponent implements OnInit {
   roleInput: FormControl;
   sessionInput: FormControl;
   sessions$: Observable<SessionResponseBody>;
+  @ViewChild('fileInput') fileInputVariable: ElementRef;
   constructor(
     private sessionService: SessionService,
     private adminService: AdminService,
@@ -75,6 +77,14 @@ export class AddUsersComponent implements OnInit {
     this.emailInput.reset();
   }
 
+  onReset() {
+    this.emails = [];
+    this.emailInput.reset();
+    this.roleInput.reset();
+    this.sessionInput.reset();
+    this.fileInputVariable.nativeElement.value = '';
+  }
+
   sendInvitation() {
     this.isLoading = true;
 
@@ -89,18 +99,18 @@ export class AddUsersComponent implements OnInit {
       role: this.roleInput.value,
       sessionId: this.sessionInput.value,
     };
-    this.emails = [];
-    this.roleInput.reset();
-    this.sessionInput.reset();
-    console.log(invitationBody);
+    this.onReset();
+    // console.log(invitationBody);
 
     this.adminService.sendInvitationMail(invitationBody).subscribe(
       res => {
         console.log(res);
         this.isLoading = true;
+        popupNotification('Success', 'Emails Sent!', 'success');
       },
       err => {
         this.isLoading = true;
+        popupNotification('Error', 'Error!', 'error');
       },
     );
   }
