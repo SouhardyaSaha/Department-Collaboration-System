@@ -1,4 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -9,6 +14,7 @@ import { CourseModel } from '../course.model';
   selector: 'app-individual-course',
   templateUrl: './individual-course.component.html',
   styleUrls: ['./individual-course.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IndividualCourseComponent implements OnInit {
   individualCourse: CourseModel;

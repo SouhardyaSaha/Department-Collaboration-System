@@ -22,7 +22,7 @@ export class AddCourseComponent implements OnInit {
     '3/1',
     '3/2',
     '4/1',
-    '4,2',
+    '4/2',
   ];
   @ViewChild('formDirective') private formDirective: NgForm;
   constructor(

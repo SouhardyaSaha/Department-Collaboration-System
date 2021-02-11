@@ -36,12 +36,22 @@ export class NewSessionComponent implements OnInit {
       responseData => {
         console.log(responseData.data.session.id);
         this.isLoading = false;
+        this.sweetAlert(
+          'Success',
+          `Session ${this.sessionData.session} has been added`,
+          'success',
+        );
         // this.close.nativeElement.click();
         this.isIt = true;
       },
       err => {
         console.log(err);
         this.isLoading = false;
+        this.sweetAlert(
+          'Error!',
+          `Session ${this.sessionData.session} already added`,
+          'error',
+        );
       },
     );
   }
