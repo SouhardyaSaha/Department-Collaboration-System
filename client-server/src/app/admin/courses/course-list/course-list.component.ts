@@ -125,12 +125,14 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     // }
   }
   onDelete(index) {
-    this.courseService.deleteCourseData(index);
-    this.sweetAlert(
-      'Deleted!',
-      'Course has been successfully removed.',
-      'success',
-    );
+    if (confirm('Are you sure want to delete?')) {
+      this.courseService.deleteCourseData(index);
+      this.sweetAlert(
+        'Deleted!',
+        'Course has been successfully removed.',
+        'success',
+      );
+    }
   }
   onDetails(id) {
     // console.log(id);

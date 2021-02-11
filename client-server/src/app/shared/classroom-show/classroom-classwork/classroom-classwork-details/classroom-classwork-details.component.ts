@@ -8,6 +8,7 @@ import {
 } from 'ngx-file-drop';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Classwork } from 'src/app/shared/classroom/models/classwork.model';
+import { popupNotification } from 'src/app/shared/utils.class';
 import Swal from 'sweetalert2';
 import { ClassroomClassworkService } from '../classroom-classwork.service';
 
@@ -101,9 +102,12 @@ export class ClassroomClassworkDetailsComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          // location.reload();
+          popupNotification('Success', 'success', 'success');
         },
         err => {
           console.log(err);
+          popupNotification('Error', 'error', 'error');
         },
       );
   }

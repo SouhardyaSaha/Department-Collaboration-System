@@ -52,6 +52,7 @@ export class ClassroomPostCommentComponent implements OnInit {
           console.log(res);
           this.commentPanelOpenState = true;
           this.comments.push(res.data.comment);
+          popupNotification('Success', 'Success', 'success');
           // location.reload();
         },
         err => {
