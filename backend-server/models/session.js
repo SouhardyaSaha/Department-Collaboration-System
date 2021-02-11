@@ -12,11 +12,15 @@ const Session = sequelize.define('session', {
     session: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique:true,
+        unique: true,
         validate: {
             notEmpty: true
         }
     },
+    routine_uri: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    }
 });
 
 module.exports = Session;

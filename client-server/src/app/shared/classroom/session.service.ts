@@ -15,4 +15,11 @@ export class SessionService {
   getSessions() {
     return this.http.get<SessionResponseBody>(`${this.baseURL}/sessions`);
   }
+
+  uploadRoutine(sessionId, image) {
+    let url = `${this.baseURL}/sessions/${sessionId}/upload-routine`;
+    const submitData: FormData = new FormData();
+    submitData.append('file', image);
+    return this.http.patch(url, submitData);
+  }
 }
