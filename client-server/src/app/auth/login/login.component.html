@@ -29,6 +29,7 @@
               Password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
+          <a [routerLink]="['/auth/forgotpassword']">Forgot Your Password?</a>
         </mat-card-content>
         <mat-card-actions>
           <button type="submit" mat-raised-button color="primary" [disabled]="authenticationForm.invalid">

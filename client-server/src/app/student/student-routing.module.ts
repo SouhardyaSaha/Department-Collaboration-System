@@ -36,6 +36,10 @@ const routes: Routes = [
         pathMatch: 'full',
         component: ClassRoutineComponent,
       },
+      {
+        path: '**',
+        redirectTo: '/auth/login',
+      },
     ],
   },
 ];

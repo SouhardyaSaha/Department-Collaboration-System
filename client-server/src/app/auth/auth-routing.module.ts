@@ -34,6 +34,10 @@ const routes: Routes = [
         path: 'register/:token/:role',
         component: RegisterComponent,
       },
+      {
+        path: '**',
+        redirectTo: '/auth/login',
+      },
     ],
   },
 ];

@@ -45,6 +45,10 @@ const routes: Routes = [
         path: 'courses',
         component: CoursesComponent,
       },
+      {
+        path: '**',
+        redirectTo: '/auth/login',
+      },
     ],
   },
 ];

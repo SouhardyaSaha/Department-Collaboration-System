@@ -41,7 +41,15 @@ const routes: Routes = [
         path: 'add-routine',
         component: AddRoutineComponent,
       },
+      {
+        path: '**',
+        redirectTo: '/auth/login',
+      },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: '/auth/login',
   },
 ];
 

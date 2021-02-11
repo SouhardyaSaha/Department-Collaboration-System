@@ -88,20 +88,23 @@ export class ForgotpasswordComponent implements OnInit {
     // console.log(token);
 
     this.isLoading = true;
-    this.authService.resetPassword(token, this.authenticationForm).subscribe(
-      res => {
-        console.log(res);
-        // this.error = null
-        popupNotification('Success', 'Success', 'success');
-        this.isLoading = false;
-      },
-      err => {
-        console.log(err);
+    this.authService
+      .resetPassword(token, this.authenticationForm.value)
+      .subscribe(
+        res => {
+          console.log(res);
+          // this.error = null
+          popupNotification('Success', 'Success', 'success');
+          this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+        },
+        err => {
+          console.log(err);
 
-        popupNotification('Error', 'Error', 'error');
-        this.isLoading = false;
-      },
-    );
+          popupNotification('Error', 'Error', 'error');
+          this.isLoading = false;
+        },
+      );
 
     this.authenticationForm.reset();
   }
