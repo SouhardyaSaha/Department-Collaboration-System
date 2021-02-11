@@ -65,14 +65,15 @@ export class ClassroomStudentsComponent implements OnInit {
   onDelete(id) {}
 
   onDetails(id) {
-    // console.log(id);
-    console.log('Details of id :' + id);
-    const dialogConfig = new MatDialogConfig();
-    // let id = this.routines[index].id;
-    dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = false;
-    dialogConfig.width = '60%';
-    dialogConfig.data = { message: 'Individual Form', id: id };
+    const dialogConfig: MatDialogConfig = {
+      autoFocus: true,
+      disableClose: true,
+      width: '60%',
+      data: {
+        studentId: id,
+        classroomId: this.classroomId,
+      },
+    };
     this.dialog.open(IndividualStudentComponent, dialogConfig);
   }
 
