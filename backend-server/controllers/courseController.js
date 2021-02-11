@@ -8,8 +8,12 @@ const createCourse = catchAsync(async (req, res, next) => {
     const admin = await req.user.getAdmin()
     const course = await Course.create(
         {
-            ...req.body,
-            adminId: admin.id,
+            title:req.body.course_title,
+        credit:req.body.credit,
+        is_optional:req.body.optional,
+        semester:req.body.session,
+        adminId: admin.id,
+        details:req.body.details
         }
     )
     res.json({
@@ -60,7 +64,7 @@ const updateCourse = catchAsync(async(req,res,next)=>{
         title:req.body.course_title,
         credit:req.body.credit,
         is_optional:req.body.optional,
-        semester:req.body.semester,
+        semester:req.body.session,
         adminId: admin.id,
         details:req.body.details
     })
