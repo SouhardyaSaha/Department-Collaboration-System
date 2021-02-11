@@ -16,25 +16,36 @@
     <ng-container *ngFor="let comment of comments">
       <mat-card class="mt-1 pb-0">
         <mat-card-header>
+
           <div mat-card-avatar class="comment-user-image"></div>
-          <div class="ml-auto">
-            <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #beforeMenu="matMenu" xPosition="before">
-              <button mat-menu-item color="warn">
-                <mat-icon>delete</mat-icon>
-                <span class="text-danger">Delete</span>
+
+          <ng-container *ngIf="user && user.id === comment.user.id">
+            <div class="ml-auto">
+              <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-            </mat-menu>
-          </div>
-          <mat-card-title style="font-size: medium;">{{ comment.user.name }} - <span style="font-size: small;">{{
-              comment.createdAt |date: 'medium' }}</span> </mat-card-title>
+              <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button mat-menu-item color="warn" (click)="onDelete(comment)">
+                  <mat-icon>delete</mat-icon>
+                  <span class="text-danger">Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+          </ng-container>
+
+
+          <mat-card-title style="font-size: medium;">
+            {{ comment.user.name }} -
+            <span style="font-size: small;">{{ comment.createdAt |date: 'medium' }}</span>
+
+          </mat-card-title>
           <mat-card-subtitle style="font-size: small;" class="mt-3">
             <p class="text-justify" style="font-size: 15px;">
               {{ comment.content }}
             </p>
           </mat-card-subtitle>
+
+
         </mat-card-header>
       </mat-card>
       <!-- <br> -->

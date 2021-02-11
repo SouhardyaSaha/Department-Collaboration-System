@@ -48,7 +48,7 @@ export class ClassroomPostEditComponent implements OnInit {
       res => {
         this.isLoading = false;
         console.log(res);
-        // location.reload();
+        location.reload();
       },
       err => {
         this.isLoading = false;

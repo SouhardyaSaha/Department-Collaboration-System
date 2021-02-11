@@ -29,6 +29,11 @@ export class ClassroomGeneralService {
     // return this.http.post<PostResponseBody>(url, post);
   }
 
+  deletePost(classroomId: number, postId: number) {
+    let url: string = `${this.baseURL}/classrooms/${classroomId}/posts/${postId}`;
+    return this.http.delete(url);
+  }
+
   addPostComment(
     classroomId: number,
     postId: number,
@@ -36,5 +41,10 @@ export class ClassroomGeneralService {
   ) {
     let url: string = `${this.baseURL}/classrooms/${classroomId}/posts/${postId}/comments`;
     return this.http.post<CommentResponseBody>(url, comment);
+  }
+
+  deletePostComment(classroomId: number, postId: number, commentId: number) {
+    let url: string = `${this.baseURL}/classrooms/${classroomId}/posts/${postId}/comments/${commentId}`;
+    return this.http.delete(url);
   }
 }

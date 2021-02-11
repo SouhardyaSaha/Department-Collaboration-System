@@ -44,6 +44,17 @@ const getAllSessions = catchAsync(async (req, res, next) => {
     })
 })
 
+const getStudentSession = catchAsync(async (req, res, next) => {
+    const student = await req.user.getStudent()
+    const session = await Session.findOne({ where: { id: student.sessionId } })
+    res.json({
+        status: 'success',
+        data: {
+            session
+        }
+    })
+})
+
 const deleteSession = catchAsync(async (req, res, next) => {
     console.log('Session Controller ', req.params.id);
     const id = req.params.id;
@@ -59,4 +70,4 @@ const deleteSession = catchAsync(async (req, res, next) => {
     })
 })
 
-module.exports = { createSession, getAllSessions, deleteSession, uploadSessionRoutine }
+module.exports = { createSession, getAllSessions, deleteSession, uploadSessionRoutine, getStudentSession }

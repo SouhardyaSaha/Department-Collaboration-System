@@ -79,7 +79,21 @@ const getPosts = catchAsync(async (req, res, next) => {
     })
 })
 
+
+const deletePost = catchAsync(async (req, res, next) => {
+    const { classroomId, postId } = req.params
+    const post = (await Post.findOne({ id: postId, classroomId, userId: req.user.id })).destroy()
+    res.json({
+        status: 'success',
+        data: {
+            post
+        }
+    })
+})
+
+
 module.exports = {
     createPost,
-    getPosts
+    getPosts,
+    deletePost
 }

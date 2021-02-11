@@ -1,64 +1,69 @@
-<div class="row mt-3">
-  <div class="col-12">
-    <mat-card>
+<ng-container *ngIf="post">
+  <div class="row mt-3">
+    <div class="col-12">
+      <mat-card>
 
-      <mat-card-header>
+        <mat-card-header>
 
-        <div mat-card-avatar class="post-user-image"></div>
+          <div mat-card-avatar class="post-user-image"></div>
 
-        <div class="ml-auto">
-          <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item color="warn">
-              <mat-icon>delete</mat-icon>
-              <span class="text-danger">Delete</span>
-            </button>
-          </mat-menu>
-        </div>
-
-        <mat-card-title>{{ post.user.name }}</mat-card-title>
-        <mat-card-subtitle>{{ post.createdAt |date : 'medium' }}</mat-card-subtitle>
-
-      </mat-card-header>
-
-      <mat-card-content>
-        <p class="text-justify">
-          {{ post.content }}
-        </p>
-        <mat-divider></mat-divider>
-        <br>
-
-        <!-- <div class="row"> -->
-        <!-- <div class="col-12" *ngFor="let file of post.files"> -->
-        <mat-form-field *ngIf="files.length > 0" class="w-100">
-          <mat-chip-list aria-label="Files">
-            <mat-chip *ngFor="let file of files" (click)="goto(file.uri)" [selectable]="true" class="mr-2"
-              style="cursor: pointer;">
-              File
-            </mat-chip>
-          </mat-chip-list>
-        </mat-form-field>
+          <ng-container *ngIf="user && user.id === post.user.id">
+            <div class="ml-auto">
+              <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button mat-menu-item color="warn" (click)="onDelete()">
+                  <mat-icon>delete</mat-icon>
+                  <span class="text-danger">Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+          </ng-container>
 
 
-        <!-- </div>
+          <mat-card-title>{{ post.user.name }}</mat-card-title>
+          <mat-card-subtitle>{{ post.createdAt |date : 'medium' }}</mat-card-subtitle>
+
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="text-justify">
+            {{ post.content }}
+          </p>
+          <mat-divider></mat-divider>
+          <br>
+
+          <!-- <div class="row"> -->
+          <!-- <div class="col-12" *ngFor="let file of post.files"> -->
+          <mat-form-field *ngIf="files.length > 0" class="w-100">
+            <mat-chip-list aria-label="Files">
+              <mat-chip *ngFor="let file of files" (click)="goto(file.uri)" [selectable]="true" class="mr-2"
+                style="cursor: pointer;">
+                File
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+
+
+          <!-- </div>
         </div> -->
 
-        <div class="row">
-          <div *ngFor="let file of post.files" class="col-4">
-            <img (click)="goto(file.uri)" *ngIf="file.is_image === '1'" [src]="file.uri"
-              class="img-fluid img-thumbnail mt-2" style="cursor: pointer; max-width: 100%;">
+          <div class="row">
+            <div *ngFor="let file of post.files" class="col-4">
+              <img (click)="goto(file.uri)" *ngIf="file.is_image === '1'" [src]="file.uri"
+                class="img-fluid img-thumbnail mt-2" style="cursor: pointer; max-width: 100%;">
+            </div>
           </div>
-        </div>
 
-        <br>
-        <mat-divider></mat-divider>
-      </mat-card-content>
+          <br>
+          <mat-divider></mat-divider>
+        </mat-card-content>
 
-      <app-classroom-post-comment [comments]="post.comments" [postId]="post.id">
-      </app-classroom-post-comment>
+        <app-classroom-post-comment [comments]="post.comments" [postId]="post.id">
+        </app-classroom-post-comment>
 
-    </mat-card>
+      </mat-card>
+    </div>
   </div>
-</div>
+</ng-container>

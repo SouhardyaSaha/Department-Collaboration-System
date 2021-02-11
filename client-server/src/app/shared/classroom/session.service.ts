@@ -22,4 +22,8 @@ export class SessionService {
     submitData.append('file', image);
     return this.http.patch(url, submitData);
   }
+
+  getStudentSession() {
+    return this.http.get(`${this.baseURL}/sessions/student`);
+  }
 }
