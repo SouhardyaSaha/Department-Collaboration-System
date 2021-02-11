@@ -5,7 +5,7 @@ import { FileBody, Post } from 'src/app/shared/classroom/models/post.model';
 import { popupNotification } from 'src/app/shared/utils.class';
 import { ClassroomGeneralService } from '../classroom-general.service';
 import { ClassroomPostEditComponent } from '../classroom-post-edit/classroom-post-edit.component';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-classroom-post',
   templateUrl: './classroom-post.component.html',
@@ -45,19 +45,35 @@ export class ClassroomPostComponent implements OnInit {
   }
 
   onDelete() {
-    this.generalService
-      .deletePost(this.post.classroomId, this.post.id)
-      .subscribe(
-        res => {
-          popupNotification('Success', 'Successfully Deleted', 'success');
-          this.post = null;
-          console.log(res);
-        },
-        err => {
-          popupNotification('Error', 'Error', 'error');
-          console.log(err);
-        },
-      );
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You will not be able to recover this comment`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then(result => {
+      if (result.value) {
+        this.generalService
+          .deletePost(this.post.classroomId, this.post.id)
+          .subscribe(
+            res => {
+              popupNotification('Success', 'Successfully Deleted', 'success');
+              this.post = null;
+              console.log(res);
+            },
+            err => {
+              popupNotification('Error', 'Error', 'error');
+              console.log(err);
+            },
+          );
+        // Swal.fire('Deleted!', `Comment has been deleted.`, 'success');
+        // For more information about handling dismissals please visit
+        // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', `Comment  is safe :)`, 'error');
+      }
+    });
   }
 
   openPostEditDialog() {

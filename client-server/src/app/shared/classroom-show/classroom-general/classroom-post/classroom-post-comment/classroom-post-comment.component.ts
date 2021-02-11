@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Comment } from 'src/app/shared/classroom/models/comment.model';
 import { popupNotification } from 'src/app/shared/utils.class';
 import { ClassroomGeneralService } from '../../classroom-general.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-classroom-post-comment',
@@ -61,19 +62,35 @@ export class ClassroomPostCommentComponent implements OnInit {
   }
 
   onDelete(comment: Comment) {
-    this.classroomGeneralService
-      .deletePostComment(this.classroomId, comment.postId, comment.id)
-      .subscribe(
-        res => {
-          const index = this.comments.indexOf(comment);
-          this.comments.splice(index, 1);
-          popupNotification('Success', 'Successfully Deleted', 'success');
-          console.log(res);
-        },
-        err => {
-          popupNotification('Error', 'Error', 'error');
-          console.log(err);
-        },
-      );
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You will not be able to recover this comment`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then(result => {
+      if (result.value) {
+        this.classroomGeneralService
+          .deletePostComment(this.classroomId, comment.postId, comment.id)
+          .subscribe(
+            res => {
+              const index = this.comments.indexOf(comment);
+              this.comments.splice(index, 1);
+              // popupNotification('Success', 'Successfully Deleted', 'success');
+              // console.log(res);
+            },
+            err => {
+              popupNotification('Error', 'Error', 'error');
+              console.log(err);
+            },
+          );
+        Swal.fire('Deleted!', `Comment has been deleted.`, 'success');
+        // For more information about handling dismissals please visit
+        // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', `Comment  is safe :)`, 'error');
+      }
+    });
   }
 }
