@@ -1,5 +1,4 @@
-<div class="row mb-1 ml-0 mr-0">
-  <div class="col-md-4 col-sm-12">
+<!-- <div class="col-md-4 col-sm-12">
     <div class="row">
       <div class="col-12">
         <mat-card class="mt-3" style="min-height: 120px;">
@@ -9,25 +8,29 @@
         </mat-card>
       </div>
     </div>
-  </div>
-  <div class="col-md-8 col-sm-12">
-
-    <div class="row mt-3">
-      <div class="col-12">
-        <mat-card style="min-height: 120px;">
-          <mat-form-field class="w-100">
-            <!-- <mat-label>Post Here...</mat-label>
-            <textarea matInput placeholder="Write Something" rows="3"></textarea> -->
-            <mat-chip-list aria-label="Fish selection">
-              <mat-chip style="cursor: pointer;" (click)="openPostDialog()">+Add New Post</mat-chip>
-            </mat-chip-list>
-          </mat-form-field>
-        </mat-card>
+  </div> -->
+<div class="d-flex flex-column justify-content-center">
+  <div class="row mb-1 ml-0 mr-0">
+    <div class="col col-sm-12">
+      <div class="row mt-3">
+        <div class="col-12">
+          <mat-card style="min-height: 120px">
+            <mat-form-field class="w-100">
+              <!-- <mat-label>Post Here...</mat-label>
+                <textarea matInput placeholder="Write Something" rows="3"></textarea> -->
+              <mat-chip-list aria-label="Fish selection">
+                <mat-chip style="cursor: pointer" (click)="openPostDialog()"
+                  >+Add New Post</mat-chip
+                >
+              </mat-chip-list>
+            </mat-form-field>
+          </mat-card>
+        </div>
       </div>
-    </div>
 
-    <ng-container *ngFor="let post of posts">
-      <app-classroom-post [post]="post"></app-classroom-post>
-    </ng-container>
+      <ng-container *ngFor="let post of posts">
+        <app-classroom-post [post]="post"></app-classroom-post>
+      </ng-container>
+    </div>
   </div>
 </div>
