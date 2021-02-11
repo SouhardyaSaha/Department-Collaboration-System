@@ -27,10 +27,11 @@ const sendInvitation = catchAsync(async (req, res, next) => {
 
     let url = `http://localhost:4200/auth/register/${token}/${role}`
     let html = `
+    <h1>You are invited to join the system</h1>
       <a href="${url}">Click Here</a>
       <br>
-      ${token}
-    `
+      `
+    // ${token}
     sendEmail(email, 'Invitation to Join', html)
   });
 
@@ -78,6 +79,59 @@ const signUpByInvitation = catchAsync(async (req, res, next) => {
   // const role_data = await getRoleProfile(user)
   sendToken({ user: createdUser }, 201, res);
 });
+
+const requestResetPassword = catchAsync(async (req, res, next) => {
+  const { email } = req.body
+  const user = await User.findOne({ where: { email } })
+
+  if (!user) {
+    res.json({
+      status: 'success'
+    })
+  }
+
+  let token = jwt.sign(
+    { email },
+    process.env.JWT_USER_PASSWORD_RESET_SECRET,
+    {
+      expiresIn: process.env.JWT_USER_PASSWORD_RESET_EXPIRES_IN,
+    }
+  );
+
+  let url = `http://localhost:4200/auth/reset/${token}`
+  let html = `
+    <h1>Password Reset Request</h1>
+      <a href="${url}">Click Here</a>
+      <br>
+      `
+  // ${token}
+  sendEmail(email, 'Password Reset', html)
+
+  res.json({
+    status: 'success',
+  })
+
+})
+
+
+const resetPassword = catchAsync(async (req, res, next) => {
+  const { password } = req.body
+  const email = req.email
+  const user = await User.findOne({ where: { email } })
+
+  if (!user) {
+    return next(new AppError('No User in Such Mail!'))
+  }
+
+  await user.update({
+    password
+  })
+
+  res.json({
+    status: 'success',
+  })
+
+})
 
 // Function to get all users
 const getUsers = catchAsync(async (req, res, next) => {
@@ -256,5 +310,7 @@ module.exports = {
   signUpByInvitation,
   getAllStudents,
   getAllTeachers,
-  deleteUser
+  deleteUser,
+  requestResetPassword,
+  resetPassword,
 };

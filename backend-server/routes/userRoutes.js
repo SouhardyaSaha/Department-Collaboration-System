@@ -11,9 +11,12 @@ const {
   signUpByInvitation,
   getAllStudents,
   getAllTeachers,
-  deleteUser
+  deleteUser,
+  resetPassword,
+  requestResetPassword
 } = require('../controllers/userController');
 const { protect, restrictTo } = require('../middlewares/protect');
+const { protectResetPassword } = require('../middlewares/protectResetPassword');
 const { protectUserRegistration } = require('../middlewares/protectUserRegistration');
 const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
@@ -41,6 +44,12 @@ userRouter.route('/invite')
 
 userRouter.route('/register/:token')
   .post(protectUserRegistration, signUpByInvitation)
+
+userRouter.route('/reset')
+  .post(requestResetPassword)
+
+userRouter.route('/reset/:token')
+  .post(protectResetPassword, resetPassword)
 
 userRouter.route('/login')
   .post(login);

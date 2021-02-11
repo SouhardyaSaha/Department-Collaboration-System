@@ -133,6 +133,16 @@ export class AuthService {
     // this.router.navigate([user.role]);
   }
 
+  public requestResetPassword(email) {
+    let url = `${this.baseURL}/users/reset`;
+    return this.http.post(url, { email });
+  }
+
+  public resetPassword(token, password) {
+    let url = `${this.baseURL}/users/reset/${token}`;
+    return this.http.post(url, password);
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
 

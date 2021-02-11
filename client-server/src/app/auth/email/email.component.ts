@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { popupNotification } from 'src/app/shared/utils.class';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-email',
+  templateUrl: './email.component.html',
+  styleUrls: ['./email.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class EmailComponent implements OnInit {
   authenticationForm: FormGroup;
   isLoading: boolean = false;
 
@@ -23,10 +22,6 @@ export class LoginComponent implements OnInit {
   private formInit() {
     this.authenticationForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
     });
   }
 
@@ -34,21 +29,21 @@ export class LoginComponent implements OnInit {
     if (this.authenticationForm.invalid) {
       return;
     }
-    const { email, password } = this.authenticationForm.value;
+    const { email } = this.authenticationForm.value;
 
     this.isLoading = true;
-    this.authService.logIn({ email, password }).subscribe(
+    this.authService.requestResetPassword(email).subscribe(
       res => {
         console.log(res);
         // this.error = null
         this.isLoading = false;
         // this.router.navigate(['/teacher']);
-        popupNotification('Success', 'Success', 'success');
+        popupNotification('Email Sent!', 'Success', 'success');
       },
       errorMessage => {
         // this.error = errorMessage
         this.isLoading = false;
-        popupNotification('Invalid Email or Password', 'Error', 'error');
+        popupNotification('Error', 'Error', 'error');
       },
     );
 

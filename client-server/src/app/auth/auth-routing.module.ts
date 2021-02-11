@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { AuthGuard } from './auth.guard';
+import { EmailComponent } from './email/email.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -15,6 +17,14 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: '/auth/login',
+      },
+      {
+        path: 'forgotpassword',
+        component: EmailComponent,
+      },
+      {
+        path: 'reset/:token',
+        component: ForgotpasswordComponent,
       },
       {
         path: 'login',

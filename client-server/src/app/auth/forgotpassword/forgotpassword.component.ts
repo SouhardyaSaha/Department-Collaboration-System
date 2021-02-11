@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
   FormGroup,
   FormControl,
@@ -24,22 +25,16 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-forgotpassword',
+  templateUrl: './forgotpassword.component.html',
+  styleUrls: ['./forgotpassword.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class ForgotpasswordComponent implements OnInit {
   authenticationForm: FormGroup;
   profileGroup: FormGroup;
   isLoading: boolean = false;
   isTeacher: boolean;
   errorMatcher = new CrossFieldErrorMatcher();
-  designations: string[] = [
-    'LECTURER',
-    'ASSISTANT PROFESSOR',
-    'ASSOCIATE PROFESSOR',
-    'PROFESSOR',
-  ];
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -48,25 +43,12 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isTeacher = this.route.snapshot.params['role'] === 'teacher';
     this.formInit();
   }
 
   private formInit() {
-    let profileGroupData;
-    if (this.isTeacher) {
-      profileGroupData = {
-        designation: new FormControl(null, Validators.required),
-      };
-    } else {
-      profileGroupData = {
-        registration: new FormControl(null, [Validators.required]),
-      };
-    }
-
     this.authenticationForm = this.formBuilder.group(
       {
-        name: new FormControl(null, Validators.required),
         password: new FormControl(null, [
           Validators.required,
           // Validators.minLength(6),
@@ -75,7 +57,6 @@ export class RegisterComponent implements OnInit {
           Validators.required,
           // Validators.minLength(6),
         ]),
-        ...profileGroupData,
       },
       { validator: this.PasswordValidator },
     );
@@ -103,37 +84,22 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    let profile;
-    const registration = this.authenticationForm.value.registration;
-    if (registration) {
-      profile = {
-        registration,
-      };
-    } else {
-      profile = {
-        designation: this.authenticationForm.value.designation.toLowerCase(),
-      };
-    }
-    const { name, password } = this.authenticationForm.value;
-
     let token: string = this.route.snapshot.params['token'];
-    let registrationBody: RegistrationBody = { name, password, profile };
-    console.log(registrationBody, token);
+    console.log(token);
 
-    console.log(registrationBody);
     this.isLoading = true;
-    this.authService.signUp(registrationBody, token).subscribe(
+    this.authService.resetPassword(token, this.authenticationForm).subscribe(
       res => {
         console.log(res);
         // this.error = null
-        this.isLoading = false;
         popupNotification('Success', 'Success', 'success');
-        // this.router.navigate(['/teacher']);
-      },
-      () => {
-        // this.error = errorMessage
         this.isLoading = false;
-        popupNotification('error', 'error', 'error');
+      },
+      err => {
+        console.log(err);
+
+        popupNotification('Error', 'Error', 'error');
+        this.isLoading = false;
       },
     );
 
