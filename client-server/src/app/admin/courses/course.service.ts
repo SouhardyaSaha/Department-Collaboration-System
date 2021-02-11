@@ -43,7 +43,8 @@ export class CourseService {
       )
       .subscribe(responseData => {
         console.log(responseData.message, responseData.id);
-        postData.admin_id = responseData.id;
+
+        postData.id = responseData.id;
         this.CourseData.push(postData);
         console.log('Add Course: ', this.CourseData);
         this.updateCourse.next([...this.CourseData]);

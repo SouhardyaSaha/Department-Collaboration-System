@@ -6,6 +6,7 @@ import { TeacherService } from '../add-teacher/teacher.service';
 import { CourseService } from '../courses/course.service';
 import { Subscription } from 'rxjs';
 import { CourseModel } from '../courses/course.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,14 @@ import { CourseModel } from '../courses/course.model';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  User_Name = 'Khudduch';
+  user;
   sessions;
   courses;
   teachers;
   students;
   private sessionSub: Subscription;
   constructor(
+    private authService: AuthService,
     private sessionService: SessionService,
     private courseService: CourseService,
     private teacherService: TeacherService,
@@ -27,6 +29,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      this.user = user;
+    });
     this.sessionService.getSessionData();
     this.sessionSub = this.sessionService
       .getSessionUpdate()
