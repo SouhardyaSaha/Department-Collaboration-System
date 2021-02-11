@@ -85,7 +85,7 @@ export class ForgotpasswordComponent implements OnInit {
     }
 
     let token: string = this.route.snapshot.params['token'];
-    console.log(token);
+    // console.log(token);
 
     this.isLoading = true;
     this.authService.resetPassword(token, this.authenticationForm).subscribe(

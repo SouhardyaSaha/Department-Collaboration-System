@@ -139,6 +139,8 @@ export class AuthService {
   }
 
   public resetPassword(token, password) {
+    console.log(password);
+
     let url = `${this.baseURL}/users/reset/${token}`;
     return this.http.post(url, password);
   }
