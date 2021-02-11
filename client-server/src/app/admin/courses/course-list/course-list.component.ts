@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { CourseService } from '../course.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { EditCourseComponent } from '../edit-course/edit-course.component';
 export interface DataModel {
   id: number;
   courseTitle: string;
@@ -145,6 +146,20 @@ export class CourseListComponent implements OnInit, AfterViewInit {
       courses: this.courses,
     };
     this.dialog.open(IndividualCourseComponent, dialogConfig);
+  }
+  onEdit(id, course) {
+    console.log('Edit of id :' + id, course);
+    const dialogConfig = new MatDialogConfig();
+    // let id = this.routines[index].id;
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = false;
+    dialogConfig.width = '60%';
+    dialogConfig.data = {
+      message: 'Individual Edit Form',
+      id: id,
+      course,
+    };
+    this.dialog.open(EditCourseComponent, dialogConfig);
   }
   sweetAlert(title, text, icon) {
     Swal.fire({

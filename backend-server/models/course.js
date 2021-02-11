@@ -23,7 +23,7 @@ const Course = sequelize.define('course', {
         }
     },
     credit: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
