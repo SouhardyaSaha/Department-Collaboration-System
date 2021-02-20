@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Classwork } from '../../classroom/models/classwork.model';
 import { Post } from '../../classroom/models/post.model';
 import { ClassroomPostEditComponent } from './classroom-post-edit/classroom-post-edit.component';
 
@@ -15,8 +16,21 @@ export class ClassroomGeneralComponent implements OnInit {
     private activateRoute: ActivatedRoute,
   ) {}
   @Input() posts: Post[];
+  @Input() classwork: Classwork[];
+  @Input() lecture;
+
+  assignmentsCount: number = 0;
+  termTestCount: number = 0;
+
   ngOnInit() {
     console.log(this.posts, 'ok');
+    this.classwork.forEach(element => {
+      if (element.task_type === 'assignment') {
+        this.assignmentsCount++;
+      } else {
+        this.termTestCount++;
+      }
+    });
   }
 
   openPostDialog() {

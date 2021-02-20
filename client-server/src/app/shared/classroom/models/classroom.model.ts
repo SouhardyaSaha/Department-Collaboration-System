@@ -31,6 +31,7 @@ export interface Classroom {
   students?: Student[];
   posts?: Post[];
   classworks?: Classwork[];
+  lectures: any;
 }
 
 export interface SingleClassroomResponseBody {

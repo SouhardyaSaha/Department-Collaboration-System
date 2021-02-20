@@ -29,7 +29,8 @@
         <mat-tab-group mat-align-tabs="center" backgroundColor="" #tabGroup>
           <mat-tab>
             <ng-template mat-tab-label>General</ng-template>
-            <app-classroom-general [posts]="classroom.posts"></app-classroom-general>
+            <app-classroom-general [posts]="classroom.posts" [classwork]="classroom.classworks"
+              [lecture]="classroom.lectures"></app-classroom-general>
           </mat-tab>
           <mat-tab>
             <ng-template mat-tab-label>Classwork</ng-template>

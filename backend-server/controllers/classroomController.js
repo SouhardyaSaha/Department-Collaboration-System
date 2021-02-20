@@ -14,6 +14,7 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const Classwork = require("../models/classwork");
 const File = require("../models/file");
+const Lecture = require("../models/lecture");
 // const { where } = require("sequelize/types");
 
 const createClassroom = catchAsync(async (req, res, next) => {
@@ -173,9 +174,14 @@ const getClassroomById = catchAsync(async (req, res, next) => {
                         },
                         {
                             model: File,
-                        }
+                        },
+
+
                     ]
                 }
+            },
+            {
+                model: Lecture
             }
         ]
     }

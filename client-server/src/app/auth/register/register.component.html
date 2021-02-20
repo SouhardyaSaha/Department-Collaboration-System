@@ -9,7 +9,7 @@
           <mat-card-title>Registration</mat-card-title>
         </div>
       </mat-card-header>
-      <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()" autocomplete="off">
         <mat-card-content>
 
           <mat-form-field appearance="outline" class="w-100">
