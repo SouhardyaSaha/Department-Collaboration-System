@@ -487,7 +487,7 @@ export class RoutineGeneratorComponent implements OnInit {
     // console.log('Delete operation', this.routineList);
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You will not be able to recover this imaginary file!',
+      text: 'You will not be able to recover this routine file!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
@@ -498,15 +498,11 @@ export class RoutineGeneratorComponent implements OnInit {
           console.log(item.id);
           this.routineService.deleteRoutineData(item.id);
         }
-        Swal.fire(
-          'Deleted!',
-          'Your imaginary file has been deleted.',
-          'success',
-        );
+        Swal.fire('Deleted!', 'Your routine file has been deleted.', 'success');
         // For more information about handling dismissals please visit
         // https://sweetalert2.github.io/#handling-dismissals
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+        Swal.fire('Cancelled', 'Your routine is safe :)', 'error');
       }
     });
   }
