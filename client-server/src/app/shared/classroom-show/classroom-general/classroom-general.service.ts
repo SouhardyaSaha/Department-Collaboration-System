@@ -7,6 +7,7 @@ import {
   CommentSubmitBody,
 } from '../../classroom/models/comment.model';
 import {
+  FileBody,
   PostResponseBody,
   PostSubmitBody,
 } from '../../classroom/models/post.model';
@@ -29,18 +30,19 @@ export class ClassroomGeneralService {
     // return this.http.post<PostResponseBody>(url, post);
   }
 
-  // updatePost(classroomId: number, post: PostSubmitBody) {
-  //   let url: string = `${this.baseURL}/classrooms/${classroomId}/posts`;
-  //   const submitData: FormData = new FormData();
-  //   submitData.append('content', post.content);
-  //   post.files.forEach(file => {
-  //     submitData.append('edited_files', post.files)
-  //   });
-  //   post.files.forEach(file => {
-  //     submitData.append('files', file);
-  //   });
-  //   return this.http.post<PostResponseBody>(url, submitData);
-  // }
+  updatePost(classroomId: number, post: PostSubmitBody, postId: number, files) {
+    let url: string = `${this.baseURL}/classrooms/${classroomId}/posts/${postId}`;
+    post.files = files;
+    // const submitData: FormData = new FormData();
+    // submitData.append('content', post.content);
+    // post.files.forEach(file => {
+    //   submitData.append('edited_files', file);
+    // });
+    // post.files.forEach(file => {
+    //   submitData.append('files', file);
+    // });
+    return this.http.patch<PostResponseBody>(url, post);
+  }
 
   deletePost(classroomId: number, postId: number) {
     let url: string = `${this.baseURL}/classrooms/${classroomId}/posts/${postId}`;

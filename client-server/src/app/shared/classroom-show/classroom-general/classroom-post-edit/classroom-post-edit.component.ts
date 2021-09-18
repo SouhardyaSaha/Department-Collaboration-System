@@ -21,11 +21,14 @@ import {
 })
 export class ClassroomPostEditComponent implements OnInit {
   classroomPostForm: FormGroup;
-  // post: Post;
+  post: Post;
   isLoading: boolean = false;
-  // isEditMode: boolean = false;
-  // filesToEdit: FileBody[];
+  isEditMode: boolean = false;
   classroomId: number;
+  buttonTitle: string = 'Create';
+  content = '';
+  files: FileBody[] = [];
+
   // activatedRouteSnapshot: ActivatedRouteSnapshot;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -33,21 +36,23 @@ export class ClassroomPostEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formInit();
     this.classroomId = this.data.classroomId;
-    // this.post = this.data.post;
-    // if (this.post) {
-    //   this.isEditMode = true;
-    //   this.filesToEdit = this.post.files;
-    // }
+    this.post = this.data.post;
+    console.log(this.post);
+    if (this.post) {
+      this.isEditMode = true;
+      this.buttonTitle = 'Edit';
+      this.files = this.post.files;
+      this.content = this.post.content;
+    }
+    this.formInit();
   }
 
   private formInit() {
-    // let content = this.post.content || '';
-    let content = '';
+    // let content = '';
 
     this.classroomPostForm = new FormGroup({
-      content: new FormControl(content, [Validators.required]),
+      content: new FormControl(this.content, [Validators.required]),
       files: new FormArray([]),
     });
   }
@@ -56,10 +61,22 @@ export class ClassroomPostEditComponent implements OnInit {
     let postBody: PostSubmitBody = this.classroomPostForm.value;
     console.log(this.classroomPostForm.value);
     this.isLoading = true;
-    // if(this.isEditMode) {
-
-    //   return;
-    // }
+    if (this.isEditMode) {
+      this.classroomGeneralService
+        .updatePost(this.post.classroomId, postBody, this.post.id, this.files)
+        .subscribe(
+          res => {
+            this.isLoading = false;
+            console.log(res);
+            location.reload();
+          },
+          err => {
+            this.isLoading = false;
+            console.log(err);
+          },
+        );
+      return;
+    }
 
     this.classroomGeneralService.addPost(this.classroomId, postBody).subscribe(
       res => {
@@ -115,6 +132,14 @@ export class ClassroomPostEditComponent implements OnInit {
 
   public removeFile(index) {
     (<FormArray>this.classroomPostForm.get('files')).removeAt(+index);
+  }
+
+  public removeFileForUpdate(index) {
+    console.log('hit', index);
+
+    this.files = this.files.filter((file, i) => index != i);
+    // = this.files.splice(+index, 1);
+    // console.log(this.files);
   }
 
   popNotification(title, text, icon) {

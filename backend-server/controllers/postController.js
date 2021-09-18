@@ -62,7 +62,9 @@ const createPost = catchAsync(async (req, res, next) => {
 })
 
 const getPosts = catchAsync(async (req, res, next) => {
-    const classroom = await Classroom.findByPk(req.params.id, { attributes: ['id'] })
+    const classroomId = parseInt(req.params.classroomId)
+    // console.log(classroomId, req.params);
+    const classroom = await Classroom.findByPk(classroomId, { attributes: ['id'] })
     const posts = await classroom.getPosts({
         include: [
             {
@@ -82,7 +84,13 @@ const getPosts = catchAsync(async (req, res, next) => {
 
 const updatePost = catchAsync(async (req, res, next) => {
     const { classroomId, postId } = req.params
-    const post = (await Post.findOne({ id: postId, classroomId, userId: req.user.id })).update(req.body)
+    // const post = await Post.findOne(
+    //     { where: { id: postId, classroomId, userId: req.user.id } }
+    // )
+
+    const post = await Post.update(req.body, { where: { id: postId, classroomId, userId: req.user.id } })
+    console.log(req.body);
+
     res.json({
         status: 'success',
         data: {
